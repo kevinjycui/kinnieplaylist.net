@@ -1,27 +1,7 @@
-.letable{
-  border: 5px solid green;
-  margin: auto;
-  border-collapse: collapse;
-}
-
-td{
-  border: 3px solid green;
-  font-size: 50px;
-  padding: 10px;
-}
-
-.tdRight{
-  font-size: 10px;
-  padding-right:400px;
-}
-
 .App {
   text-align: center;
 }
 
-header{
-  text-align:center;
-}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -33,7 +13,16 @@ header{
   }
 }
 
-
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 
 .App-link {
   color: #61dafb;
@@ -47,5 +36,3 @@ header{
     transform: rotate(360deg);
   }
 }
-
-
