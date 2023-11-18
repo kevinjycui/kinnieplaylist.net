@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from "react-router-dom";
 
-import WebPlayback from './WebPlayback'
+import Home from './Home'
 import Login from './Login'
 
 import logo from './logo.svg';
 import './App.css';
 
-function Main() {
+function AuthRoute() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [token, setToken] = useState('');
 
     useEffect(() => {
       if (searchParams.has('access_token'))
       {
-        localStorage.setItem('mixato-access-token', searchParams.get('access_token'))
+        localStorage.setItem('musato-access-token', searchParams.get('access_token'))
       }
 
-      var localToken = localStorage.getItem('mixato-access-token')
+      var localToken = localStorage.getItem('musato-access-token')
 
       setToken(localToken == null ? '' : localToken)
 
@@ -25,9 +25,9 @@ function Main() {
 
     return (
     <>
-        { (token === '') ? <Login/> : <WebPlayback token={token} /> }
+        { (token === '') ? <Login/> : <Home /> }
     </>
     );
 }
 
-export default Main;
+export default AuthRoute;

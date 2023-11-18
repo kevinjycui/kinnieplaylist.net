@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Main from './Main'
+import Header from './Header'
+import AuthRoute from './AuthRoute'
 
 import logo from './logo.svg';
 import './App.css';
@@ -8,8 +9,9 @@ import './App.css';
 function App() {
     return (
       <Router>
+        <Header />
         <Routes>
-          <Route path="/" element={<Main />}/>
+          <Route path="/" element={<AuthRoute />}/>
         </Routes>
       </Router>
     );

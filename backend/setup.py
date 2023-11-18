@@ -15,9 +15,9 @@ conn = mariadb.connect(
 
 cur = conn.cursor()
 
-cur.execute('CREATE OR REPLACE DATABASE mixato')
+cur.execute('CREATE OR REPLACE DATABASE musato')
 
-cur.execute('USE mixato')
+cur.execute('USE musato')
 
 cur.execute('''CREATE OR REPLACE TABLE characters 
                     (character_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -31,9 +31,16 @@ cur.execute('''CREATE OR REPLACE TABLE characters
 cur.execute('''INSERT INTO characters SET
                     character_id = 1,
                     name = \'Shinji Ikari\',
-                    img_file = \'\',
+                    img_file = \'ikari-shinji.jfif\',
                     media = \'Neon Genesis Evangelion\',
                     external_url = \'https://en.wikipedia.org/wiki/Shinji_Ikari\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 2,
+                    name = \'Kaworu Nagisa\',
+                    img_file = \'nasgisa-kaworu.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Kaworu_Nagisa\'''')
 
 cur.execute('''CREATE OR REPLACE TABLE songs 
                     (song_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -56,7 +63,7 @@ cur.execute('''CREATE OR REPLACE TABLE character_song_connections
                     user_id INT)''')
 
 cur.execute('CREATE OR REPLACE USER user')
-cur.execute('GRANT SELECT ON mixato.* TO user')
-cur.execute('GRANT INSERT ON mixato.songs TO user')
-cur.execute('GRANT INSERT ON mixato.character_song_connections TO user')
-cur.execute('GRANT DELETE ON mixato.character_song_connections TO user')
+cur.execute('GRANT SELECT ON musato.* TO user')
+cur.execute('GRANT INSERT ON musato.songs TO user')
+cur.execute('GRANT INSERT ON musato.character_song_connections TO user')
+cur.execute('GRANT DELETE ON musato.character_song_connections TO user')

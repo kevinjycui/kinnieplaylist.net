@@ -12,7 +12,7 @@ const track = {
     ]
 }
 
-function WebPlayback(props) {
+function WebPlayback() {
 
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
@@ -30,8 +30,8 @@ function WebPlayback(props) {
         window.onSpotifyWebPlaybackSDKReady = () => {
     
             const player = new window.Spotify.Player({
-                name: 'Web Playback SDK',
-                getOAuthToken: cb => { cb(props.token); },
+                name: 'Musato Web Player',
+                getOAuthToken: cb => { cb(localStorage.getItem('musato-access-token')); },
                 volume: 0.5
             });
     
@@ -79,7 +79,7 @@ function WebPlayback(props) {
                                     }</div>
 
                         <div className="now-playing__artist">{
-                                    current_track.artists[0].name
+                                    current_track.artists.map(artist => artist.name).join(', ')
                                     }</div>
 
                         <button className="btn-spotify" onClick={() => { player.previousTrack() }} >

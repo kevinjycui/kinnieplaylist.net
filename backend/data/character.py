@@ -16,5 +16,5 @@ class CharacterList:
         self.characters = characters
 
     def to_json(self):
-        return [character.to_json() for character in self.characters]
+        return {'characters': [character.to_json() for character in self.characters]}
     
