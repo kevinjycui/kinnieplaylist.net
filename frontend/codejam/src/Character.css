@@ -1,0 +1,15 @@
+.Character-image {  
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 5%;
+}
+
+.Character-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.Character-media {
+    text-align: center;
+}

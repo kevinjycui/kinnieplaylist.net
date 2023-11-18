@@ -42,6 +42,48 @@ cur.execute('''INSERT INTO characters SET
                     media = \'Neon Genesis Evangelion\',
                     external_url = \'https://en.wikipedia.org/wiki/Kaworu_Nagisa\'''')
 
+cur.execute('''INSERT INTO characters SET
+                    character_id = 3,
+                    name = \'Rei Ayanami\',
+                    img_file = \'ayanami-rei.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Rei_Ayanami\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 4,
+                    name = \'Asuka Langley\',
+                    img_file = \'asuka-langley.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Asuka_Langley\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 5,
+                    name = \'Misato Katsuragi\',
+                    img_file = \'katsuragi-misato.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Misato_Katsuragi\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 6,
+                    name = \'Ritsuko Akagi\',
+                    img_file = \'akagi-ritsuko.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Ritsuko_Akagi\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 7,
+                    name = \'Maya Ibuki\',
+                    img_file = \'ibuki-maya.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Maya_Ibuki\'''')
+
+cur.execute('''INSERT INTO characters SET
+                    character_id = 8,
+                    name = \'Gendo Ikari\',
+                    img_file = \'ikari-gendo.jfif\',
+                    media = \'Neon Genesis Evangelion\',
+                    external_url = \'https://en.wikipedia.org/wiki/Gendo_Ikari\'''')
+
 cur.execute('''CREATE OR REPLACE TABLE songs 
                     (song_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
                     spotify_id VARCHAR(255),
