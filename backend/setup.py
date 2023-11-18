@@ -38,7 +38,7 @@ cur.execute('''INSERT INTO characters SET
 cur.execute('''INSERT INTO characters SET
                     character_id = 2,
                     name = \'Kaworu Nagisa\',
-                    img_file = \'nasgisa-kaworu.jfif\',
+                    img_file = \'nagisa-kaworu.jfif\',
                     media = \'Neon Genesis Evangelion\',
                     external_url = \'https://en.wikipedia.org/wiki/Kaworu_Nagisa\'''')
 

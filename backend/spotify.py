@@ -32,7 +32,8 @@ class SpotifyManager:
         return self.server_url + path
 
     def generate_auth_code(self):
-        scope = 'streaming user-read-email user-read-private'
+        scope = 'streaming \
+                user-read-email user-read-private user-library-read playlist-read-private'
         state = generate_random_string(16)
 
         params = {

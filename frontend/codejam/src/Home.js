@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Character from './Character'
-import WebPlayback from './WebPlayback';
 
 function Home() {
 
@@ -29,7 +28,6 @@ function Home() {
               />
         ))
       }
-      <WebPlayback />
     </>
   );
 }

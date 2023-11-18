@@ -12,7 +12,7 @@ const track = {
     ]
 }
 
-function WebPlayback() {
+function WebPlayback(props) {
 
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
@@ -31,7 +31,7 @@ function WebPlayback() {
     
             const player = new window.Spotify.Player({
                 name: 'Musato Web Player',
-                getOAuthToken: cb => { cb(localStorage.getItem('musato-access-token')); },
+                getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });
     
