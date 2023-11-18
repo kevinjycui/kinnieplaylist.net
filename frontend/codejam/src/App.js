@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import WebPlayback from './WebPlayback'
-import Login from './Login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Main from './Main'
+
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
-    const [token, setToken] = useState('');
-
-    useEffect(() => {
-
-      async function getToken() {
-        const response = await fetch('/auth/token');
-        const json = await response.json();
-        setToken(json.access_token);
-      }
-
-      getToken();
-
-    }, []);
-
     return (
-      <>
-          { (token === '') ? <Login/> : <WebPlayback token={token} /> }
-      </>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main />}/>
+        </Routes>
+      </Router>
     );
 }
 

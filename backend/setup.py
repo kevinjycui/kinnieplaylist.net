@@ -15,9 +15,9 @@ conn = mariadb.connect(
 
 cur = conn.cursor()
 
-cur.execute('CREATE OR REPLACE DATABASE shinjilist')
+cur.execute('CREATE OR REPLACE DATABASE mixato')
 
-cur.execute('USE shinjilist')
+cur.execute('USE mixato')
 
 cur.execute('''CREATE OR REPLACE TABLE characters 
                     (character_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -56,7 +56,7 @@ cur.execute('''CREATE OR REPLACE TABLE character_song_connections
                     user_id INT)''')
 
 cur.execute('CREATE OR REPLACE USER user')
-cur.execute('GRANT SELECT ON shinjilist.* TO user')
-cur.execute('GRANT INSERT ON shinjilist.songs TO user')
-cur.execute('GRANT INSERT ON shinjilist.character_song_connections TO user')
-cur.execute('GRANT DELETE ON shinjilist.character_song_connections TO user')
+cur.execute('GRANT SELECT ON mixato.* TO user')
+cur.execute('GRANT INSERT ON mixato.songs TO user')
+cur.execute('GRANT INSERT ON mixato.character_song_connections TO user')
+cur.execute('GRANT DELETE ON mixato.character_song_connections TO user')

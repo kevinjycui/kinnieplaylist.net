@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
-    "http-proxy-middleware": "^2.0.6"
+    "http-proxy-middleware": "^2.0.6",
+    "react-router-dom": "^6.19.0"
   }
 }

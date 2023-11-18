@@ -16,7 +16,7 @@ user_conn = mariadb.connect(
     user = 'user')
 
 user = user_conn.cursor()
-user.execute('USE shinjilist')
+user.execute('USE mixato')
 
 def san(sql):
     return re.sub(r'\W+', '', str(sql))

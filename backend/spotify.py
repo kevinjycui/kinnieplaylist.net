@@ -26,7 +26,7 @@ class SpotifyManager:
         self.client_id = config['spotify']['client_id']
         self.client_secret = config['spotify']['client_secret']
 
-        self.access_token = ''
+        self.refresh_tokens = {}
 
     def server_at(self, path):
         return self.server_url + path
@@ -61,8 +61,8 @@ class SpotifyManager:
 
         res = res.json()
 
-        self.access_token = res['access_token']
-        self.refresh_token = res['refresh_token']
-        self.expiration = time.time() + res['expires_in']
+        self.refresh_tokens[res['access_token']] = res['refresh_token']
+
+        return res['access_token']
 
 spotifyManager = SpotifyManager()

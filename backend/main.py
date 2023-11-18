@@ -10,6 +10,7 @@ from spotify import SpotifyManager
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
+name = config['app']
 client_url = config['client']
 
 app = Flask(__name__)
@@ -25,12 +26,8 @@ def login_spotify():
 @app.route("/auth/callback", methods=["GET"])
 def callback_spotify():
     code = request.args.get('code')
-    spotifyManager.generate_access_token(code)
-    return redirect(client_url)
-
-@app.route("/auth/token", methods=["GET"])
-def get_spotify_token():
-    return json.dumps({'access_token': spotifyManager.access_token})
+    token = spotifyManager.generate_access_token(code)
+    return redirect(client_url + '?access_token=' + token)
 
 @app.route("/api/ping", methods=["GET"])
 def ping():
