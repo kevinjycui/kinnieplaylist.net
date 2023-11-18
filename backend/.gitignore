@@ -9,3 +9,5 @@ docs/_build/
 dist/
 venv/
 env/
+
+config.yml
