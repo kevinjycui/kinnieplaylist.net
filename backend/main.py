@@ -51,5 +51,31 @@ def get_character_global_playlist(character_id):
     except Exception as e:
         return Response(json.dumps({'message': str(e)}), status=404)
 
+@app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
+def character_my_playlist(character_id):
+    token = request.args.get('access_token')
+    if request.method == "POST":
+        song_id = request.args.get('song_id')
+
+        user_data = spotifyManager.get_user_data(token)
+        song_data = database.get_song(song_id)
+        if song_data is None:
+            song_data = spotifyManager.get_song(song_id)
+            database.post_song(song_id, song_data)
+        
+        duplicate = database.post_character_song(character_id, song_id, user_data.id)
+
+        return json.dumps({
+            'duplicate': not duplicate,
+            'song': song_data.to_json()
+        })
+
+    elif request.method == "GET":
+        user_data = spotifyManager.get_user_data(token)
+        try:
+            return database.get_character_songs(character_id, user_data.id).to_json()
+        except Exception as e:
+            return Response(json.dumps({'message': str(e)}), status=404)
+
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)

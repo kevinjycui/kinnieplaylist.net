@@ -55,10 +55,11 @@ class Database:
 
         return Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], path=path)
         
-    def get_character_songs(self, character_id):
+    def get_character_songs(self, character_id, user_id = ''):
         character_id = san(character_id)
 
-        user.execute('SELECT song_id FROM character_song_connections WHERE character_id = {}'.format(character_id))
+        user.execute('SELECT song_id FROM character_song_connections WHERE character_id = {}'.format(character_id)
+            + (' AND user_id = {}'.format(user_id) if user_id != '' else ''))
         data_list = list(user)
 
         playlist = Playlist()
@@ -72,6 +73,64 @@ class Database:
 
             song_data = song_data[0]
 
-            playlist.append(Song(song_id=sdata[0], spotify_id=sdata[1], title=sdata[2], img_file=sdata[3], artists=sdata[4], spotify_uri=sdata[5], genres=sdata[6], explicit=sdata[7], duration=sdata[8], preview_url=sdata[9]))
+            playlist.append(Song(song_id=sdata[0], title=sdata[1], img_file=sdata[2], artists=sdata[3], spotify_uri=sdata[4], genres=sdata[5], explicit=sdata[6], duration=sdata[7], preview_url=sdata[8]))
 
         return playlist
+
+    def get_song(self, song_id):
+        song_id = san(song_id)
+
+        user.execute('SELECT title, img_file, artists, spotify_uri, genres, explicit, \
+                            duration, preview_url FROM songs WHERE song_id = {}'.format(song_id))
+        sdata = list(user)
+
+        if len(sdata) == 0:
+            return
+
+        sdata = sdata[0]
+
+        return Song(song_id=song_id, title=sdata[0], img_file=sdata[1], artists=sdata[2], spotify_uri=sdata[3], genres=sdata[4], explicit=sdata[5], duration=sdata[6], preview_url=sdata[7])
+
+    def post_song(self, song_id, song_data):
+        song_id = san(song_id)
+
+        user.execute('''INSERT INTO song SET
+                    song_id = \'{}\',
+                    title = \'{}\',
+                    img_file = \'{}\',
+                    artists = \'{}\',
+                    spotify_uri = \'{}\',
+                    genres = \'{}\',
+                    explicit = {},
+                    duration = {},
+                    preview_url = \'{}\'
+                    '''.format(
+                        song_id, song_data['name'], song_data['images']['url'], 
+                        ', '.join(list(map(lambda artist : artist['name'], song_data['artists'])),
+                        song_data['external_urls']['spotify'], 
+                        ', '.join(list(map(lambda artist : ', '.join(artist['genre']), song_data['artists']))),
+                        1 if song_data['explicit'] else 0, song_data['duration_ms'], song_data['preview_url'])
+                    ))
+        user_conn.commit()
+
+    def post_character_song(self, character_id, song_id, user_id):
+        character_id = san(character_id)
+        song_id = san(song_id)
+        user_id = san(user_id)
+        
+        user.execute('SELECT * FROM character_song_connections WHERE character_id = {} AND song_id = {} AND user_id = {} LIMIT 1'.format(
+            character_id, song_id, user_id
+        ))
+        exist_data = list(user)
+        
+        if len(exist_data) > 0:
+            return False
+
+        user.execute('''INSERT INTO character_song_connections SET
+            character_id = \'{}\',
+            song_id = \'{}\',
+            user_id = {}
+        '''.format(character_id, song_id, user_id))
+        user_conn.commit()
+
+        return True

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import { TokenContext } from './AuthRoute'
 
 import "./WebPlayback.css"
 
@@ -11,15 +13,17 @@ const track = {
     },
     artists: [
         { name: "" }
-    ]
+    ],
+    id: ""
 }
 
-function WebPlayback(props) {
+function WebPlayback() {
 
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
     const [current_track, setTrack] = useState(track);
     const [player, setPlayer] = useState(undefined);
+    const token = useContext(TokenContext);
 
     useEffect(() => {
 
@@ -33,7 +37,7 @@ function WebPlayback(props) {
     
             const player = new window.Spotify.Player({
                 name: 'Kinnie Playlist Web Player',
-                getOAuthToken: cb => { cb(props.token); },
+                getOAuthToken: cb => { cb(token); },
                 volume: 0.5
             });
     
@@ -72,7 +76,7 @@ function WebPlayback(props) {
 
     return (
         <>
-            <div className="container WebPlayback-player">
+            <div id={current_track.id} className="container WebPlayback-player">
                 <div className="main-wrapper">
                     <img src={current_track.album.images[0].url} 
                         className="now-playing__cover WebPlayback-cover" 
