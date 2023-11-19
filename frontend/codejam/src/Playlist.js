@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 
-function Playlist(props) {
+import Song from './Song';
 
-  const [songs, setSongs] = useState([]);
+function Playlist() {
+    const { character } = useParams();
+    const [playlist, setPlaylist] = useState([]);
+  
+    useEffect(() => {
+      async function getPlaylist()
+      {
+          const response = await fetch('/api/playlist/global/' + character);
+          const json = await response.json();        
+          setPlaylist(json.playlist);
+      }
 
-  useEffect(() => {
+      getPlaylist();
+  
+    }, []);
 
-    async function getSongs() {
-      const response = await fetch('/api/playlist/global/' + props.character_id);
-      const json = await response.json();
-      setSongs([...json.playlist]);
-    }
-
-    getSongs();
-
-  }, []);
-
-  return (
-    <>
+    return <>
+        {
+            <div>
+            {
+            playlist.map(
+                (data) => <Song data={JSON.parse(data.song)}/>
+            )
+            }
+            </div>
+        }
     </>
-  );
 }
 
-export default Playlist;
+export default Playlist

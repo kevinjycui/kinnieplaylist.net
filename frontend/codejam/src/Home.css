@@ -2,10 +2,14 @@
     display: inline-block;
     width: 200px;
     height: auto;
-    margin: 1% 0 0 1%;
-    padding:10px;
+    margin: 5px 0 0 5px;
+    padding: 10px;
     outline: none;
     border-color:aliceblue
+}
+
+.Home-container {
+    text-align: center;
 }
 
 .buffer{

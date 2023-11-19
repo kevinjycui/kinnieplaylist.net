@@ -13,8 +13,7 @@ function Header() {
 
     return (
         <header>
-            <button onClick={handleClick}><img className="logo" src="kinnieplaylistlogo.svg"/></button>
-            <img className="Header-spotify" src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
+            <button className="Header-button" onClick={handleClick}><img className="logo" src="kinnieplaylistlogo.svg"/></button>
         </header>
     );
 }

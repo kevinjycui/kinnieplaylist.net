@@ -15,9 +15,7 @@ function AddSong(props) {
         const spotify_json = await spotify_response.json();
         var songId = spotify_json.item.id;
 
-        console.log(spotify_json)
-
-        const response = await fetch('/api/playlist/mine/' + props.characterId, {
+        const response = await fetch('/api/playlist/mine/' + props.character, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -38,7 +36,7 @@ function AddSong(props) {
 
     return (
         <button onClick={addCurrentSong}>
-            Add current song
+            Add current song!
         </button>
     );
 }

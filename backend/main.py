@@ -44,12 +44,9 @@ def get_character(path):
     except Exception as e:
         return Response(json.dumps({'message': str(e)}), status=404)
 
-@app.route("/api/playlist/global/<character_id>", methods=["GET"])
-def get_character_global_playlist(character_id):
-    try:
-        return database.get_character_songs(character_id).to_json()
-    except Exception as e:
-        return Response(json.dumps({'message': str(e)}), status=404)
+@app.route("/api/playlist/global/<path>", methods=["GET"])
+def get_character_global_playlist(path):
+    return database.get_character_songs_by_path(path).to_json()
 
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
 def character_my_playlist(character_id):

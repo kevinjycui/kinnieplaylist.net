@@ -5,7 +5,7 @@ import { TokenContext } from './AuthRoute'
 import "./WebPlayback.css"
 
 const track = {
-    name: "Play a track through Spotify on the Kinnie Playlist Web Playback",
+    name: "Play a track on Device: Kinnie Playlist Web Playback",
     album: {
         images: [
             { url: "" }
@@ -107,6 +107,7 @@ function WebPlayback() {
                         ⏭
                         </button>
                     </div>
+                    <img className="WebPlayback-spotify" src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
                 </div>
             </div>
         </>

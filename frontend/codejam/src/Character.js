@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 
 import Error from './404'
 import AddSong from './AddSong'
+import Playlist from './Playlist';
 
 import './Character.css'
 
@@ -20,7 +21,7 @@ function Character() {
         setData(json);
         setCode(response.status)
       }
-  
+
       getData();
   
     }, []);
@@ -37,8 +38,9 @@ function Character() {
             <div className='Character-side'>
                 <div className='Character-name'>{data.name}</div>
                 <div className='Character-media'>{data.media}</div>
+                <AddSong character={character}/>
             </div>
-            <AddSong characterId={data.character_id}/>
+            <Playlist />
             </>   
         }
     </>

@@ -39,3 +39,15 @@
     margin: 2px;
     size: 10px;
 }
+
+.WebPlayback-spotify {
+    max-width: 130px;
+    max-height: 55px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 5%;
+    bottom: 15%;
+    margin: 2% 0% 0% 0%;
+    width: 20%;
+}

@@ -1,0 +1,19 @@
+.Song {
+    max-width: 100px;
+}
+
+.Song-image {
+    width: 90%;
+}
+
+.Song-title {
+    font-weight: bold;
+    font-size: 13pt;
+    text-overflow: ellipsis;
+}
+
+.Song-artists {
+    font-size: 11pt;
+    text-overflow: ellipsis;
+}
+

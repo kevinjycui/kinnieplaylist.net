@@ -43,6 +43,7 @@ function Home() {
     <>
         <>
       <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
+      <div className='Home-container'>
       {filteredCharacters.sort((a, b) => {
         var nameA = JSON.parse(a).name.toUpperCase();
         var nameB = JSON.parse(b).name.toUpperCase();
@@ -54,6 +55,7 @@ function Home() {
           />
         </div>
       ))}
+      </div>
     </>
      <div className="buffer"></div>
     </>

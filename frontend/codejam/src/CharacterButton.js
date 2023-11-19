@@ -14,6 +14,7 @@ function CharacterButton(props) {
     return (
         <div className='CharacterButton-container' id={props.data.character_id.toString()}>
             <button
+                className='CharacterButton-button'
                 onClick={handleClick}
             >
                 <img className='CharacterButton-image' src={'media/' + props.data.img_file}

@@ -55,23 +55,23 @@ class Database:
 
         return Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], path=path)
         
-    def get_character_songs(self, character_id, user_id = ''):
-        character_id = san(character_id)
+    def get_character_songs_by_path(self, path, user_id = ''):
+        path = san(path)
 
-        user.execute('SELECT song_id FROM character_song_connections WHERE character_id = {}'.format(character_id)
+        user.execute('SELECT song_id FROM character_song_connections WHERE character_path = \'{}\''.format(path)
             + (' AND user_id = \'{}\''.format(user_id) if user_id != '' else ''))
         data_list = list(user)
 
         playlist = Playlist()
 
-        for data in datalist:
+        for data in data_list:
             user.execute('SELECT * FROM songs WHERE song_id = \'{}\' LIMIT 1'.format(data[0]))
-            song_data = list(user)
+            sdata = list(user)
 
-            if len(song_data) != 1:
+            if len(sdata) != 1:
                 raise RuntimeException('Failed to fetch song with id {}'.format(data[0]))
 
-            song_data = song_data[0]
+            sdata = sdata[0]
 
             playlist.append(Song(song_id=sdata[0], title=sdata[1], img_file=sdata[2], artists=sdata[3]))
 
@@ -106,13 +106,13 @@ class Database:
                     )
         user_conn.commit()
 
-    def post_character_song(self, character_id, song_id, user_id):
-        character_id = san(character_id)
+    def post_character_song(self, character_path, song_id, user_id):
+        character_path = san(character_path)
         song_id = san(song_id)
         user_id = san(user_id)
         
-        user.execute("SELECT * FROM character_song_connections WHERE character_id = {} AND song_id = '{}' AND user_id = '{}' LIMIT 1".format(
-            character_id, song_id, user_id
+        user.execute("SELECT * FROM character_song_connections WHERE character_path = '{}' AND song_id = '{}' AND user_id = '{}' LIMIT 1".format(
+            character_path, song_id, user_id
         ))
         exist_data = list(user)
         
@@ -120,10 +120,10 @@ class Database:
             return False
 
         user.execute('''INSERT INTO character_song_connections SET
-            character_id = {},
+            character_path = '{}',
             song_id = '{}',
             user_id = '{}'
-        '''.format(character_id, song_id, user_id))
+        '''.format(character_path, song_id, user_id))
         user_conn.commit()
 
         return True

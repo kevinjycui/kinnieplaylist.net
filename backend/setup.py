@@ -95,7 +95,7 @@ cur.execute('''CREATE OR REPLACE TABLE songs
 
 cur.execute('''CREATE OR REPLACE TABLE character_song_connections 
                     (song_id VARCHAR(255),
-                    character_id INT,
+                    character_path VARCHAR(255),
                     user_id VARCHAR(255))''')
 
 cur.execute('CREATE OR REPLACE USER user')
