@@ -1,0 +1,40 @@
+.WebPlayback-player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 110px;
+    background-color: #282c34;
+    color: white;
+}
+
+.WebPlayback-cover {
+    position: relative;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+    display: inline-block;
+    margin: 1%;
+}
+
+.WebPlayback-side {
+    position: absolute;
+    display: inline-block;
+    margin: 2% 0% 0% 0%;
+    width: 80%;
+}
+
+.WebPlayback-title {
+    font-weight: bold;
+    font-size: 13pt;
+    text-overflow: ellipsis;
+}
+
+.WebPlayback-artists {
+    font-size: 11pt;
+    text-overflow: ellipsis;
+}
+
+.WebPlayback-button {
+    margin: 2px;
+}

@@ -24,8 +24,9 @@ cur.execute('''CREATE OR REPLACE TABLE characters
                     name VARCHAR(255),
                     img_file VARCHAR(255),
                     media VARCHAR(255),
-                    external_url VARCHAR(255),
+                    path VARCHAR(255),
 
+                    UNIQUE KEY(path)
                     PRIMARY KEY(character_id))''')
 
 cur.execute('''INSERT INTO characters SET
@@ -33,56 +34,56 @@ cur.execute('''INSERT INTO characters SET
                     name = \'Shinji Ikari\',
                     img_file = \'ikari-shinji.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Shinji_Ikari\'''')
+                    path = \'Shinji_Ikari\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 2,
                     name = \'Kaworu Nagisa\',
                     img_file = \'nagisa-kaworu.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Kaworu_Nagisa\'''')
+                    path = \'Kaworu_Nagisa\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 3,
                     name = \'Rei Ayanami\',
                     img_file = \'ayanami-rei.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Rei_Ayanami\'''')
+                    path = \'Rei_Ayanami\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 4,
                     name = \'Asuka Langley\',
                     img_file = \'asuka-langley.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Asuka_Langley\'''')
+                    path = \'Asuka_Langley\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 5,
                     name = \'Misato Katsuragi\',
                     img_file = \'katsuragi-misato.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Misato_Katsuragi\'''')
+                    path = \'Misato_Katsuragi\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 6,
                     name = \'Ritsuko Akagi\',
                     img_file = \'akagi-ritsuko.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Ritsuko_Akagi\'''')
+                    path = \'Ritsuko_Akagi\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 7,
                     name = \'Maya Ibuki\',
                     img_file = \'ibuki-maya.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Maya_Ibuki\'''')
+                    path = \'Maya_Ibuki\'''')
 
 cur.execute('''INSERT INTO characters SET
                     character_id = 8,
                     name = \'Gendo Ikari\',
                     img_file = \'ikari-gendo.jfif\',
                     media = \'Neon Genesis Evangelion\',
-                    external_url = \'https://en.wikipedia.org/wiki/Gendo_Ikari\'''')
+                    path = \'Gendo_Ikari\'''')
 
 cur.execute('''CREATE OR REPLACE TABLE songs 
                     (song_id INT UNSIGNED AUTO_INCREMENT NOT NULL,

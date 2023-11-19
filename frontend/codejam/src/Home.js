@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Character from './Character'
+import CharacterButton from './CharacterButton'
 
 import './Home.css';
 
@@ -29,7 +29,7 @@ function Home() {
           return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
         }).map(character => (
           <div className='Home-characterModule'>
-            <Character 
+            <CharacterButton 
                 key={JSON.parse(character).character_id} 
                 data={JSON.parse(character)}
                 />

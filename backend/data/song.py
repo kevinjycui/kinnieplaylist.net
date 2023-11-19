@@ -13,6 +13,24 @@ class Song:
         self.duration = duration
         self.preview_url = preview_url
 
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
 class Playlist:
-    def __init__(self, songs):
-        self.songs = songs
+    def __init__(self):
+        self.playlist = []
+        self.number_of_users = {}
+
+    def append(self, song):
+        if song.song_id not in self.number_of_users.keys():
+            self.number_of_users[song.song_id] = 1
+            self.playlist.append(song)
+        else:
+            self.number_of_users[song.song_id] += 1
+
+    def to_json(self):
+        return json.dumps({
+            'playlist': [
+                {'song': song.to_json(), 'number_of_users': self.number_of_users[song.song_id]} for song in self.playlist
+            ]
+        })

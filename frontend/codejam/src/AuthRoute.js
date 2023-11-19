@@ -8,7 +8,7 @@ import Login from './Login'
 import logo from './logo.svg';
 import './App.css';
 
-function AuthRoute() {
+function AuthRoute(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [token, setToken] = useState('');
 
@@ -29,7 +29,7 @@ function AuthRoute() {
     return (
     <>
         { (token === '') ? <Login/> : <div>
-        <Home />
+        {props.content}
         <WebPlayback token={token} />
          </div> }
     </>

@@ -1,0 +1,19 @@
+.CharacterButton-container {
+    margin: 1%;
+}
+
+.CharacterButton-image {  
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 5%;
+}
+
+.CharacterButton-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.CharacterButton-media {
+    text-align: center;
+}

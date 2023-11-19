@@ -1,12 +1,12 @@
 import json
 
 class Character:
-    def __init__(self, character_id, name, img_file, media, external_url):
+    def __init__(self, character_id, name, img_file, media, path):
         self.character_id = character_id
         self.name = name
         self.img_file = img_file
         self.media = media
-        self.external_url = external_url
+        self.path = path
 
     def to_json(self):
         return json.dumps(self.__dict__)

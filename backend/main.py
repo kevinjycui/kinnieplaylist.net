@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, Response
 from flask_cors import CORS
 
 import yaml
@@ -37,9 +37,19 @@ def ping():
 def get_all_characters():
     return database.get_characters().to_json()
 
-@app.route("/api/characters/<character_id>", methods=["GET"])
-def get_character(character_id):
-    return database.get_character(character_id).to_json()
+@app.route("/api/characters/<path>", methods=["GET"])
+def get_character(path):
+    try:
+        return database.get_character_by_path(path).to_json()
+    except Exception as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+
+@app.route("/api/playlist/global/<character_id>", methods=["GET"])
+def get_character_global_playlist(character_id):
+    try:
+        return database.get_character_songs(character_id).to_json()
+    except Exception as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)

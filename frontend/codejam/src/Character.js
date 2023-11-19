@@ -1,29 +1,45 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 
-import './Character.css';
+import Error from './404'
 
-class Character extends Component {
+import './Character.css'
 
-    constructor(props)
-    {
-        super(props);
-    }
+function Character() {
+    const { character } = useParams();
+    const [data, setData] = useState([]);
+    const [code, setCode] = useState();
+  
+    useEffect(() => {
+  
+      async function getData() {
+        const response = await fetch('/api/characters/' + character);
+        const json = await response.json();
 
-    render()
-    {
-        return (
-            <div id={this.props.data.character_id.toString()}>
-                <img className='Character-image' src={this.props.data.img_file}
+        setData(json);
+        setCode(response.status)
+      }
+  
+      getData();
+  
+    }, []);
+
+    console.log(data)
+
+    return <>
+        {
+            code == 404 ? <Error /> : <>
+                <div className='Character-name'>{data.name}</div>
+                <div className='Character-media'>{data.media}</div>
+                <img className='Character-image' src={'../media/' + data.img_file}
                     onError={(image) => {
-                        image.target.onerror = null;
-                        image.target.src='default.png';
+                        // image.target.onerror = null;
+                        // image.target.src='default.png';
                     }}
                 />
-                <div className='Character-name'>{this.props.data.name}</div>
-                <div className='Character-media'>{this.props.data.media}</div>
-            </div>
-            );
-    }
+            </>   
+        }
+    </>
 }
 
 export default Character
