@@ -3,8 +3,11 @@
     width: 200px;
     height: auto;
     margin: 1% 0 0 1%;
+    padding:10px;
+    outline: none;
+    border-color:aliceblue
 }
 
 .buffer{
-    height:200px;
+    height:200px
 }

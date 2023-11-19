@@ -1,20 +1,32 @@
 .CharacterButton-container {
-    margin: 1%;
+    outline: none;
+    margin: 10px;
     cursor: pointer;
+    padding: 10px;
+    border:none;
 }
+
+
 
 .CharacterButton-image {  
     object-fit: cover;
     width: 200px;
     height: 200px;
     border-radius: 5%;
+    border:none;
+}
+
+.CharacterButton-image:hover {
+    size:130%;
 }
 
 .CharacterButton-name {
     font-weight: bold;
     text-align: center;
+    border:none;
 }
 
 .CharacterButton-media {
     text-align: center;
+    border:none;
 }
