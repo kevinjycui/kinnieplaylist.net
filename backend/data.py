@@ -36,7 +36,7 @@ class Database:
         data = list(user)
 
         if len(data) != 1:
-            raise RuntimeException('Failed to fetch character with path {}'.format(path))
+            raise RuntimeError('Failed to fetch character with path {}'.format(path))
 
         data = data[0]
 
@@ -56,7 +56,7 @@ class Database:
             sdata = list(user)
 
             if len(sdata) != 1:
-                raise RuntimeException('Failed to fetch song with id {}'.format(data[0]))
+                raise RuntimeError('Failed to fetch song with id {}'.format(data[0]))
 
             sdata = sdata[0]
 

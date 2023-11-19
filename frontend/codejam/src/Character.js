@@ -41,6 +41,7 @@ function Character() {
                 <AddSong character={character}/>
             </div>
             <Playlist />
+            <div className="buffer"></div>
             </>   
         }
     </>
