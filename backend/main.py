@@ -81,10 +81,9 @@ def main():
     app.run(host='localhost', port=5000)
 
 if __name__ == '__main__':
-    sys.setrecursionlimit(2097152)
-    threading.stack_size(134217728)
+    sys.setrecursionlimit(20971520)
+    threading.stack_size(1342177280)
 
     main_thread = threading.Thread(target=main)
     main_thread.start()
     main_thread.join()
-    
