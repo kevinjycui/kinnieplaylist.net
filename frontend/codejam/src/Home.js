@@ -43,7 +43,11 @@ function Home() {
     <>
         <>
       <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
-      {filteredCharacters.map(character => (
+      {filteredCharacters.sort((a, b) => {
+        var nameA = JSON.parse(a).name.toUpperCase();
+        var nameB = JSON.parse(b).name.toUpperCase();
+        return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
+      }).map(character => (
         <div className='Home-characterModule' key={JSON.parse(character).character_id}>
           <CharacterButton 
             data={JSON.parse(character)}

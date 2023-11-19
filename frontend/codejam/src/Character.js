@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import Error from './404'
+import AddSong from './AddSong'
 
 import './Character.css'
 
@@ -37,6 +38,7 @@ function Character() {
                 <div className='Character-name'>{data.name}</div>
                 <div className='Character-media'>{data.media}</div>
             </div>
+            <AddSong characterId={data.character_id}/>
             </>   
         }
     </>

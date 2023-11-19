@@ -53,17 +53,17 @@ def get_character_global_playlist(character_id):
 
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
 def character_my_playlist(character_id):
-    token = request.args.get('access_token')
+    body = request.get_json()
+    token = body['access_token']
     if request.method == "POST":
-        song_id = request.args.get('song_id')
-
+        song_id = body['song_id']
         user_data = spotifyManager.get_user_data(token)
         song_data = database.get_song(song_id)
         if song_data is None:
-            song_data = spotifyManager.get_song(song_id)
+            song_data = spotifyManager.get_song(token, song_id)
             database.post_song(song_id, song_data)
         
-        duplicate = database.post_character_song(character_id, song_id, user_data.id)
+        duplicate = database.post_character_song(character_id, song_id, user_data['id'])
 
         return json.dumps({
             'duplicate': not duplicate,

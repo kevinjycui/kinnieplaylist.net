@@ -5,7 +5,7 @@ import { TokenContext } from './AuthRoute'
 import "./WebPlayback.css"
 
 const track = {
-    name: "Play a track from Spotify",
+    name: "Play a track through Spotify on the Kinnie Playlist Web Playback",
     album: {
         images: [
             { url: "" }
@@ -60,7 +60,6 @@ function WebPlayback() {
                 setTrack(state.track_window.current_track);
                 setPaused(state.paused);
             
-            
                 player.getCurrentState().then( state => { 
                     (!state)? setActive(false) : setActive(true) 
                 });
@@ -97,15 +96,15 @@ function WebPlayback() {
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.previousTrack() }} >
 
-                        ⏴
+                        ⏮
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.togglePlay() }} >
-                            { is_paused ? "⏯" : "⏸" }
+                            { is_paused ? "⏵" : "⏸" }
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.nextTrack() }} >
-                            ⏵
+                        ⏭
                         </button>
                     </div>
                 </div>

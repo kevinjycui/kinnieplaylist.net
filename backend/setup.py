@@ -90,11 +90,6 @@ cur.execute('''CREATE OR REPLACE TABLE songs
                     title VARCHAR(255), 
                     img_file VARCHAR(255), 
                     artists VARCHAR(255),
-                    spotify_uri VARCHAR(255),
-                    genres VARCHAR(255),
-                    explicit BOOL,
-                    duration INT,
-                    preview_url VARCHAR(255),
 
                     PRIMARY KEY(song_id))''')
 
