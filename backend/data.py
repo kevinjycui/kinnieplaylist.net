@@ -83,7 +83,7 @@ class Database:
         user.execute('''INSERT INTO songs SET
                     song_id = '{}',
                     title = '{}',
-                    img_file = '{}',
+                    img_file = `{}`,
                     artists = '{}'
                     '''.format(
                         song_id,

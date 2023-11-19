@@ -7,6 +7,9 @@ import json
 from data import Database
 from spotify import SpotifyManager
 
+import sys
+import threading
+
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
@@ -74,5 +77,14 @@ def character_my_playlist(character_id):
         except Exception as e:
             return Response(json.dumps({'message': str(e)}), status=404)
 
-if __name__ == '__main__':
+def main():
     app.run(host='localhost', port=5000)
+
+if __name__ == '__main__':
+    sys.setrecursionlimit(2097152)
+    threading.stack_size(134217728)
+
+    main_thread = threading.Thread(target=main)
+    main_thread.start()
+    main_thread.join()
+    
