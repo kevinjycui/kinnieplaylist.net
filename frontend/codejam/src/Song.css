@@ -1,19 +1,33 @@
 .Song {
-    max-width: 100px;
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    margin: 5px 0 0 5px;
+    padding: 10px;
+    outline: none;
+    border-color:aliceblue
 }
 
 .Song-image {
-    width: 90%;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 5%;
+    border:none;
 }
 
 .Song-title {
     font-weight: bold;
-    font-size: 13pt;
+    font-size: medium;
+    text-align: center;
+    border:none;
     text-overflow: ellipsis;
 }
 
 .Song-artists {
-    font-size: 11pt;
+    text-align: center;
+    font-size: small;
+    border:none;
     text-overflow: ellipsis;
 }
 
