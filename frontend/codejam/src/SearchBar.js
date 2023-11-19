@@ -5,8 +5,9 @@ const SearchBar = ({ characters, setFilteredCharacters }) => {
 
   useEffect(() => {
     const filtered = characters.filter(character => {
-      const characterName = JSON.parse(character).name.toUpperCase();
-      return characterName.includes(searchTerm.toUpperCase());
+      var characterName = JSON.parse(character).name.toUpperCase();
+      var mediaName = JSON.parse(character).media.toUpperCase();
+      return characterName.includes(searchTerm.toUpperCase()) || mediaName.includes(searchTerm.toUpperCase());
     });
     setFilteredCharacters(filtered);
   }, [searchTerm, characters, setFilteredCharacters]);
@@ -15,7 +16,7 @@ const SearchBar = ({ characters, setFilteredCharacters }) => {
     <div className="search-bar">
       <input
         type="text"
-        placeholder="Search by name"
+        placeholder="Search by name or media"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
