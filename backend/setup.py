@@ -26,7 +26,7 @@ cur.execute('''CREATE OR REPLACE TABLE characters
                     media VARCHAR(255),
                     path VARCHAR(255),
 
-                    UNIQUE KEY(path)
+                    UNIQUE KEY(path),
                     PRIMARY KEY(character_id))''')
 
 cur.execute('''INSERT INTO characters SET
