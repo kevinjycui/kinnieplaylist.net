@@ -1,5 +1,6 @@
 .CharacterButton-container {
     margin: 1%;
+    cursor: pointer;
 }
 
 .CharacterButton-image {  

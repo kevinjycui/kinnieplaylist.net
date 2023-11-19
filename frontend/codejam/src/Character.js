@@ -29,14 +29,16 @@ function Character() {
     return <>
         {
             code == 404 ? <Error /> : <>
+            <img className='Character-image' src={'../media/' + data.img_file}
+                onError={(image) => {
+                    image.target.onerror = null;
+                    image.target.src='../default.png';
+                }}
+            />
+            <div className='Character-side'>
                 <div className='Character-name'>{data.name}</div>
                 <div className='Character-media'>{data.media}</div>
-                <img className='Character-image' src={'../media/' + data.img_file}
-                    onError={(image) => {
-                        // image.target.onerror = null;
-                        // image.target.src='default.png';
-                    }}
-                />
+            </div>
             </>   
         }
     </>
