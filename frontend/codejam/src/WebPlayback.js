@@ -92,15 +92,16 @@ function WebPlayback(props) {
                                     }</div>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.previousTrack() }} >
-                            &lt;&lt;
+
+                        ⏴
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.togglePlay() }} >
-                            { is_paused ? "|>" : "||" }
+                            { is_paused ? "⏯" : "⏸" }
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.nextTrack() }} >
-                            &gt;&gt;
+                            ⏵
                         </button>
                     </div>
                 </div>

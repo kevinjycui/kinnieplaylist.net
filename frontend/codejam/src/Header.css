@@ -13,3 +13,12 @@
     margin: 20px;
     display: inline-flex;
 }
+
+.logo {
+    max-width: 390px;
+    max-height: 165px;
+    width: auto;
+    height: auto;
+    margin: 20px;
+    display: inline-flex;
+  }

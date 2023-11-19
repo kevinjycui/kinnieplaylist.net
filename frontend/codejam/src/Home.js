@@ -51,7 +51,7 @@ function Home() {
         </div>
       ))}
     </>
-     
+     <div className="buffer"></div>
     </>
   );
 }
