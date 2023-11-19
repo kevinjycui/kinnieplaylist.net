@@ -1,6 +1,15 @@
+app: kinnieplaylist
+
 mariadb:
     host: localhost
     port: 3306
     user: root
     password: password
-    databases: [medias, characters]
+
+spotify:
+    url: https://accounts.spotify.com/
+    client_id: id
+    client_secret: secret
+
+client: http://localhost:3000/
+server: http://localhost:5000/
