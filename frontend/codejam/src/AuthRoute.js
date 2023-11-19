@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useSearchParams } from "react-router-dom";
 
-import Home from './Home'
 import WebPlayback from './WebPlayback'
 import Login from './Login'
 
-import logo from './logo.svg';
 import './App.css';
+
+export const TokenContext = createContext(null);
 
 function AuthRoute(props) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,8 +29,10 @@ function AuthRoute(props) {
     return (
     <>
         { (token === '') ? <Login/> : <div>
-        {props.content}
-        <WebPlayback token={token} />
+        <TokenContext.Provider value={token}>
+            {props.content}
+            <WebPlayback />
+        </TokenContext.Provider>
          </div> }
     </>
     );

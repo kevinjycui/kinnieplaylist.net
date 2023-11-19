@@ -86,8 +86,7 @@ cur.execute('''INSERT INTO characters SET
                     path = \'Gendo_Ikari\'''')
 
 cur.execute('''CREATE OR REPLACE TABLE songs 
-                    (song_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-                    spotify_id VARCHAR(255),
+                    (song_id VARCHAR(255),
                     title VARCHAR(255), 
                     img_file VARCHAR(255), 
                     artists VARCHAR(255),
@@ -97,16 +96,17 @@ cur.execute('''CREATE OR REPLACE TABLE songs
                     duration INT,
                     preview_url VARCHAR(255),
 
-                    UNIQUE KEY(spotify_id),
                     PRIMARY KEY(song_id))''')
 
 cur.execute('''CREATE OR REPLACE TABLE character_song_connections 
-                    (song_id INT,
+                    (song_id VARCHAR(255),
                     character_id INT,
-                    user_id INT)''')
+                    user_id VARCHAR(255))''')
 
 cur.execute('CREATE OR REPLACE USER user')
 cur.execute('GRANT SELECT ON kinnieplaylist.* TO user')
 cur.execute('GRANT INSERT ON kinnieplaylist.songs TO user')
 cur.execute('GRANT INSERT ON kinnieplaylist.character_song_connections TO user')
 cur.execute('GRANT DELETE ON kinnieplaylist.character_song_connections TO user')
+
+conn.commit()

@@ -7,6 +7,8 @@ import string
 
 from flask import redirect
 
+from song import Song
+
 
 def generate_random_string(length):
     letters = string.ascii_letters + string.digits
@@ -62,8 +64,46 @@ class SpotifyManager:
 
         res = res.json()
 
-        self.refresh_tokens[res['access_token']] = res['refresh_token']
+        token = res['access_token']
 
-        return res['access_token']
+        user_data = self.get_user_data(token)
+
+        self.refresh_tokens[user_data['id']] = res['refresh_token']
+
+        return token
+
+    def get_user_data(self, token):
+        data = {
+            'grant_type': 'access_token'
+        }
+        headers = {
+            'Authorization': 'Bearer ' + token
+        }
+
+        res = requests.get(self.url + 'v1/me', data=data, headers=headers)
+        res.raise_for_status()
+
+        res = res.json()
+
+        return {
+            'name': res['display_name'],
+            'id': res['id']
+        }
+
+    def get_song(self, token, song_id):
+        data = {
+            'grant_type': 'access_token'
+        }
+        headers = {
+            'Authorization': 'Bearer ' + token
+        }
+
+        res = requests.get(self.url + 'v1/tracks/' + song_id, data=data, headers=headers)
+        res.raise_for_status()
+
+        res = res.json()
+
+        return Song(song_id=sdata[0], title=sdata[1], img_file=sdata[2], artists=sdata[3], spotify_uri=sdata[4], genres=sdata[5], explicit=sdata[6], duration=sdata[7], preview_url=sdata[8])
+
 
 spotifyManager = SpotifyManager()
