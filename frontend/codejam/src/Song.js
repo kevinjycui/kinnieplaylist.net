@@ -1,5 +1,7 @@
 import React from 'react';
 
+import "./Song.css"
+
 function Song(props) {
     return (
         <div className="Song" id={props.data.song_id}>

@@ -29,23 +29,10 @@ class Database:
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], path=data[4]) for data in data_list]
         return CharacterList(character_list)
 
-    def get_character(self, character_id):
-        character_id = san(character_id)
-
-        user.execute('SELECT name, img_file, media, path FROM characters WHERE character_id = {} LIMIT 1'.format(character_id))
-        data = list(user)
-
-        if len(data) != 1:
-            raise RuntimeException('Failed to fetch character with id {}'.format(character_id))
-
-        data = data[0]
-
-        return Character(character_id, name=data[0], img_file=data[1], media=data[2], path=data[3])
-
     def get_character_by_path(self, path):
         path = san(path)
 
-        user.execute('SELECT character_id, name, img_file, media, path FROM characters WHERE path = \'{}\' LIMIT 1'.format(path))
+        user.execute('SELECT character_id, name, img_file, media FROM characters WHERE path = \'{}\' LIMIT 1'.format(path))
         data = list(user)
 
         if len(data) != 1:
