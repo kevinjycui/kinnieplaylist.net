@@ -15,12 +15,12 @@ function AuthRoute(props) {
     useEffect(() => {
       if (searchParams.has('access_token'))
       {
-        localStorage.setItem('musato-access-token', searchParams.get('access_token'))
+        localStorage.setItem('kinnieplaylist-access-token', searchParams.get('access_token'))
         searchParams.delete('access_token');
         setSearchParams(searchParams);
       }
 
-      var localToken = localStorage.getItem('musato-access-token')
+      var localToken = localStorage.getItem('kinnieplaylist-access-token')
 
       setToken(localToken == null ? '' : localToken)
 

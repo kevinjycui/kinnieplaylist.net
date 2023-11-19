@@ -32,7 +32,7 @@ function WebPlayback(props) {
         window.onSpotifyWebPlaybackSDKReady = () => {
     
             const player = new window.Spotify.Player({
-                name: 'Musato Web Player',
+                name: 'Kinnie Playlist Web Player',
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });

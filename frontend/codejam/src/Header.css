@@ -2,4 +2,14 @@
     font-size: x-large;
     font-weight: bold;
     margin: 20px;
+    display: inline-flex;
+}
+
+.Header-spotify {
+    max-width: 130px;
+    max-height: 55px;
+    width: auto;
+    height: auto;
+    margin: 20px;
+    display: inline-flex;
 }

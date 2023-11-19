@@ -24,8 +24,6 @@ function Character() {
   
     }, []);
 
-    console.log(data)
-
     return <>
         {
             code == 404 ? <Error /> : <>
