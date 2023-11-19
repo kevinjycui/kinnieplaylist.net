@@ -8,22 +8,35 @@ sys.path.insert(0, 'data')
 from character import Character, CharacterList
 from song import Song, Playlist
 
+
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
-user_conn = mariadb.connect(
-    host = config['mariadb']['host'],
-    port = config['mariadb']['port'],
-    user = 'user')
+pool = mariadb.ConnectionPool(
+    host=config['mariadb']['host'],
+    port=config['mariadb']['port'],
+    user="user",
+    pool_name="web-app",
+    pool_size=20)
 
-user = user_conn.cursor()
-user.execute('USE kinnieplaylist')
+def connect():
+    try:
+        user_conn = pool.get_connection()
+    except mariadb.PoolError as e:
+        user_conn = mariadb.connect(
+            host = config['mariadb']['host'],
+            port = config['mariadb']['port'],
+            user = 'user')
+    user = user_conn.cursor()
+    user.execute('USE kinnieplaylist')
+    return user, user_conn
 
 def san(sql):
     return re.sub(r'\W+', '', str(sql))
 
 class Database:
     def get_characters(self):
+        user, user_conn = connect()
         user.execute('SELECT * FROM characters')
         data_list = list(user)
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], path=data[4]) for data in data_list]
@@ -31,6 +44,7 @@ class Database:
 
     def get_character_by_path(self, path):
         path = san(path)
+        user, user_conn = connect()
 
         user.execute('SELECT character_id, name, img_file, media FROM characters WHERE path = \'{}\' LIMIT 1'.format(path))
         data = list(user)
@@ -44,6 +58,7 @@ class Database:
         
     def get_character_songs_by_path(self, path, user_id = ''):
         path = san(path)
+        user, user_conn = connect()
 
         user.execute('SELECT song_id FROM character_song_connections WHERE character_path = \'{}\''.format(path)
             + (' AND user_id = \'{}\''.format(user_id) if user_id != '' else ''))
@@ -65,6 +80,7 @@ class Database:
         return playlist
 
     def get_song(self, song_id):
+        user, user_conn = connect()
         song_id = san(song_id)
 
         user.execute('SELECT title, img_file, artists FROM songs WHERE song_id = \'{}\''.format(song_id))
@@ -79,6 +95,7 @@ class Database:
 
     def post_song(self, song_id, song_data):
         song_id = san(song_id)
+        user, user_conn = connect()
 
         user.execute('''INSERT INTO songs SET
                     song_id = '{}',
@@ -97,6 +114,7 @@ class Database:
         character_path = san(character_path)
         song_id = san(song_id)
         user_id = san(user_id)
+        user, user_conn = connect()
         
         user.execute("SELECT * FROM character_song_connections WHERE character_path = '{}' AND song_id = '{}' AND user_id = '{}' LIMIT 1".format(
             character_path, song_id, user_id
