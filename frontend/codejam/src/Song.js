@@ -5,7 +5,7 @@ import "./Song.css"
 function Song(props) {
     return (
         <div className="Song" id={props.data.song_id}>
-            <img className="Song-image" src={props.data.img_file}
+            <img className="Song-image" src={props.data.img_file} alt={props.data.title}
                 onError={(image) => {
                     image.target.onerror = null;
                     image.target.src='default.png';

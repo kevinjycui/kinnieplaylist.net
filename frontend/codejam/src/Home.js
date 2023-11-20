@@ -13,6 +13,10 @@ function Home() {
     async function getCharacters() {
       const response = await fetch('/api/characters');
       const json = await response.json();
+      if (response.status != 200)
+      {
+          console.log(json.message);
+      }
       setCharacters([...json.characters]);
     }
 

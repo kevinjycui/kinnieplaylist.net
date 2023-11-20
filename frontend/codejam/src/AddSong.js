@@ -13,6 +13,10 @@ function AddSong(props) {
             }
         );
         const spotify_json = await spotify_response.json();
+        if (spotify_response.status != 200)
+        {
+            console.log(spotify_json.message);
+        }
         var songId = spotify_json.item.id;
 
         const response = await fetch('/api/playlist/mine/' + props.character, {
@@ -27,6 +31,10 @@ function AddSong(props) {
             }
         );
         const json = await response.json();
+        if (response.status != 200)
+        {
+            console.log(json.message);
+        }
 
         if (json.duplicate)
         {

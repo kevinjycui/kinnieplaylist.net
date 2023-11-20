@@ -8,16 +8,16 @@ function CharacterButton(props) {
 
     function handleClick()
     {
-        navigate('/character/' + props.data.path);
+        navigate('/character/' + props.data.character_id);
     }
 
     return (
-        <div className='CharacterButton-container' id={props.data.character_id.toString()}>
+        <div className='CharacterButton-container' id={'CharacterButton-character-' + props.data.character_id.toString()}>
             <button
                 className='CharacterButton-button'
                 onClick={handleClick}
             >
-                <img className='CharacterButton-image' src={'media/' + props.data.img_file}
+                <img className='CharacterButton-image' src={'media/' + props.data.img_file} alt={props.data.name}
                     onError={(image) => {
                         image.target.onerror = null;
                         image.target.src='default.png';

@@ -78,12 +78,13 @@ function WebPlayback() {
             <div id={current_track.id} className="container WebPlayback-player">
                 <div className="main-wrapper">
                     <img src={current_track.album.images[0].url} 
-                        className="now-playing__cover WebPlayback-cover" 
+                        className="now-playing__cover WebPlayback-cover"
+                        alt={current_track.name} 
                         onError={(image) => {
                             image.target.onerror = null;
                             image.target.src='default.png';
                         }}
-                        alt="" />
+                        />
 
                     <div className="now-playing__side WebPlayback-side">
                         <div className="now-playing__name WebPlayback-title">{
@@ -107,7 +108,7 @@ function WebPlayback() {
                         ⏭
                         </button>
                     </div>
-                    <img className="WebPlayback-spotify" src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
+                    <img className="WebPlayback-spotify" alt='Spotify logo' src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
                 </div>
             </div>
         </>

@@ -11,7 +11,11 @@ function Playlist() {
       async function getPlaylist()
       {
           const response = await fetch('/api/playlist/global/' + character);
-          const json = await response.json();        
+          const json = await response.json();   
+          if (response.status != 200)
+          {
+              console.log(json.message);
+          }    
           setPlaylist(json.playlist);
       }
 

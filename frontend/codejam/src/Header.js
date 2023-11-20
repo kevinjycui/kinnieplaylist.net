@@ -13,7 +13,7 @@ function Header() {
 
     return (
         <header>
-            <button className="Header-button" onClick={handleClick}><img className="logo" src="kinnieplaylistlogo.svg"/></button>
+            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src="kinnieplaylistlogo.svg"/></button>
         </header>
     );
 }

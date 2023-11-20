@@ -1,11 +1,14 @@
 import json
 
 class Song:
-    def __init__(self, song_id, title, img_file, artists):
+    def __init__(self, song_id, title, img_file, artists, genres, explicit, duration):
         self.song_id = song_id
         self.title = title
         self.img_file = img_file
-        self.artists = artists.split(', ')
+        self.artists = artists
+        self.genres = genres
+        self.explicit = explicit
+        self.duration = duration
 
     def to_json(self):
         return json.dumps(self.__dict__)

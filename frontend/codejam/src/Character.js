@@ -17,6 +17,10 @@ function Character() {
       async function getData() {
         const response = await fetch('/api/characters/' + character);
         const json = await response.json();
+        if (response.status != 200)
+        {
+            console.log(json.message);
+        }
 
         setData(json);
         setCode(response.status)
@@ -29,7 +33,7 @@ function Character() {
     return <>
         {
             code == 404 ? <Error /> : <>
-            <img className='Character-image' src={'../media/' + data.img_file}
+            <img className='Character-image' src={'../media/' + data.img_file} alt={data.name}
                 onError={(image) => {
                     image.target.onerror = null;
                     image.target.src='../default.png';

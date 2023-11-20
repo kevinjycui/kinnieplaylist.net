@@ -104,7 +104,12 @@ class SpotifyManager:
 
         song_data = res.json()
 
-        return Song(song_id, song_data['name'], song_data['album']['images'][0]['url'], 
-                    ', '.join(list(map(lambda artist : artist['name'], song_data['artists']))))
+        return Song(song_id, 
+                    title = song_data['name'], 
+                    img_file = song_data['album']['images'][0]['url'], 
+                    artists = ', '.join(list(map(lambda artist : artist['name'], song_data['artists']))),
+                    genres = ', '.join(list(map(lambda artist : ', '.join(artist.get('genres', [])), song_data['artists']))),
+                    explicit = 1 if song_data.get('explicit', False) else 0,
+                    duration = song_data.get('duration_ms', 0))
 
 spotifyManager = SpotifyManager()

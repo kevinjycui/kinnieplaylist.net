@@ -1,8 +1,10 @@
+import sys
+
 import mariadb
 import yaml
 
 if __name__ != '__main__':
-    exit()
+    sys.exit()
 
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
@@ -13,95 +15,91 @@ conn = mariadb.connect(
     user = config['mariadb']['user'],
     password = config['mariadb']['password'])
 
-cur = conn.cursor()
+def sql_run_logged(cmd):
+    print(cmd, end=';\n')
+    cur = conn.cursor()
+    cur.execute(cmd)
 
-cur.execute('CREATE OR REPLACE DATABASE kinnieplaylist')
+sql_run_logged('CREATE OR REPLACE DATABASE kinnie')
 
-cur.execute('USE kinnieplaylist')
+sql_run_logged('USE kinnie')
 
-cur.execute('''CREATE OR REPLACE TABLE characters 
-                    (character_id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+sql_run_logged('''CREATE OR REPLACE TABLE characters 
+                    (character_id VARCHAR(255) NOT NULL,
                     name VARCHAR(255),
                     img_file VARCHAR(255),
                     media VARCHAR(255),
-                    path VARCHAR(255),
 
-                    UNIQUE KEY(path),
                     PRIMARY KEY(character_id))''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 1,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Shinji_Ikari\',
                     name = \'Shinji Ikari\',
                     img_file = \'ikari-shinji.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Shinji_Ikari\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 2,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Kaworu_Nagisa\',
                     name = \'Kaworu Nagisa\',
                     img_file = \'nagisa-kaworu.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Kaworu_Nagisa\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 3,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Rei_Ayanami\',
                     name = \'Rei Ayanami\',
                     img_file = \'ayanami-rei.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Rei_Ayanami\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 4,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Asuka_Langley\',
                     name = \'Asuka Langley\',
                     img_file = \'asuka-langley.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Asuka_Langley\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 5,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Misato_Katsuragi\',
                     name = \'Misato Katsuragi\',
                     img_file = \'katsuragi-misato.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Misato_Katsuragi\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 6,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Ritsuko_Akagi\',
                     name = \'Ritsuko Akagi\',
                     img_file = \'akagi-ritsuko.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Ritsuko_Akagi\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 7,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Maya_Ibuki\',
                     name = \'Maya Ibuki\',
                     img_file = \'ibuki-maya.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Maya_Ibuki\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''INSERT INTO characters SET
-                    character_id = 8,
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Gendo_Ikari\',
                     name = \'Gendo Ikari\',
                     img_file = \'ikari-gendo.jfif\',
-                    media = \'Neon Genesis Evangelion\',
-                    path = \'Gendo_Ikari\'''')
+                    media = \'Neon Genesis Evangelion\'''')
 
-cur.execute('''CREATE OR REPLACE TABLE songs 
+sql_run_logged('''CREATE OR REPLACE TABLE songs 
                     (song_id VARCHAR(255),
                     title VARCHAR(255), 
                     img_file VARCHAR(255), 
                     artists VARCHAR(255),
+                    genres VARCHAR(255),
+                    explicit BOOL,
+                    duration INT,
 
                     PRIMARY KEY(song_id))''')
 
-cur.execute('''CREATE OR REPLACE TABLE character_song_connections 
+sql_run_logged('''CREATE OR REPLACE TABLE character_song_connections 
                     (song_id VARCHAR(255),
-                    character_path VARCHAR(255),
+                    character_id VARCHAR(255),
                     user_id VARCHAR(255))''')
 
-cur.execute('CREATE OR REPLACE USER user')
-cur.execute('GRANT SELECT ON kinnieplaylist.* TO user')
-cur.execute('GRANT INSERT ON kinnieplaylist.songs TO user')
-cur.execute('GRANT INSERT ON kinnieplaylist.character_song_connections TO user')
-cur.execute('GRANT DELETE ON kinnieplaylist.character_song_connections TO user')
+sql_run_logged('CREATE OR REPLACE USER user')
+sql_run_logged('GRANT SELECT ON kinnie.* TO user')
+sql_run_logged('GRANT INSERT ON kinnie.songs TO user')
+sql_run_logged('GRANT INSERT ON kinnie.character_song_connections TO user')
+sql_run_logged('GRANT DELETE ON kinnie.character_song_connections TO user')
 
 conn.commit()
