@@ -34,15 +34,24 @@
     text-overflow: ellipsis;
 }
 
+.WebPlayback-controls {
+    position: absolute;
+}
+
 .WebPlayback-button {
-    margin: 2px;
-    size: 10px;
     cursor: pointer;
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	outline: inherit;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
+    color: white;
+    font-size: 20pt;
+}
+
+.WebPlayback-button-icon {
+    width: 15px;
+    margin: 6px;
     color: white;
     font-size: 20pt;
 }

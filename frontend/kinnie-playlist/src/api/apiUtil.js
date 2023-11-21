@@ -1,5 +1,4 @@
-export async function apiJson(path, method='GET', body=null)
-{
+export async function apiJson(path, method = 'GET', body = null) {
     var payload = {
         headers: {
             "Content-Type": "application/json"
@@ -7,15 +6,13 @@ export async function apiJson(path, method='GET', body=null)
         method: method
     }
 
-    if (body !== null)
-    {
+    if (body !== null) {
         payload.body = body;
     }
 
     const response = await fetch(path, payload);
     const json = await response.json();
-    if (response.status !== 200)
-    {
+    if (response.status !== 200) {
         console.log(json.message);
         return {
             "status": response.status
@@ -28,12 +25,10 @@ export async function apiJson(path, method='GET', body=null)
     };
 }
 
-export async function spotifyRefreshToken(setToken, refreshToken)
-{
+export async function spotifyRefreshToken(setToken, refreshToken) {
     const refresh_response = await fetch('/auth/refresh?refresh_token=' + refreshToken);
     const refresh_json = await refresh_response.json();
-    if (refresh_response.status !== 200)
-    {
+    if (refresh_response.status !== 200) {
         console.log(refresh_json.message);
         return {
             "status": refresh_response.status
@@ -50,8 +45,7 @@ export async function spotifyRefreshToken(setToken, refreshToken)
     };
 }
 
-export async function spotifyApiJson(path, token, setToken, refreshToken, method='GET', body=null, refresh_if_failure=true) 
-{
+export async function spotifyApiJson(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = true) {
     var payload = {
         headers: {
             "Authorization": "Bearer " + token,
@@ -60,8 +54,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
         method: method
     }
 
-    if (body !== null)
-    {
+    if (body !== null) {
         payload.body = body;
     }
 
@@ -69,17 +62,14 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
 
     const spotify_json = await spotify_response.json();
 
-    if (spotify_response.status === 400 && refresh_if_failure)
-    {
+    if (spotify_response.status === 400 && refresh_if_failure) {
         const refreshData = await spotifyRefreshToken(setToken, refreshToken)
-        if (refreshData.status !== 200)
-        {
+        if (refreshData.status !== 200) {
             return refreshData;
         }
-        return spotifyApiJson(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure=false);
+        return spotifyApiJson(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
-    else if (spotify_response.status !== 200)
-    {
+    else if (spotify_response.status !== 200) {
         console.log(await spotify_response.text());
         return {
             "status": spotify_response.status
@@ -93,8 +83,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
 }
 
 
-export async function spotifyApi(path, token, setToken, refreshToken, method='GET', body=null, refresh_if_failure=true) 
-{
+export async function spotifyApi(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = true) {
     var payload = {
         headers: {
             "Authorization": "Bearer " + token,
@@ -102,24 +91,20 @@ export async function spotifyApi(path, token, setToken, refreshToken, method='GE
         method: method
     }
 
-    if (body !== null)
-    {
+    if (body !== null) {
         payload.body = body;
     }
 
     const spotify_response = await fetch('https://api.spotify.com/v1/' + path, payload);
 
-    if (spotify_response.status === 400 && refresh_if_failure)
-    {
+    if (spotify_response.status === 400 && refresh_if_failure) {
         const refreshData = await spotifyRefreshToken(refreshToken, setToken)
-        if (refreshData.status !== 200)
-        {
+        if (refreshData.status !== 200) {
             return refreshData;
         }
-        return spotifyApi(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure=false);
+        return spotifyApi(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
-    else if (spotify_response.status !== 200)
-    {
+    else if (spotify_response.status !== 200) {
         console.log(await spotify_response.text());
         return {
             "status": spotify_response.status

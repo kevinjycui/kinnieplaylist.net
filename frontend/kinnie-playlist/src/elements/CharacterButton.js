@@ -6,8 +6,7 @@ import './CharacterButton.css';
 function CharacterButton({ data }) {
     const navigate = useNavigate();
 
-    function handleClick()
-    {
+    function handleClick() {
         navigate('/character/' + data.character_id);
     }
 
@@ -20,14 +19,14 @@ function CharacterButton({ data }) {
                 <img className='CharacterButton-image' src={'media/' + data.img_file} alt={data.name}
                     onError={(image) => {
                         image.target.onerror = null;
-                        image.target.src='default.png';
+                        image.target.src = '/default.png';
                     }}
                 />
                 <div className='CharacterButton-name'>{data.name}</div>
                 <div className='CharacterButton-media'>{data.media}</div>
             </button>
         </div>
-        );
+    );
 }
 
 export default CharacterButton

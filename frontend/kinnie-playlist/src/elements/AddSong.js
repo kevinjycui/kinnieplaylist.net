@@ -4,28 +4,25 @@ import { spotifyApiJson, apiJson } from '../api/apiUtil'
 import { RefreshTokenContext, TokenContext } from '../AuthRoute'
 
 function AddSong({ character }) {
-    const [ token, setToken ] = useContext(TokenContext);
+    const [token, setToken] = useContext(TokenContext);
     const refreshToken = useContext(RefreshTokenContext);
 
     async function addCurrentSong() {
         const currentlyPlaying = await spotifyApiJson('me/player/currently-playing', token, setToken, refreshToken);
-        if (currentlyPlaying.status != 200)
-        {
+        if (currentlyPlaying.status != 200) {
             return;
         }
         var songId = currentlyPlaying.response.item.id;
 
         const addSong = await apiJson('/api/playlist/mine/' + character, 'POST', JSON.stringify({
-                "access_token": token,
-                "song_id": songId
+            "access_token": token,
+            "song_id": songId
         }))
-        if (addSong.status != 200)
-        {
+        if (addSong.status != 200) {
             return;
         }
 
-        if (addSong.response.duplicate)
-        {
+        if (addSong.response.duplicate) {
             alert("You've already added this song");
         }
     }
