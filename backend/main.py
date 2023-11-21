@@ -26,8 +26,8 @@ def login_spotify():
 @app.route("/auth/callback", methods=["GET"])
 def callback_spotify():
     code = request.args.get('code')
-    token = spotifyManager.generate_access_token(code)
-    return redirect(client_url + '?access_token=' + token)
+    token, refresh_token = spotifyManager.generate_access_token(code)
+    return redirect(client_url + '?access_token=' + token + '&refresh_token=' + refresh_token)
 
 @app.route("/api/ping", methods=["GET"])
 def ping():

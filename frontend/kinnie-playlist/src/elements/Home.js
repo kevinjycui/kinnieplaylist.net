@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CharacterButton from './CharacterButton'
 import SearchBar from './SearchBar'
 import './Home.css';
+import { apiJson } from '../api/apiUtil';
 
 function Home() {
 
@@ -11,13 +12,11 @@ function Home() {
   useEffect(() => {
 
     async function getCharacters() {
-      const response = await fetch('/api/characters');
-      const json = await response.json();
-      if (response.status != 200)
+      const charactersData = await apiJson('/api/characters');
+      if (charactersData.status == 200)
       {
-          console.log(json.message);
+        setCharacters([...charactersData.response.characters]);
       }
-      setCharacters([...json.characters]);
     }
 
     getCharacters();
@@ -48,7 +47,7 @@ function Home() {
         <>
       <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
       <div className='Home-container'>
-      {filteredCharacters.sort((a, b) => {
+      {filteredCharacters.length == 0 ? <div className="empty">Nobody here... Try changing your search?</div> : filteredCharacters.sort((a, b) => {
         var nameA = JSON.parse(a).name.toUpperCase();
         var nameB = JSON.parse(b).name.toUpperCase();
         return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0

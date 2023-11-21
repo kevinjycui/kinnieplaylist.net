@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { TokenContext } from './AuthRoute'
+import { RefreshTokenContext, TokenContext } from '../AuthRoute'
 
 import "./WebPlayback.css"
+import { spotifyApi, spotifyRefreshToken } from '../api/apiUtil';
 
 const track = {
-    name: "Play a track on Device: Kinnie Playlist Web Playback",
+    name: "Connect to Spotify and play on device \"Kinnie Playlist Web Playback\"",
     album: {
         images: [
             { url: "" }
@@ -23,15 +24,28 @@ function WebPlayback() {
     const [is_active, setActive] = useState(false);
     const [current_track, setTrack] = useState(track);
     const [player, setPlayer] = useState(undefined);
-    const token = useContext(TokenContext);
+    const [token, setToken] = useContext(TokenContext);
+    const refreshToken = useContext(RefreshTokenContext);
 
     useEffect(() => {
+        spotifyRefreshToken(refreshToken, setToken);
 
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
     
         document.body.appendChild(script);
+
+        async function switchDevice(device_id) {
+            const transferPlayback = await spotifyApi('me/player', token, setToken, refreshToken, 'PUT', JSON.stringify({
+                "device_ids": [ device_id ],
+                "play": true
+            }))
+            if (transferPlayback.status != 200)
+            {
+                console.log('Failed to auto transfer playback');
+            }
+        }
     
         window.onSpotifyWebPlaybackSDKReady = () => {
     
@@ -45,6 +59,8 @@ function WebPlayback() {
     
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+
+                switchDevice(device_id);
             });
     
             player.addListener('not_ready', ({ device_id }) => {
@@ -87,28 +103,33 @@ function WebPlayback() {
                         />
 
                     <div className="now-playing__side WebPlayback-side">
-                        <div className="now-playing__name WebPlayback-title">{
+                        <div className="now-playing__name WebPlayback-title"
+                                title={"Now Playing: " + current_track.name}
+                        >Now Playing: <b>{
                                     current_track.name
-                                    }</div>
+                                    }</b></div>
 
-                        <div className="now-playing__artist WebPlayback-artists">{
+                        <div className="now-playing__artist WebPlayback-artists"
+                                title={current_track.artists.map(artist => artist.name).join(', ')}
+                        >{
                                     current_track.artists.map(artist => artist.name).join(', ')
                                     }</div>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.previousTrack() }} >
-
-                        ⏮
+                        ⏮&#xFE0E;
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.togglePlay() }} >
-                            { is_paused ? "⏵" : "⏸" }
+                            { is_paused ? <>⏵&#xFE0E;</> : <>⏸&#xFE0E;</> }
                         </button>
 
                         <button className="btn-spotify WebPlayback-button" onClick={() => { player.nextTrack() }} >
-                        ⏭
+                        ⏭&#xFE0E;
                         </button>
                     </div>
-                    <img className="WebPlayback-spotify" alt='Spotify logo' src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
+                    <div className="WebPlayback-spotify">
+                        Powered by <img className="WebPlayback-spotifyLogo" alt='Spotify logo' src='spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' />
+                    </div>
                 </div>
             </div>
         </>

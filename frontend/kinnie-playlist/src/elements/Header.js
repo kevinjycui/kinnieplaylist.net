@@ -12,7 +12,7 @@ function Header() {
     }
 
     return (
-        <header>
+        <header className="Header">
             <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src="kinnieplaylistlogo.svg"/></button>
         </header>
     );

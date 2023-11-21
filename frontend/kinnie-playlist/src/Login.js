@@ -5,7 +5,7 @@ import './Login.css'
 function Login() {
     return (
         <div className="App">
-            <header className="App-header">
+            <header className="empty">
                 <a className="btn-spotify Login-button" href="/auth/login" >
                     Login with Spotify 
                 </a>

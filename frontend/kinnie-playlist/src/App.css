@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.empty {
+  text-align: center;
+  margin: 20px;
+}
+
+.buffer{
+  height:200px
+}

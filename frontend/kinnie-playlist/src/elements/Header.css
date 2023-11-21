@@ -1,3 +1,7 @@
+.Header {
+    background-color: #282c34;
+}
+
 .Header-button {
 	background: none;
 	color: inherit;
@@ -15,10 +19,10 @@
 }
 
 .logo {
-    max-width: 390px;
-    max-height: 165px;
+    max-width: 290px;
+    max-height: 65px;
     width: auto;
     height: auto;
-    margin: 0 0 0 20%;
+    margin: 5% 5% 5% 20%;
     display: inline-flex;
   }

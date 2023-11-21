@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Header from './Header'
+import Header from './elements/Header'
 import AuthRoute from './AuthRoute'
-import Home from './Home'
-import Character from './Character'
+import Home from './elements/Home'
+import Character from './elements/Character'
 import Error from './404'
 
 import './App.css';

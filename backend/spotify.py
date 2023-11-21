@@ -21,7 +21,6 @@ class SpotifyManager:
     perms = [
         'streaming',
         'user-read-currently-playing',
-        'user-read-email',
         'user-read-private',
         'user-library-read',
         'playlist-read-private'
@@ -35,8 +34,6 @@ class SpotifyManager:
 
         self.client_id = config['spotify']['client_id']
         self.client_secret = config['spotify']['client_secret']
-
-        self.refresh_tokens = {}
 
     def server_at(self, path):
         return self.server_url + path
@@ -71,13 +68,7 @@ class SpotifyManager:
 
         res = res.json()
 
-        token = res['access_token']
-
-        user_data = self.get_user_data(token)
-
-        self.refresh_tokens[user_data['id']] = res['refresh_token']
-
-        return token
+        return res['access_token'], res['refresh_token']
 
     def get_user_data(self, token):
         headers = {

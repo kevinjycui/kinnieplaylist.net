@@ -1,4 +1,4 @@
-app: kinnieplaylist
+app: kinnie
 
 mariadb:
     host: localhost

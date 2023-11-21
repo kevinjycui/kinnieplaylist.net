@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import Error from './404'
+import Error from '../404'
 import AddSong from './AddSong'
 import Playlist from './Playlist';
 
 import './Character.css'
+import { apiJson } from '../api/apiUtil';
 
 function Character() {
     const { character } = useParams();
@@ -15,20 +16,19 @@ function Character() {
     useEffect(() => {
   
       async function getData() {
-        const response = await fetch('/api/characters/' + character);
-        const json = await response.json();
-        if (response.status != 200)
+        const characterData = await apiJson('/api/characters/' + character);
+        if (characterData.status == 200)
         {
-            console.log(json.message);
+            setData(characterData.response);
         }
-
-        setData(json);
-        setCode(response.status)
+        setCode(characterData.status);
       }
 
       getData();
   
     }, []);
+
+    console.log(data)
 
     return <>
         {

@@ -3,6 +3,9 @@ import { useParams } from 'react-router';
 
 import Song from './Song';
 
+import './Playlist.css'
+import { apiJson } from '../api/apiUtil';
+
 function Playlist() {
     const { character } = useParams();
     const [playlist, setPlaylist] = useState([]);
@@ -10,13 +13,11 @@ function Playlist() {
     useEffect(() => {
       async function getPlaylist()
       {
-          const response = await fetch('/api/playlist/global/' + character);
-          const json = await response.json();   
-          if (response.status != 200)
+          const playlistData = await apiJson('/api/playlist/global/' + character);
+          if (playlistData.status == 200)
           {
-              console.log(json.message);
+            setPlaylist(playlistData.response.playlist.reverse());
           }    
-          setPlaylist(json.playlist);
       }
 
       getPlaylist();
@@ -25,9 +26,9 @@ function Playlist() {
 
     return <>
         {
-            <div>
+            <div className="Playlist">
             {
-            playlist.map(
+            playlist.sort((data1, data2) => data1.number_of_users - data2.number_of_users).map(
                 (data) => <Song data={JSON.parse(data.song)}/>
             )
             }
