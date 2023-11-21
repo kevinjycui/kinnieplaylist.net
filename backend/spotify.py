@@ -52,6 +52,23 @@ class SpotifyManager:
 
         return 'https://accounts.spotify.com/authorize?' + params_to_string(params)
 
+    def refresh_access_token(self, refresh_token):
+        data = {
+            'refresh_token': refresh_token,
+            'grant_type': 'refresh_token'
+        }
+        auth = (self.client_id, self.client_secret)
+        headers = {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+        }
+
+        res = requests.post('https://accounts.spotify.com/api/token', data=data, auth=auth, headers=headers)
+        res.raise_for_status()
+
+        res = res.json()
+
+        return res['access_token']
+
     def generate_access_token(self, code):
         data = {
             'code': code,

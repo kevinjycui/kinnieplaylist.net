@@ -5,6 +5,7 @@ import WebPlayback from './elements/WebPlayback'
 import Login from './Login'
 
 import './App.css';
+import { spotifyRefreshToken } from './api/apiUtil';
 
 export const TokenContext = createContext(null);
 export const RefreshTokenContext = createContext(null);

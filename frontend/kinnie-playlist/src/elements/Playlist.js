@@ -14,7 +14,7 @@ function Playlist() {
       async function getPlaylist()
       {
           const playlistData = await apiJson('/api/playlist/global/' + character);
-          if (playlistData.status == 200)
+          if (playlistData.status === 200)
           {
             setPlaylist(playlistData.response.playlist.reverse());
           }    

@@ -23,6 +23,17 @@ spotifyManager = SpotifyManager()
 def login_spotify():
     return redirect(spotifyManager.generate_auth_code())
 
+@app.route("/auth/refresh", methods=["GET"])
+def refresh_spotify():
+    refresh_token = request.args.get('refresh_token')
+    try:
+        token = spotifyManager.refresh_access_token(refresh_token)
+        return json.dumps({
+            'access_token': token
+        })
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/auth/callback", methods=["GET"])
 def callback_spotify():
     code = request.args.get('code')
@@ -38,7 +49,7 @@ def get_characters():
     try:
         return database.get_characters().to_json()
     except Exception as e:
-        return Response(json.dumps({'message': str(e)}), status=500)
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 @app.route("/api/characters/<character_id>", methods=["GET"])
 def get_character(character_id):
@@ -47,7 +58,7 @@ def get_character(character_id):
     except NotFoundError as e:
         return Response(json.dumps({'message': str(e)}), status=404)
     except Exception as e:
-        return Response(json.dumps({'message': str(e)}), status=500)
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 @app.route("/api/playlist/global/<character_id>", methods=["GET"])
 def get_character_global_playlist(character_id):
@@ -56,7 +67,7 @@ def get_character_global_playlist(character_id):
     except NotFoundError as e:
         return Response(json.dumps({'message': str(e)}), status=404)
     except Exception as e:
-        return Response(json.dumps({'message': str(e)}), status=500)
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
 def character_my_playlist(character_id):
@@ -87,7 +98,7 @@ def character_my_playlist(character_id):
         except NotFoundError as e:
             return Response(json.dumps({'message': str(e)}), status=404)
         except Exception as e:
-            return Response(json.dumps({'message': str(e)}), status=500)
+            return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 
 if __name__ == '__main__':

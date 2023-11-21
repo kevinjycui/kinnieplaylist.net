@@ -28,8 +28,6 @@ function WebPlayback() {
     const refreshToken = useContext(RefreshTokenContext);
 
     useEffect(() => {
-        spotifyRefreshToken(refreshToken, setToken);
-
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -43,7 +41,7 @@ function WebPlayback() {
             }))
             if (transferPlayback.status != 200)
             {
-                console.log('Failed to auto transfer playback');
+                console.log('Failed to auto transfer playback.');
             }
         }
     
