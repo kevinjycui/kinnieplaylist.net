@@ -6,9 +6,8 @@ const SearchBar = ({ characters, setFilteredCharacters }) => {
 
   useEffect(() => {
     const filtered = characters.filter(character => {
-      var characterName = JSON.parse(character).name.toUpperCase();
-      var mediaName = JSON.parse(character).media.toUpperCase();
-      return characterName.includes(searchTerm.toUpperCase()) || mediaName.includes(searchTerm.toUpperCase());
+      const characterInfo = (character.name + character.media).toUpperCase();
+      return searchTerm.toUpperCase().split(" ").every((keyword) => characterInfo.includes(keyword));
     });
     setFilteredCharacters(filtered);
   }, [searchTerm, characters, setFilteredCharacters]);

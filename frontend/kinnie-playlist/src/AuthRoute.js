@@ -10,10 +10,30 @@ import { spotifyRefreshToken } from './api/apiUtil';
 export const TokenContext = createContext(null);
 export const RefreshTokenContext = createContext(null);
 
+const track = {
+  name: "Connect to Spotify and play on device \"Kinnie Playlist Web Playback\"",
+  album: {
+    images: [
+      { url: "" }
+    ]
+  },
+  artists: [
+    { name: "" }
+  ],
+  id: ""
+}
+
+export const TrackContext = createContext(track);
+export const PlayerContext = createContext(null);
+
 function AuthRoute({ content }) {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [token, setToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
+
+  const [current_track, setTrack] = useState(track);
+  const [player, setPlayer] = useState(undefined);
 
   useEffect(() => {
     if (searchParams.has('refresh_token')) {
@@ -38,8 +58,12 @@ function AuthRoute({ content }) {
       {(refreshToken === '') ? <Login /> : <div>
         <RefreshTokenContext.Provider value={refreshToken}>
           <TokenContext.Provider value={[token, setToken]}>
-            {content}
-            <WebPlayback />
+            <PlayerContext.Provider value={[player, setPlayer]}>
+              <TrackContext.Provider value={[current_track, setTrack]}>
+                {content}
+                <WebPlayback />
+              </TrackContext.Provider>
+            </PlayerContext.Provider>
           </TokenContext.Provider>
         </RefreshTokenContext.Provider>
       </div>}

@@ -31,6 +31,7 @@ function Character() {
         {
             code === 404 ? <Error /> : <>
                 <img className='Character-image' src={'/media/' + data.img_file} alt={data.name}
+                    title={data.name + " from " + data.media}
                     onError={(image) => {
                         image.target.onerror = null;
                         image.target.src = '/default.png';

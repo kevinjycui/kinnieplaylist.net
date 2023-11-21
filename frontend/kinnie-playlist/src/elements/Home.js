@@ -15,7 +15,7 @@ function Home() {
     async function getCharacters() {
       const charactersData = await apiJson('/api/characters');
       if (charactersData.status === 200) {
-        setCharacters([...charactersData.response.characters]);
+        setCharacters([...charactersData.response.characters.map((data) => JSON.parse(data))]);
       }
     }
 
@@ -23,38 +23,20 @@ function Home() {
 
   }, []);
 
-  var display = <>test</>;
-  if (filteredCharacters.length === 0) {
-    display = <> {
-      characters.sort((a, b) => {
-        var nameA = JSON.parse(a).name.toUpperCase();
-        var nameB = JSON.parse(b).name.toUpperCase();
-        return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
-      }).map(character => (
-        <div className='Home-characterModule'>
-          <CharacterButton
-            key={JSON.parse(character).character_id}
-            data={JSON.parse(character)}
-          />
-        </div>
-      ))
-    }</>
-  }
-
   return (
     <>
       <>
         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
         <div className='Home-container'>
           {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> : filteredCharacters.sort((a, b) => {
-            var nameA = JSON.parse(a).name.toUpperCase();
-            var nameB = JSON.parse(b).name.toUpperCase();
+            var nameA = a.name.toUpperCase();
+            var nameB = b.name.toUpperCase();
             return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
           }).map(character => (
-            <div className='Home-characterModule' key={JSON.parse(character).character_id}>
+            <div className='Home-characterModule' key={character.character_id}>
               <CharacterButton
-                key={JSON.parse(character).character_id}
-                data={JSON.parse(character)}
+                key={character.character_id}
+                data={character}
               />
             </div>
           ))}

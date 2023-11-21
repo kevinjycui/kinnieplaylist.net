@@ -11,7 +11,9 @@ function CharacterButton({ data }) {
     }
 
     return (
-        <div className='CharacterButton-container' id={'CharacterButton-character-' + data.character_id.toString()}>
+        <div className='CharacterButton-container' id={'CharacterButton-character-' + data.character_id.toString()}
+            title={data.name + " from " + data.media}
+        >
             <button
                 className='CharacterButton-button'
                 onClick={handleClick}
