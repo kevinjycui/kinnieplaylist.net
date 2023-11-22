@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
+import logo from "../logo.svg";
+
 import "./Header.css"
 
 function Header() {
@@ -12,7 +14,7 @@ function Header() {
 
     return (
         <header className="Header">
-            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src="/kinnieplaylistlogo.svg" /></button>
+            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo} /></button>
         </header>
     );
 }

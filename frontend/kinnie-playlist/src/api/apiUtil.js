@@ -12,7 +12,7 @@ export async function apiJson(path, method = 'GET', body = null) {
 
     const response = await fetch(path, payload);
     const json = await response.json();
-    if (response.status !== 200) {
+    if (response.status >= 400) {
         console.log(json.message);
         return {
             "status": response.status
@@ -28,7 +28,7 @@ export async function apiJson(path, method = 'GET', body = null) {
 export async function spotifyRefreshToken(setToken, refreshToken) {
     const refresh_response = await fetch('/auth/refresh?refresh_token=' + refreshToken);
     const refresh_json = await refresh_response.json();
-    if (refresh_response.status !== 200) {
+    if (refresh_response.status >= 400) {
         console.log(refresh_json.message);
         return {
             "status": refresh_response.status
@@ -40,7 +40,7 @@ export async function spotifyRefreshToken(setToken, refreshToken) {
     setToken(refresh_json.access_token);
 
     return {
-        "status": 200,
+        "status": refresh_response.status,
         "token": refresh_json.access_token
     };
 }
@@ -64,12 +64,12 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
 
     if (spotify_response.status === 400 && refresh_if_failure) {
         const refreshData = await spotifyRefreshToken(setToken, refreshToken)
-        if (refreshData.status !== 200) {
+        if (refreshData.status >= 400) {
             return refreshData;
         }
         return spotifyApiJson(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
-    else if (spotify_response.status !== 200) {
+    else if (spotify_response.status >= 400) {
         console.log(await spotify_response.text());
         return {
             "status": spotify_response.status
@@ -77,7 +77,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
     }
 
     return {
-        "status": 200,
+        "status": spotify_response.status,
         "response": spotify_json
     };
 }
@@ -99,12 +99,12 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
 
     if (spotify_response.status === 400 && refresh_if_failure) {
         const refreshData = await spotifyRefreshToken(refreshToken, setToken)
-        if (refreshData.status !== 200) {
+        if (refreshData.status >= 400) {
             return refreshData;
         }
         return spotifyApi(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
-    else if (spotify_response.status !== 200) {
+    else if (spotify_response.status >= 400) {
         console.log(await spotify_response.text());
         return {
             "status": spotify_response.status
@@ -112,7 +112,7 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
     }
 
     return {
-        "status": 200
+        "status": spotify_response.status
     };
 }
 

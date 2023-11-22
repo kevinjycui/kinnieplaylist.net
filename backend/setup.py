@@ -30,30 +30,31 @@ sql_run_logged('''CREATE OR REPLACE TABLE characters
                     img_file VARCHAR(255),
                     media VARCHAR(255),
 
-                    PRIMARY KEY(character_id))''')
+                    PRIMARY KEY(character_id))
+                 CHARACTER SET utf8 COLLATE utf8_unicode_ci''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Shinji_Ikari\',
                     name = \'Shinji Ikari\',
-                    img_file = \'ikari-shinji.jfif\',
+                    img_file = \'https://i.imgur.com/3m1mVBm.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Kaworu_Nagisa\',
                     name = \'Kaworu Nagisa\',
-                    img_file = \'nagisa-kaworu.jfif\',
+                    img_file = \'https://i.imgur.com/0sJd9Tt.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Rei_Ayanami\',
                     name = \'Rei Ayanami\',
-                    img_file = \'ayanami-rei.jfif\',
+                    img_file = \'https://i.imgur.com/EVvuDSU.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Asuka_Langley\',
                     name = \'Asuka Langley\',
-                    img_file = \'asuka-langley.jfif\',
+                    img_file = \'https://i.imgur.com/sZUj5BJ.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
@@ -89,7 +90,8 @@ sql_run_logged('''CREATE OR REPLACE TABLE songs
                     explicit BOOL,
                     duration INT,
 
-                    PRIMARY KEY(song_id))''')
+                    PRIMARY KEY(song_id))
+                 CHARACTER SET utf8 COLLATE utf8_unicode_ci''')
 
 sql_run_logged('''CREATE OR REPLACE TABLE character_song_connections 
                     (song_id VARCHAR(255),

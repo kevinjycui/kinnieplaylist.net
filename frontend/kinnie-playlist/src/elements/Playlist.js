@@ -23,7 +23,7 @@ function Playlist() {
 
         getPlaylist();
 
-    }, []);
+    }, [character]);
 
     return <>
         {
@@ -34,6 +34,7 @@ function Playlist() {
                             key={data.song.song_id}
                             index={index}
                             data={data.song}
+                            number={data.number_of_users}
                         />
                     )
                 }

@@ -5,6 +5,8 @@ import Error from '../404'
 import AddSong from './AddSong'
 import Playlist from './Playlist';
 
+import defaultImage from '../defaultImage.png'
+
 import './Character.css'
 import { apiJson } from '../api/apiUtil';
 
@@ -25,16 +27,16 @@ function Character() {
 
         getData();
 
-    }, []);
+    }, [character]);
 
     return <>
         {
             code === 404 ? <Error /> : <>
-                <img className='Character-image' src={'/media/' + data.img_file} alt={data.name}
+                <img className='Character-image' src={data.img_file} alt={data.name}
                     title={data.name + " from " + data.media}
                     onError={(image) => {
                         image.target.onerror = null;
-                        image.target.src = '/default.png';
+                        image.target.src = defaultImage;
                     }}
                 />
                 <div className='Character-side'>

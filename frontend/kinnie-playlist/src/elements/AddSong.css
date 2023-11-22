@@ -1,0 +1,20 @@
+.AddSong {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+    background: #302c2c;
+    border: none;
+    outline: inherit;
+    padding: 5px 15px 5px 5px;
+    margin: 20px 0 2px 0;
+    border-radius: 5px;
+}
+
+.AddSong-icon {
+    font-size: 36px;
+    margin: 0 5px 0 5px;
+}

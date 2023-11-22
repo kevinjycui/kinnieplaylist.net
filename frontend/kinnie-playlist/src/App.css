@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic');
+
 .App {
   text-align: center;
 }
@@ -6,7 +8,10 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif !important;
 }
 
 .empty {
