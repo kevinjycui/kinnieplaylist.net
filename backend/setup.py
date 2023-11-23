@@ -52,33 +52,39 @@ sql_run_logged('''INSERT INTO characters SET
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Asuka_Langley\',
-                    name = \'Asuka Langley\',
+                    character_id = \'Asuka_Langley_Souryuu\',
+                    name = \'Asuka Langley Souryuu\',
                     img_file = \'https://i.imgur.com/sZUj5BJ.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Misato_Katsuragi\',
                     name = \'Misato Katsuragi\',
-                    img_file = \'katsuragi-misato.jfif\',
+                    img_file = \'https://i.imgur.com/66m0GU3.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Ritsuko_Akagi\',
                     name = \'Ritsuko Akagi\',
-                    img_file = \'akagi-ritsuko.jfif\',
+                    img_file = \'https://i.imgur.com/bv4fbnl.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
                     character_id = \'Maya_Ibuki\',
                     name = \'Maya Ibuki\',
-                    img_file = \'ibuki-maya.jfif\',
+                    img_file = \'https://i.imgur.com/1OQM4qX.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Gendo_Ikari\',
-                    name = \'Gendo Ikari\',
-                    img_file = \'ikari-gendo.jfif\',
+                    character_id = \'Gendou_Ikari\',
+                    name = \'Gendou Ikari\',
+                    img_file = \'https://i.imgur.com/eN9jD8N.jpg\',
+                    media = \'Neon Genesis Evangelion\'''')
+
+sql_run_logged('''INSERT INTO characters SET
+                    character_id = \'Kaji_Ryouji\',
+                    name = \'Kaji Ryouji\',
+                    img_file = \'https://i.imgur.com/PpzU8FX.jpg\',
                     media = \'Neon Genesis Evangelion\'''')
 
 sql_run_logged('''CREATE OR REPLACE TABLE songs 

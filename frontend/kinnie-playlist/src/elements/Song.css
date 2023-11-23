@@ -5,23 +5,23 @@
     margin: 5px 10% 0 10%;
     padding: 5px;
     outline: none;
-    /* background-color: aliceblue;
-    -webkit-transition: background-color 1s;
-    transition: background-color 1s; */
-    /* border-radius: 2pt; */
     display: flex;
-    /* cursor: pointer; */
     color: black;
     text-decoration: none;
 }
 
-/* .Song:hover {
-    background-color: rgba(129, 169, 204, 0.532)
-} */
-
 .Song-info {
     margin: 0 20px 0 0;
     text-align: center;
+}
+
+.Song-vote {
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
 }
 
 .Song-index {
@@ -39,30 +39,8 @@
     margin: 10px 0 0 0;
 }
 
-/* .Song-image {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border: none;
-    margin: 10px;
-} */
-
 .Song-side {
     width: 50%;
     height: 80px;
     margin: 0 0 0 2%;
 }
-
-/* .Song-title {
-    font-weight: bold;
-    font-size: large;
-    text-align: left;
-    border: none;
-    margin: 20px 0 0 0;
-}
-
-.Song-artists {
-    text-align: left;
-    font-size: medium;
-    border: none;
-} */

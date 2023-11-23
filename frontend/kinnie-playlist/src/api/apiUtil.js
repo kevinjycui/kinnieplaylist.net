@@ -35,7 +35,12 @@ export async function spotifyRefreshToken(setToken, refreshToken) {
         };
     }
 
-    localStorage.setItem('kinnie-access-token', refresh_json.access_token);
+    const now = new Date();
+    localStorage.setItem('kinnie-access-token', JSON.stringify(
+        {
+            value: refresh_json.access_token,
+            expiry: now.getTime() + (refresh_json.expires_in ?? 3600) * 1000
+        }))
 
     setToken(refresh_json.access_token);
 
@@ -98,7 +103,7 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
     const spotify_response = await fetch('https://api.spotify.com/v1/' + path, payload);
 
     if (spotify_response.status === 400 && refresh_if_failure) {
-        const refreshData = await spotifyRefreshToken(refreshToken, setToken)
+        const refreshData = await spotifyRefreshToken(setToken, refreshToken);
         if (refreshData.status >= 400) {
             return refreshData;
         }

@@ -36,18 +36,41 @@ function AuthRoute({ content }) {
       localStorage.setItem('kinnie-access-token', JSON.stringify(
         {
           value: searchParams.get('access_token'),
-          expiry: now.getTime() + (searchParams.get('expires_in') ?? 3600)
+          expiry: now.getTime() + (parseInt(searchParams.get('expires_in') ?? '3600') * 1000)
         }))
       searchParams.delete('access_token');
       searchParams.delete('expires_in');
       setSearchParams(searchParams);
     }
 
-    if (localStorage.getItem('kinnie-access-token') === null && refreshToken !== '') {
-      spotifyRefreshToken(setToken, refreshToken);
+    const localTokenData = localStorage.getItem('kinnie-access-token');
+    if (localTokenData === null) {
+      if (refreshToken !== '') {
+        spotifyRefreshToken(setToken, refreshToken);
+      }
+      else {
+        return;
+      }
     }
 
-    setToken(localStorage.getItem('kinnie-access-token') ?? '');
+    else {
+      const data = JSON.parse(localTokenData);
+      const now = new Date();
+      if (data.expiry !== null && data.expiry <= now.getTime()) {
+        localStorage.removeItem('kinnie-access-token');
+        if (refreshToken !== '') {
+          spotifyRefreshToken(setToken, refreshToken);
+        }
+        else {
+          setToken('');
+        }
+        return;
+      }
+
+      else {
+        setToken(data.value);
+      }
+    }
 
   }, [token, setToken, refreshToken, searchParams, setSearchParams, setPlayer, setTrack]);
 

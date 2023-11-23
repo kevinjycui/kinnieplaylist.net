@@ -67,7 +67,7 @@ class SpotifyManager:
 
         res = res.json()
 
-        return res['access_token']
+        return res['access_token'], res['expires_in']
 
     def generate_access_token(self, code):
         data = {
@@ -85,7 +85,7 @@ class SpotifyManager:
 
         res = res.json()
 
-        return res['access_token'], res['refresh_token']
+        return res['access_token'], res['refresh_token'], res['expires_in']
 
     def get_user_data(self, token):
         headers = {

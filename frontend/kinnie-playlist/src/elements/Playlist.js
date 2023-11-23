@@ -1,29 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import React, { useContext } from 'react';
 
 import Song from './Song';
+import { PlaylistContext } from './Character';
 
 import './Playlist.css'
-import { apiJson } from '../api/apiUtil';
 
 function Playlist() {
-    const { character } = useParams();
-    const [playlist, setPlaylist] = useState([]);
-
-    useEffect(() => {
-        async function getPlaylist() {
-            const playlistData = await apiJson('/api/playlist/global/' + character);
-            if (playlistData.status === 200) {
-                setPlaylist(playlistData.response.playlist.reverse().map((data) => {
-                    data.song = JSON.parse(data.song);
-                    return data;
-                }));
-            }
-        }
-
-        getPlaylist();
-
-    }, [character]);
+    const [playlist] = useContext(PlaylistContext)
 
     return <>
         {

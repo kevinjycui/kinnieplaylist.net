@@ -132,14 +132,16 @@ function WebPlayback() {
             <>
                 <div className="container WebPlayback-player">
                     <div className="main-wrapper">
-                        <img src={current_track.img_file}
-                            className="now-playing__cover WebPlayback-cover"
-                            alt={current_track.title}
-                            onError={(image) => {
-                                image.target.onerror = null;
-                                image.target.src = defaultImage;
-                            }}
-                        />
+                        <a href={"https://open.spotify.com/track/" + current_track.song_id} target="_blank" rel="noreferrer">
+                            <img src={current_track.img_file}
+                                className="now-playing__cover WebPlayback-cover"
+                                alt={current_track.title}
+                                onError={(image) => {
+                                    image.target.onerror = null;
+                                    image.target.src = defaultImage;
+                                }}
+                            />
+                        </a>
 
                         <div className="now-playing__side WebPlayback-side">
                             <div className="now-playing__name WebPlayback-title"

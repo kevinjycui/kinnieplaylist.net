@@ -27,9 +27,10 @@ def login_spotify():
 def refresh_spotify():
     refresh_token = request.args.get('refresh_token')
     try:
-        token = spotifyManager.refresh_access_token(refresh_token)
+        token, expires_in = spotifyManager.refresh_access_token(refresh_token)
         return json.dumps({
-            'access_token': token
+            'access_token': token,
+            'expires_in': expires_in
         })
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
@@ -37,8 +38,8 @@ def refresh_spotify():
 @app.route("/auth/callback", methods=["GET"])
 def callback_spotify():
     code = request.args.get('code')
-    token, refresh_token = spotifyManager.generate_access_token(code)
-    return redirect(client_url + '?access_token=' + token + '&refresh_token=' + refresh_token)
+    token, refresh_token, expires_in = spotifyManager.generate_access_token(code)
+    return redirect(client_url + '?access_token=' + token + '&refresh_token=' + refresh_token + '&expires_in=' + str(expires_in))
 
 @app.route("/api/ping", methods=["GET"])
 def ping():
