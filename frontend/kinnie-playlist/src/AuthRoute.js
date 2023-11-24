@@ -5,7 +5,7 @@ import WebPlayback, { track } from './elements/WebPlayback'
 import Login from './Login'
 
 import './App.css';
-import { spotifyRefreshToken } from './api/apiUtil';
+import { spotifyCheckRefreshToken } from './api/apiUtil';
 
 export const TokenContext = createContext(null);
 export const RefreshTokenContext = createContext(null);
@@ -43,34 +43,7 @@ function AuthRoute({ content }) {
       setSearchParams(searchParams);
     }
 
-    const localTokenData = localStorage.getItem('kinnie-access-token');
-    if (localTokenData === null) {
-      if (refreshToken !== '') {
-        spotifyRefreshToken(setToken, refreshToken);
-      }
-      else {
-        return;
-      }
-    }
-
-    else {
-      const data = JSON.parse(localTokenData);
-      const now = new Date();
-      if (data.expiry !== null && data.expiry <= now.getTime()) {
-        localStorage.removeItem('kinnie-access-token');
-        if (refreshToken !== '') {
-          spotifyRefreshToken(setToken, refreshToken);
-        }
-        else {
-          setToken('');
-        }
-        return;
-      }
-
-      else {
-        setToken(data.value);
-      }
-    }
+    spotifyCheckRefreshToken(setToken, refreshToken);
 
   }, [token, setToken, refreshToken, searchParams, setSearchParams, setPlayer, setTrack]);
 

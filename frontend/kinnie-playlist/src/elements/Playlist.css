@@ -1,3 +1,29 @@
 .Playlist {
     text-align: center;
+    width: 80%;
+    margin: 5px 10% 0 10%;
+    height: auto;
+    padding: 5px;
+}
+
+.Playlist-bottom-container {
+    text-align: center;
+    width: 100%;
+    margin: 50px 50% 0 50%;
+}
+
+.Playlist-show-more {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    color: royalblue;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: inherit;
+    padding: 5px 15px 5px 15px;
+    margin: 20px 0 2px 0;
+    border-radius: 5px;
 }

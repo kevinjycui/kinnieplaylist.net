@@ -4,14 +4,15 @@
     justify-content: center;
     align-items: center;
     font-size: medium;
-    color: white;
+    color: royalblue;
     cursor: pointer;
-    background: #302c2c;
+    background-color: transparent;
     border: none;
     outline: inherit;
     padding: 5px 15px 5px 5px;
     margin: 20px 0 2px 0;
     border-radius: 5px;
+    height: auto;
 }
 
 .AddSong-icon {

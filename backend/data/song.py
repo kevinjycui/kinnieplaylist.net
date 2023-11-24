@@ -31,3 +31,23 @@ class Playlist:
                 {'song': song.to_json(), 'number_of_users': self.number_of_users[song.song_id]} for song in self.playlist
             ]
         })
+
+class CompactPlaylist(Playlist):
+    def __init__(self, playlist):
+        super().__init__()
+        for song_id in playlist:
+            self.append(song_id)
+
+    def append(self, song_id):
+        if song_id not in self.number_of_users.keys():
+            self.number_of_users[song_id] = 1
+            self.playlist.append(song_id)
+        else:
+            self.number_of_users[song_id] += 1
+
+    def to_json(self):
+        return json.dumps({
+            'playlist': [
+                {'song_id': song_id, 'number_of_users': self.number_of_users[song_id]} for song_id in self.playlist
+            ]
+        })

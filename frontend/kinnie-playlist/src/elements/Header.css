@@ -1,5 +1,5 @@
 .Header {
-    background-color: #302c2c;
+    background-color: transparent;
 }
 
 .Header-button {
@@ -20,9 +20,9 @@
 
 .logo {
     max-width: 290px;
-    max-height: 65px;
+    max-height: 55px;
     width: auto;
     height: auto;
-    margin: 5% 5% 5% 20%;
+    margin: 10px 0 0 45px;
     display: inline-flex;
 }

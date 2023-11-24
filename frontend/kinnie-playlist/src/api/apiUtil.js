@@ -25,7 +25,7 @@ export async function apiJson(path, method = 'GET', body = null) {
     };
 }
 
-export async function spotifyRefreshToken(setToken, refreshToken) {
+async function spotifyRefreshToken(setToken, refreshToken) {
     const refresh_response = await fetch('/auth/refresh?refresh_token=' + refreshToken);
     const refresh_json = await refresh_response.json();
     if (refresh_response.status >= 400) {
@@ -50,7 +50,38 @@ export async function spotifyRefreshToken(setToken, refreshToken) {
     };
 }
 
-export async function spotifyApiJson(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = true) {
+export async function spotifyCheckRefreshToken(setToken, refreshToken) {
+    const localTokenData = localStorage.getItem('kinnie-access-token');
+    if (localTokenData === null) {
+        if (refreshToken !== '') {
+            spotifyRefreshToken(setToken, refreshToken);
+        }
+        else {
+            return;
+        }
+    }
+
+    else {
+        const data = JSON.parse(localTokenData);
+        const now = new Date();
+        if (data.expiry !== null && data.expiry <= now.getTime()) {
+            localStorage.removeItem('kinnie-access-token');
+            if (refreshToken !== '') {
+                spotifyRefreshToken(setToken, refreshToken);
+            }
+            else {
+                setToken('');
+            }
+            return;
+        }
+
+        else {
+            setToken(data.value);
+        }
+    }
+}
+
+export async function spotifyApiJson(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = false) {
     var payload = {
         headers: {
             "Authorization": "Bearer " + token,
@@ -68,7 +99,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
     const spotify_json = await spotify_response.json();
 
     if (spotify_response.status === 400 && refresh_if_failure) {
-        const refreshData = await spotifyRefreshToken(setToken, refreshToken)
+        const refreshData = await spotifyCheckRefreshToken(setToken, refreshToken)
         if (refreshData.status >= 400) {
             return refreshData;
         }
@@ -88,7 +119,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
 }
 
 
-export async function spotifyApi(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = true) {
+export async function spotifyApi(path, token, setToken, refreshToken, method = 'GET', body = null, refresh_if_failure = false) {
     var payload = {
         headers: {
             "Authorization": "Bearer " + token,
@@ -103,7 +134,7 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
     const spotify_response = await fetch('https://api.spotify.com/v1/' + path, payload);
 
     if (spotify_response.status === 400 && refresh_if_failure) {
-        const refreshData = await spotifyRefreshToken(setToken, refreshToken);
+        const refreshData = await spotifyCheckRefreshToken(setToken, refreshToken);
         if (refreshData.status >= 400) {
             return refreshData;
         }

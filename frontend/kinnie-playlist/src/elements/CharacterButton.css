@@ -7,16 +7,24 @@
     outline: inherit;
 }
 
+.CharacterButton-image-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 7px;
+}
+
 .CharacterButton-image {
     object-fit: cover;
     width: 200px;
     height: 200px;
     border: none;
+    /* transition: transform .5s ease; */
 }
 
-.CharacterButton-image:hover {
-    size: 130%;
-}
+/* .CharacterButton-image:hover {
+    transform: scale(1.01);
+} */
 
 .CharacterButton-name {
     font-weight: bold;

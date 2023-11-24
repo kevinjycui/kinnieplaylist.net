@@ -1,13 +1,12 @@
 .Song {
-    width: 80%;
-    text-align: left;
-    height: auto;
-    margin: 5px 10% 0 10%;
-    padding: 5px;
     outline: none;
     display: flex;
-    color: black;
+    color: inherit;
     text-decoration: none;
+}
+
+.Song-small-embed {
+    margin-bottom: 20px;
 }
 
 .Song-info {

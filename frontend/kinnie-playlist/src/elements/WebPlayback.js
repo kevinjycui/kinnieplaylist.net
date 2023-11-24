@@ -5,7 +5,7 @@ import { faPlay, faPause, faForwardStep, faBackwardStep } from '@fortawesome/fre
 
 import { PlayerContext, RefreshTokenContext, TokenContext, TrackContext } from '../AuthRoute'
 
-import defaultImage from "../defaultImage.png"
+import default_image from "../default_image.png"
 
 import "./WebPlayback.css"
 import { spotifyApi } from '../api/apiUtil';
@@ -46,15 +46,6 @@ function WebPlayback() {
             }
         }
 
-        async function loopOff(device_id) {
-            const response = await spotifyApi('me/player/repeat?state=off', token, setToken, refreshToken, 'PUT', JSON.stringify({
-                "device_ids": [device_id]
-            }))
-            if (response.status !== 202) {
-                console.log('Failed to turn off loop.');
-            }
-        }
-
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
                 name: 'Kinnie Playlist Web Player',
@@ -68,7 +59,6 @@ function WebPlayback() {
                 console.log('Ready with Device ID', device_id);
 
                 switchDevice(device_id);
-                loopOff(device_id);
             });
 
             player.addListener('not_ready', ({ device_id }) => {
@@ -107,7 +97,7 @@ function WebPlayback() {
 
             player.connect();
 
-            window.onunload = player.disconnect();
+            window.addEventListener('beforeunload', () => player.disconnect());
         };
 
     }, [token, setToken, refreshToken, setPlayer, setTrack]);
@@ -117,7 +107,7 @@ function WebPlayback() {
             <>
                 <div className="container WebPlayback-player">
                     <div className="main-wrapper">
-                        <img className="now-playing__cover WebPlayback-cover" alt='' src={defaultImage} />
+                        <img className="now-playing__cover WebPlayback-cover" alt='' src={default_image} />
                         <div className="now-playing__side WebPlayback-side">
                             <div className="now-playing__name WebPlayback-title">
                                 <i>Connecting to Spotify on device "Kinnie Playlist Web Playback"...</i>
@@ -138,7 +128,7 @@ function WebPlayback() {
                                 alt={current_track.title}
                                 onError={(image) => {
                                     image.target.onerror = null;
-                                    image.target.src = defaultImage;
+                                    image.target.src = default_image;
                                 }}
                             />
                         </a>

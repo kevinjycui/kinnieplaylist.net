@@ -1,3 +1,8 @@
+.Home {
+    width: 100%;
+    margin-top: 2%;
+}
+
 .Home-characterModule {
     display: inline-block;
     width: 200px;
@@ -9,5 +14,7 @@
 }
 
 .Home-container {
-    text-align: center;
+    text-align: justify;
+    width: 90%;
+    padding: 0 5% 0 5%;
 }

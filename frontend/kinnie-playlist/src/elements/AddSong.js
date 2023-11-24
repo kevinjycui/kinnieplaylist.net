@@ -29,7 +29,7 @@ function AddSong() {
 
         setLoading('Casting your vote...');
 
-        const added_id = track.song_id;
+        const added_id = current_track.song_id;
 
         const addSong = await apiJson('/api/playlist/mine/' + character, 'POST', JSON.stringify({
             "access_token": token,

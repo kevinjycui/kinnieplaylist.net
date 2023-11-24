@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, 'data')
 
 from character import Character, CharacterList
-from song import Song, Playlist
+from song import Song, CompactPlaylist
 
 
 class NotFoundError(Exception):
@@ -68,23 +68,8 @@ class Database:
         else:
             cmd = "SELECT song_id FROM character_song_connections WHERE character_id = %s AND user_id = %s"
             user.execute(cmd, (character_id, user_id))
-        data_list = list(user)
 
-        playlist = Playlist()
-
-        for data in data_list:
-            cmd = "SELECT song_id, title, img_file, artists, genres, explicit, duration FROM songs WHERE song_id = %s LIMIT 1"
-            user.execute(cmd, (data[0],))
-            sdata = list(user)
-
-            if len(sdata) != 1:
-                raise NotFoundError('Failed to fetch song with id {}'.format(data[0]))
-
-            sdata = sdata[0]
-
-            playlist.append(Song(song_id=sdata[0], title=sdata[1], img_file=sdata[2], artists=sdata[3], genres=sdata[4], explicit=sdata[5], duration=sdata[6]))
-
-        return playlist
+        return CompactPlaylist([data[0] for data in list(user)])
 
     def get_song(self, song_id):
         user, user_conn = connect()

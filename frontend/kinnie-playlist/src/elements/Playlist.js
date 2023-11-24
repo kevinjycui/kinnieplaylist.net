@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Song from './Song';
 import { PlaylistContext } from './Character';
@@ -7,22 +7,31 @@ import './Playlist.css'
 
 function Playlist() {
     const [playlist] = useContext(PlaylistContext)
+    const [limit, setLimit] = useState(1);
 
     return <>
         {
             <div className="Playlist">
                 {
-                    playlist.sort((data1, data2) => data1.number_of_users - data2.number_of_users).map(
-                        (data, index) => <Song
-                            key={data.song.song_id}
-                            index={index}
-                            data={data.song}
-                            number={data.number_of_users}
-                        />
+                    [...Array(limit).keys()].map((range) =>
+                        playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users)
+                            .slice(range * 10, (range + 1) * 10).map(
+                                (data, index) => <Song
+                                    key={data.song_id}
+                                    index={range * 10 + index}
+                                    song={data.song_id}
+                                    number={data.number_of_users}
+                                />
+                            )
                     )
                 }
             </div>
         }
+        <div className="Playlist-bottom-container">
+            {limit * 10 < playlist.length ? <button className="Playlist-show-more"
+                onClick={() => { setLimit(limit + 1) }}>Show more</button> : <></>
+            }
+        </div>
     </>
 }
 

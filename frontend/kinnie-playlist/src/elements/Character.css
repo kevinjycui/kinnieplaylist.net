@@ -6,6 +6,7 @@
     position: relative;
     object-fit: cover;
     margin: 1%;
+    padding: 5px 0 5px 65px;
 }
 
 .Character-side {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-import defaultImage from "../defaultImage.png"
+import default_image from "../default_image.png"
 
 import './CharacterButton.css';
 
@@ -20,12 +20,14 @@ function CharacterButton({ data }) {
                 className='CharacterButton-button'
                 onClick={handleClick}
             >
-                <img className='CharacterButton-image' src={data.img_file} alt={data.name}
-                    onError={(image) => {
-                        image.target.onerror = null;
-                        image.target.src = defaultImage;
-                    }}
-                />
+                <div className="CharacterButton-image-container">
+                    <img className='CharacterButton-image' src={data.img_file} alt={data.name}
+                        onError={(image) => {
+                            image.target.onerror = null;
+                            image.target.src = default_image;
+                        }}
+                    />
+                </div>
                 <div className='CharacterButton-name'>{data.name}</div>
                 <div className='CharacterButton-media'>{data.media}</div>
             </button>

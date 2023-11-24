@@ -5,7 +5,7 @@ import Error from '../404'
 import AddSong from './AddSong'
 import Playlist from './Playlist';
 
-import defaultImage from '../defaultImage.png'
+import default_image from '../default_image.png'
 
 import './Character.css'
 import { apiJson } from '../api/apiUtil';
@@ -34,10 +34,7 @@ function Character() {
         async function getPlaylist() {
             const playlistData = await apiJson('/api/playlist/global/' + character);
             if (playlistData.status === 200) {
-                setPlaylist(playlistData.response.playlist.reverse().map((data) => {
-                    data.song = JSON.parse(data.song);
-                    return data;
-                }));
+                setPlaylist(playlistData.response.playlist.reverse());
             }
         }
 
@@ -53,7 +50,7 @@ function Character() {
                         title={data.name + " from " + data.media}
                         onError={(image) => {
                             image.target.onerror = null;
-                            image.target.src = defaultImage;
+                            image.target.src = default_image;
                         }}
                     />
                     <div className='Character-side'>

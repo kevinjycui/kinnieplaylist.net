@@ -10,7 +10,7 @@ import "./Song.css"
 import { PlaylistContext } from './Character';
 import { TokenContext } from '../AuthRoute';
 
-function Song({ index, data, number }) {
+function Song({ index, song, number }) {
     const { character } = useParams();
 
     const [token] = useContext(TokenContext);
@@ -18,10 +18,10 @@ function Song({ index, data, number }) {
 
     async function castVote(added_id) {
         var newPlaylist = [...playlist];
-        var bakPlaylist = [...playlist];
+        const bakPlaylist = JSON.stringify(playlist);
 
         for (var i = 0; i < newPlaylist.length; i++) {
-            if (newPlaylist[i].song.song_id === added_id) {
+            if (newPlaylist[i].song === added_id) {
                 newPlaylist[i].number_of_users++;
                 setPlaylist(newPlaylist);
                 break;
@@ -30,7 +30,7 @@ function Song({ index, data, number }) {
 
         const addSong = await apiJson('/api/playlist/mine/' + character, 'POST', JSON.stringify({
             "access_token": token,
-            "song_id": added_id
+            "song": added_id
         }))
         if (addSong.status !== 200) {
             return;
@@ -38,23 +38,23 @@ function Song({ index, data, number }) {
 
         if (addSong.response.duplicate) {
             alert("You've already voted for this song on this character!");
-            setPlaylist(bakPlaylist);
+            setPlaylist(JSON.parse(bakPlaylist));
             return;
         }
     }
 
     return (
-        <div className="Song" id={data.song_id}>
+        <div className="Song" id={song}>
             <div className="Song-info">
-                <button className="Song-vote" onClick={() => castVote(data.song_id)}>
+                <button className="Song-vote" onClick={() => castVote(song)}>
                     <FontAwesomeIcon className="Song-vote" icon={faAngleUp} />
                 </button>
                 <div className="Song-index">{index + 1}</div>
                 <div className="Song-number">{number + (number === 1 ? ' vote' : ' votes')}</div>
             </div>
 
-            <iframe title="Play on Spotify" src={"https://open.spotify.com/embed/track/" + data.song_id + "?utm_source=generator&theme=0"} width="100%" height="152" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
+            <iframe className={index === 0 ? "" : "Song-small-embed"} title="Play on Spotify" src={"https://open.spotify.com/embed/track/" + song + "?utm_source=generator&theme=0"} width="100%" height={index === 0 ? "252" : "152"} frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div >
     );
 }
 
