@@ -1,3 +1,5 @@
+# Initial data population
+
 import sys
 
 import mariadb
