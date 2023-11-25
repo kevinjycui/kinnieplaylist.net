@@ -129,3 +129,5 @@ sql_run_logged('''INSERT IGNORE INTO characters SET
                     name = \'Tomo Takino\',
                     img_file = \'https://i.imgur.com/sTz8zfJ.jpg\',
                     media = \'Azumanga Daioh\'''')
+
+conn.commit()

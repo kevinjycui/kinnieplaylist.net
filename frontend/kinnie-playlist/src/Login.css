@@ -1,6 +1,16 @@
 .Login-button {
-    border-color: black;
-    border-radius: 5%;
-    padding: 5pt;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    color: royalblue;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: inherit;
+    border-radius: 5px;
+    height: auto;
     text-decoration: none;
+    font-size: large;
 }

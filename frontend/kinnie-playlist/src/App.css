@@ -24,3 +24,12 @@ body {
 .buffer {
   height: 200px
 }
+
+.legal {
+  position: fixed;
+  right: 3%;
+  bottom: 1%;
+  margin: 2% 0% 0% 0%;
+  font-size: small;
+  color: grey;
+}

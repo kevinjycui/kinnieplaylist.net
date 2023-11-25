@@ -15,6 +15,7 @@ function App() {
         <Route path="/character/:character" element={<AuthRoute content={<Character />} />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist</div>
     </Router>
   );
 }
