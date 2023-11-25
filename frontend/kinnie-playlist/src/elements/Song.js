@@ -21,7 +21,7 @@ function Song({ index, song, number }) {
         const bakPlaylist = JSON.stringify(playlist);
 
         for (var i = 0; i < newPlaylist.length; i++) {
-            if (newPlaylist[i].song === added_id) {
+            if (newPlaylist[i].song_id === added_id) {
                 newPlaylist[i].number_of_users++;
                 setPlaylist(newPlaylist);
                 break;
@@ -30,7 +30,7 @@ function Song({ index, song, number }) {
 
         const addSong = await apiJson('/api/playlist/mine/' + character, 'POST', JSON.stringify({
             "access_token": token,
-            "song": added_id
+            "song_id": added_id
         }))
         if (addSong.status !== 200) {
             return;

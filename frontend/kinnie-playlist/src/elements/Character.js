@@ -1,8 +1,9 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, Suspense } from 'react';
 import { useParams } from 'react-router';
 
-import Error from '../404'
-import AddSong from './AddSong'
+import Header from './Header';
+import Error from '../404';
+import AddSong from './AddSong';
 import Playlist from './Playlist';
 
 import default_image from '../default_image.png'
@@ -46,16 +47,21 @@ function Character() {
         {
             code === 404 ? <Error /> : <>
                 <PlaylistContext.Provider value={[playlist, setPlaylist]}>
-                    <img className='Character-image' src={data.img_file} alt={data.name}
-                        title={data.name + " from " + data.media}
-                        onError={(image) => {
-                            image.target.onerror = null;
-                            image.target.src = default_image;
-                        }}
-                    />
-                    <div className='Character-side'>
-                        <div className='Character-name'>{data.name}</div>
-                        <div className='Character-media'>{data.media}</div>
+                    <Header position="fixed" />
+                    <div className='Character-info'>
+                        <Suspense fallback={<img className='Character-image' src={default_image} alt="Loading" />}>
+                            <img className='Character-image' src={data.img_file} alt={data.name}
+                                title={data.name + " from " + data.media}
+                                onError={(image) => {
+                                    image.target.onerror = null;
+                                    image.target.src = default_image;
+                                }}
+                            />
+                        </Suspense>
+                        <div className='Character-side'>
+                            <div className='Character-name'>{data.name}</div>
+                            <div className='Character-media'>{data.media}</div>
+                        </div>
                         <AddSong />
                     </div>
                     <Playlist />

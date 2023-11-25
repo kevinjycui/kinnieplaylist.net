@@ -33,60 +33,6 @@ sql_run_logged('''CREATE OR REPLACE TABLE characters
                     PRIMARY KEY(character_id))
                  CHARACTER SET utf8 COLLATE utf8_unicode_ci''')
 
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Shinji_Ikari\',
-                    name = \'Shinji Ikari\',
-                    img_file = \'https://i.imgur.com/3m1mVBm.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Kaworu_Nagisa\',
-                    name = \'Kaworu Nagisa\',
-                    img_file = \'https://i.imgur.com/0sJd9Tt.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Rei_Ayanami\',
-                    name = \'Rei Ayanami\',
-                    img_file = \'https://i.imgur.com/EVvuDSU.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Asuka_Langley_Souryuu\',
-                    name = \'Asuka Langley Souryuu\',
-                    img_file = \'https://i.imgur.com/sZUj5BJ.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Misato_Katsuragi\',
-                    name = \'Misato Katsuragi\',
-                    img_file = \'https://i.imgur.com/66m0GU3.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Ritsuko_Akagi\',
-                    name = \'Ritsuko Akagi\',
-                    img_file = \'https://i.imgur.com/bv4fbnl.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Maya_Ibuki\',
-                    name = \'Maya Ibuki\',
-                    img_file = \'https://i.imgur.com/1OQM4qX.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Gendou_Ikari\',
-                    name = \'Gendou Ikari\',
-                    img_file = \'https://i.imgur.com/eN9jD8N.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
-sql_run_logged('''INSERT INTO characters SET
-                    character_id = \'Kaji_Ryouji\',
-                    name = \'Kaji Ryouji\',
-                    img_file = \'https://i.imgur.com/PpzU8FX.jpg\',
-                    media = \'Neon Genesis Evangelion\'''')
-
 sql_run_logged('''CREATE OR REPLACE TABLE songs 
                     (song_id VARCHAR(255),
                     title VARCHAR(255), 

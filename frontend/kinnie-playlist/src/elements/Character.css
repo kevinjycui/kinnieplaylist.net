@@ -1,3 +1,10 @@
+.Character-info {
+    position: fixed;
+    width: 40%;
+    left: 0;
+    margin-top: 20px;
+}
+
 .Character-image {
     object-fit: cover;
     width: 200px;

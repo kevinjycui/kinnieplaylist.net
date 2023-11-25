@@ -66,7 +66,7 @@ def get_character_global_playlist(character_id):
     try:
         return database.get_character_songs(character_id).to_json()
     except NotFoundError as e:
-        return Response(json.dumps({'message': str(e)}), status=404)
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
@@ -87,17 +87,17 @@ def character_my_playlist(character_id):
 
             return json.dumps({
                 'duplicate': not duplicate,
-                'song': song_data.to_json()
+                'song_id': song_id
             })
         except Exception as e:
-            return Response(json.dumps({'message': str(e)}), status=500)
+            return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
     elif request.method == "GET":
         user_data = spotifyManager.get_user_data(token)
         try:
             return database.get_character_songs(character_id, user_data.id).to_json()
         except NotFoundError as e:
-            return Response(json.dumps({'message': str(e)}), status=404)
+            return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)
         except Exception as e:
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 

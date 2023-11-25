@@ -30,6 +30,13 @@ function WebPlayback() {
     const refreshToken = useContext(RefreshTokenContext);
 
     useEffect(() => {
+        if (player != null) {
+            if (!is_active) {
+                player.connect();
+            }
+            return;
+        }
+
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -100,7 +107,7 @@ function WebPlayback() {
             window.addEventListener('beforeunload', () => player.disconnect());
         };
 
-    }, [token, setToken, refreshToken, setPlayer, setTrack]);
+    }, [token, setToken, refreshToken, player, setPlayer, setTrack, is_active]);
 
     return (
         current_track.song_id === undefined || current_track.song_id === '' ?

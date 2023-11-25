@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 
-import CharacterButton from './CharacterButton'
-import SearchBar from './SearchBar'
+import Header from './Header';
+import SearchBar from './SearchBar';
 import './Home.css';
 import { apiJson } from '../api/apiUtil';
+
+const CharacterButton = lazy(() => import('./CharacterButton'));
 
 function Home() {
 
@@ -26,6 +28,7 @@ function Home() {
   return (
     <>
       <>
+        <Header position="relative" />
         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
         <div className='Home'>
           <div className='Home-container'>
@@ -35,10 +38,12 @@ function Home() {
               return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
             }).map(character => (
               <div className='Home-characterModule' key={character.character_id}>
-                <CharacterButton
-                  key={character.character_id}
-                  data={character}
-                />
+                <Suspense fallback={<></>}>
+                  <CharacterButton
+                    key={character.character_id}
+                    data={character}
+                  />
+                </Suspense>
               </div>
             ))}
           </div>

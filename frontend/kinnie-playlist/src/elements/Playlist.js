@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
-import Song from './Song';
 import { PlaylistContext } from './Character';
+import Song from './Song';
 
 import './Playlist.css'
 
@@ -16,12 +16,13 @@ function Playlist() {
                     [...Array(limit).keys()].map((range) =>
                         playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users)
                             .slice(range * 10, (range + 1) * 10).map(
-                                (data, index) => <Song
-                                    key={data.song_id}
-                                    index={range * 10 + index}
-                                    song={data.song_id}
-                                    number={data.number_of_users}
-                                />
+                                (data, index) =>
+                                    <Song
+                                        key={data.song_id}
+                                        index={range * 10 + index}
+                                        song={data.song_id}
+                                        number={data.number_of_users}
+                                    />
                             )
                     )
                 }

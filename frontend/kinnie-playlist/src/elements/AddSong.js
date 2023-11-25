@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +19,7 @@ function AddSong() {
     const [current_track] = useContext(TrackContext);
 
     const [loading, setLoading] = useState('');
+    const [scrolled, setScrolled] = useState(false);
 
     const [playlist, setPlaylist] = useContext(PlaylistContext);
 
@@ -48,7 +49,7 @@ function AddSong() {
         var newPlaylist = [...playlist];
 
         for (var i = 0; i < newPlaylist.length; i++) {
-            if (newPlaylist[i].song.song_id === added_id) {
+            if (newPlaylist[i].song_id === added_id) {
                 newPlaylist[i].number_of_users++;
                 setPlaylist(newPlaylist);
                 setLoading('');
@@ -57,16 +58,20 @@ function AddSong() {
         }
 
         newPlaylist.unshift({
-            song: JSON.parse(addSong.response.song),
+            song_id: addSong.response.song_id,
             number_of_users: 1
         });
         setPlaylist(newPlaylist);
         setLoading('');
     }
 
+    useEffect(() => {
+        window.addEventListener("scroll", () => setScrolled(window.pageYOffset >= 100));
+    }, []);
+
     return (
-        token != null && current_track != track ?
-            <button className="AddSong" onClick={addCurrentSong} >
+        token != null && current_track !== track ?
+            <button className={"AddSong" + (scrolled ? " AddSong-scrolled" : "")} onClick={addCurrentSong} >
                 <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
                 <div className="Addsong-text">{
                     loading === '' ?

@@ -1,5 +1,7 @@
 .Header {
     background-color: transparent;
+    width: 290px;
+    height: 55px;
 }
 
 .Header-button {

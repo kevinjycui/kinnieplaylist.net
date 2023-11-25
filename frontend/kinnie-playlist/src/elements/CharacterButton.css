@@ -5,6 +5,14 @@
     border: none;
     padding: 0;
     outline: inherit;
+    text-decoration: none;
+}
+
+.CharacterButton-button:hover {
+    .CharacterButton-name {
+        color: royalblue;
+        text-decoration: underline;
+    }
 }
 
 .CharacterButton-image-container {

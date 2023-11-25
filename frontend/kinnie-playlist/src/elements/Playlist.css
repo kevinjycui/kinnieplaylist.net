@@ -1,7 +1,7 @@
 .Playlist {
     text-align: center;
-    width: 80%;
-    margin: 5px 10% 0 10%;
+    width: 55%;
+    margin: 5px 10% 0 40%;
     height: auto;
     padding: 5px;
 }
@@ -9,7 +9,7 @@
 .Playlist-bottom-container {
     text-align: center;
     width: 100%;
-    margin: 50px 50% 0 50%;
+    margin: 0 50% 0 70%;
 }
 
 .Playlist-show-more {
@@ -23,7 +23,5 @@
     background-color: transparent;
     border: none;
     outline: inherit;
-    padding: 5px 15px 5px 15px;
-    margin: 20px 0 2px 0;
     border-radius: 5px;
 }
