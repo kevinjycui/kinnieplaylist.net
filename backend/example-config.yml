@@ -3,8 +3,12 @@ app: kinnie
 mysql:
     host: localhost
     port: 3306
-    user: root
-    password: password
+    root:
+        user: root
+        password: password
+    app:
+        user: user
+        password: password
 
 spotify:
     url: https://accounts.spotify.com/
