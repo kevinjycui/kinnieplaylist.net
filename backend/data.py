@@ -22,7 +22,8 @@ pool = mysql.connector.pooling.MySQLConnectionPool(
     pool_size=20,
     host=config['mysql']['host'],
     port=config['mysql']['port'],
-    user="user")
+    user = config['mysql']['app']['user'],
+    password = config['mysql']['app']['password'])
 
 def connect():
     try:
@@ -31,7 +32,8 @@ def connect():
         user_conn = mysql.connector.connect(
             host = config['mysql']['host'],
             port = config['mysql']['port'],
-            user = 'user')
+            user = config['mysql']['app']['user'],
+            password = config['mysql']['app']['password'])
     user = user_conn.cursor()
     user.execute('USE kinnie')
     return user, user_conn

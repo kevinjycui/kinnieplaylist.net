@@ -14,8 +14,8 @@ with open('config.yml', 'r') as file:
 conn = mysql.connector.connect(
     host = config['mysql']['host'],
     port = config['mysql']['port'],
-    user = config['mysql']['user'],
-    password = config['mysql']['password'])
+    user = config['mysql']['root']['user'],
+    password = config['mysql']['root']['password'])
 
 def sql_run_logged(cmd):
     print(cmd, end=';\n')

@@ -12,13 +12,16 @@ with open('config.yml', 'r') as file:
 conn = mysql.connector.connect(
     host = config['mysql']['host'],
     port = config['mysql']['port'],
-    user = config['mysql']['user'],
-    password = config['mysql']['password'])
+    user = config['mysql']['root']['user'],
+    password = config['mysql']['root']['password'])
 
-def sql_run_logged(cmd):
+def sql_run_logged(cmd, args=tuple()):
     print(cmd, end=';\n')
     cur = conn.cursor()
-    cur.execute(cmd)
+    if len(args) == 0:
+        cur.execute(cmd)
+    else:
+        cur.execute(cmd, args)
 
 sql_run_logged('DROP DATABASE IF EXISTS kinnie')
 sql_run_logged('CREATE DATABASE kinnie')
@@ -51,10 +54,16 @@ sql_run_logged('''CREATE TABLE character_song_connections
                     character_id VARCHAR(255),
                     user_id VARCHAR(255))''')
 
-sql_run_logged('CREATE USER user')
-sql_run_logged('GRANT SELECT ON kinnie.* TO user')
-sql_run_logged('GRANT INSERT ON kinnie.songs TO user')
-sql_run_logged('GRANT INSERT ON kinnie.character_song_connections TO user')
-sql_run_logged('GRANT DELETE ON kinnie.character_song_connections TO user')
+app_user = config['mysql']['app']['user']
+app_pswd = config['mysql']['app']['password']
+
+sql_run_logged('DROP USER IF EXISTS %s', (app_user,))
+sql_run_logged('CREATE USER %s IDENTIFIED BY %s', (app_user, app_pswd))
+sql_run_logged('GRANT SELECT ON kinnie.* TO %s', (app_user,))
+sql_run_logged('GRANT INSERT ON kinnie.songs TO %s', (app_user,))
+sql_run_logged('GRANT INSERT ON kinnie.character_song_connections TO %s', (app_user,))
+sql_run_logged('GRANT DELETE ON kinnie.character_song_connections TO %s', (app_user,))
+
+sql_run_logged('FLUSH PRIVELEGES')
 
 conn.commit()
