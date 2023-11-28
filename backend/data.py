@@ -94,8 +94,8 @@ class Database:
                     img_file = %s,
                     artists = %s,
                     genres = %s,
-                    explicit = %d,
-                    duration = %d"""
+                    explicit = %s,
+                    duration = %s"""
         user.execute(cmd, (
                         song_id,
                         song_data.title,
