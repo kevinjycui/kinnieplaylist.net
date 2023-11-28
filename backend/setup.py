@@ -64,6 +64,6 @@ sql_run_logged('GRANT INSERT ON kinnie.songs TO %s', (app_user,))
 sql_run_logged('GRANT INSERT ON kinnie.character_song_connections TO %s', (app_user,))
 sql_run_logged('GRANT DELETE ON kinnie.character_song_connections TO %s', (app_user,))
 
-sql_run_logged('FLUSH PRIVELEGES')
+sql_run_logged('FLUSH PRIVILEGES')
 
 conn.commit()
