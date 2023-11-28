@@ -115,7 +115,7 @@ function WebPlayback() {
 
             player.on('authentication_error', ({ message }) => {
                 console.error('Failed to authenticate:', message);
-                spotifyCheckRefreshToken(setToken, refreshToken);
+                window.location.reload(false);
             });
 
             player.on('account_error', ({ message }) => {
@@ -138,7 +138,7 @@ function WebPlayback() {
                     <img className="now-playing__cover WebPlayback-cover" alt='' src={default_image} />
                     <div className="now-playing__side WebPlayback-side">
                         <div className="now-playing__name WebPlayback-title">
-                            <i>Spotify Premium required to play and add new tracks through the web player</i>
+                            <i>Spotify Premium required to play and vote for tracks through the web player</i>
                         </div>
                     </div>
                     <div className="WebPlayback-spotify">
