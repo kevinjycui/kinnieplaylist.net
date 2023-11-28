@@ -33,6 +33,8 @@ function Song({ index, song, number }) {
             "song_id": added_id
         }))
         if (addSong.status !== 200) {
+            alert("Failed to cast vote.");
+            setPlaylist(JSON.parse(bakPlaylist));
             return;
         }
 

@@ -39,7 +39,7 @@ class CompactPlaylist(Playlist):
             self.append(song_id)
 
     def append(self, song_id):
-        if song_id not in self.number_of_users.keys():
+        if song_id not in self.playlist:
             self.number_of_users[song_id] = 1
             self.playlist.append(song_id)
         else:

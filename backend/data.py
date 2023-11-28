@@ -1,4 +1,4 @@
-import mariadb
+import mysql.connector
 import yaml
 import re
 import sys
@@ -17,20 +17,20 @@ class NotFoundError(Exception):
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
-pool = mariadb.ConnectionPool(
-    host=config['mariadb']['host'],
-    port=config['mariadb']['port'],
-    user="user",
-    pool_name="web-app",
-    pool_size=20)
+pool = mysql.connector.pooling.MySQLConnectionPool(
+    pool_name="webserver", 
+    pool_size=20,
+    host=config['mysql']['host'],
+    port=config['mysql']['port'],
+    user="user")
 
 def connect():
     try:
         user_conn = pool.get_connection()
-    except mariadb.PoolError as e:
-        user_conn = mariadb.connect(
-            host = config['mariadb']['host'],
-            port = config['mariadb']['port'],
+    except mysql.connector.PoolError as e:
+        user_conn = mysql.connector.connect(
+            host = config['mysql']['host'],
+            port = config['mysql']['port'],
             user = 'user')
     user = user_conn.cursor()
     user.execute('USE kinnie')

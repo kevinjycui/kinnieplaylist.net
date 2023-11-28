@@ -21,6 +21,7 @@ class SpotifyManager:
     perms = [
         'streaming',
         'user-read-currently-playing',
+        'user-read-email',
         'user-read-private',
         'user-library-read',
         'playlist-read-private'

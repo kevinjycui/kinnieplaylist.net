@@ -2,7 +2,7 @@
 
 import sys
 
-import mariadb
+import mysql.connector
 import yaml
 
 if __name__ != '__main__':
@@ -11,11 +11,11 @@ if __name__ != '__main__':
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
-conn = mariadb.connect(
-    host = config['mariadb']['host'],
-    port = config['mariadb']['port'],
-    user = config['mariadb']['user'],
-    password = config['mariadb']['password'])
+conn = mysql.connector.connect(
+    host = config['mysql']['host'],
+    port = config['mysql']['port'],
+    user = config['mysql']['user'],
+    password = config['mysql']['password'])
 
 def sql_run_logged(cmd):
     print(cmd, end=';\n')

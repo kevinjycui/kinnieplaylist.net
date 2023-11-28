@@ -37,6 +37,8 @@ function AddSong() {
             "song_id": added_id
         }))
         if (addSong.status !== 200) {
+            alert("Failed to cast vote.");
+            setLoading('');
             return;
         }
 

@@ -14,7 +14,7 @@ function Header({ position }) {
 
     return (
         <header className="Header">
-            <button style={{ position: position }} className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /></button>
+            <button style={{ position: position }} className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> beta</button>
         </header>
     );
 }

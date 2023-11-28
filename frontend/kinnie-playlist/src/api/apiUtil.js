@@ -13,7 +13,7 @@ export async function apiJson(path, method = 'GET', body = null) {
     const response = await fetch(path, payload);
     const json = await response.json();
     if (response.status >= 400) {
-        console.log(json.message);
+        console.error(json.message);
         return {
             "status": response.status
         };
@@ -29,7 +29,7 @@ async function spotifyRefreshToken(setToken, refreshToken) {
     const refresh_response = await fetch('/auth/refresh?refresh_token=' + refreshToken);
     const refresh_json = await refresh_response.json();
     if (refresh_response.status >= 400) {
-        console.log(refresh_json.message);
+        console.error(refresh_json.message);
         return {
             "status": refresh_response.status
         };
@@ -106,7 +106,7 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
         return spotifyApiJson(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
     else if (spotify_response.status >= 400) {
-        console.log(await spotify_response.text());
+        console.error(await spotify_response.text());
         return {
             "status": spotify_response.status
         };
@@ -141,7 +141,7 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
         return spotifyApi(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
     else if (spotify_response.status >= 400) {
-        console.log(await spotify_response.text());
+        console.error(await spotify_response.text());
         return {
             "status": spotify_response.status
         };
