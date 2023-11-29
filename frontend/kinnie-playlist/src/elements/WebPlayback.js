@@ -8,7 +8,7 @@ import { PlayerContext, RefreshTokenContext, TokenContext, TrackContext } from '
 import default_image from "../default_image.png"
 
 import "./WebPlayback.css"
-import { spotifyApi, spotifyCheckRefreshToken } from '../api/apiUtil';
+import { spotifyApi } from '../api/apiUtil';
 
 export const track = {
     song_id: "",
