@@ -33,7 +33,7 @@ function Song({ index, song, number }) {
             "song_id": added_id
         }))
         if (addSong.status !== 200) {
-            alert("Failed to cast vote. Spotify Premium required to vote.");
+            alert("Failed to cast vote. Voting is disabled until Spotify approves this app. That's just how it is I guess.");
             setPlaylist(JSON.parse(bakPlaylist));
             return;
         }
