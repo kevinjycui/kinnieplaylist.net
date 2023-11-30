@@ -11,3 +11,5 @@ venv/
 env/
 
 config.yml
+
+*.sock
