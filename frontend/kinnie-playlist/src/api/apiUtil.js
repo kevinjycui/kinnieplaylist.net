@@ -106,6 +106,9 @@ export async function spotifyApiJson(path, token, setToken, refreshToken, method
         return spotifyApiJson(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
     else if (spotify_response.status >= 400) {
+        if (spotify_response.status === 429) {
+            alert("Too many requests. Please wait a bit and then try again.")
+        }
         console.error(await spotify_response.text());
         return {
             "status": spotify_response.status
@@ -141,6 +144,9 @@ export async function spotifyApi(path, token, setToken, refreshToken, method = '
         return spotifyApi(path, refreshData.token, setToken, refreshToken, method, body, refresh_if_failure = false);
     }
     else if (spotify_response.status >= 400) {
+        if (spotify_response.status === 429) {
+            alert("Too many requests. Please wait a bit and then try again.")
+        }
         console.error(await spotify_response.text());
         return {
             "status": spotify_response.status
