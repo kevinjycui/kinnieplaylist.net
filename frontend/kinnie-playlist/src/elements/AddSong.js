@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { apiJson } from '../api/apiUtil'
 import { TokenContext, TrackContext } from '../AuthRoute'
@@ -20,6 +20,7 @@ function AddSong() {
 
     const [loading, setLoading] = useState('');
     const [scrolled, setScrolled] = useState(false);
+    const [added, setAdded] = useState('');
 
     const [playlist, setPlaylist] = useContext(PlaylistContext);
 
@@ -59,10 +60,13 @@ function AddSong() {
             }
         }
 
+        setAdded(addSong.response.song_id);
+
         newPlaylist.unshift({
             song_id: addSong.response.song_id,
             number_of_users: 1
         });
+
         setPlaylist(newPlaylist);
         setLoading('');
     }
@@ -74,7 +78,7 @@ function AddSong() {
     return (
         token != null && current_track !== track ?
             <button className={"AddSong" + (scrolled ? " AddSong-scrolled" : "")} onClick={addCurrentSong} >
-                <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
+                <FontAwesomeIcon className="AddSong-icon" icon={current_track.song_id === added ? faCheck : faAngleUp} />
                 <div className="Addsong-text">{
                     loading === '' ?
                         <>Vote <b>{current_track.title}</b> by {current_track.artists} for this character's theme!</> :
