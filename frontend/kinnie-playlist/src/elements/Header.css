@@ -1,7 +1,9 @@
 .Header {
-    background-color: transparent;
-    width: 290px;
-    height: 55px;
+    background-color: #86cecb;
+    max-width: 100%;
+    height: 80px;
+    margin: 1%;
+    text-align: left;
 }
 
 .Header-button {

@@ -45,9 +45,12 @@ class CompactPlaylist(Playlist):
         else:
             self.number_of_users[song_id] += 1
 
-    def to_json(self):
-        return json.dumps({
-            'playlist': [
-                {'song_id': song_id, 'number_of_users': self.number_of_users[song_id]} for song_id in self.playlist
-            ]
-        })
+    def to_json(self, counted=True):
+        if counted:
+            return json.dumps({
+                'playlist': [
+                    {'song_id': song_id, 'number_of_users': self.number_of_users[song_id]} for song_id in self.playlist
+                ]
+            })
+        else:
+            return json.dumps({'playlist': self.playlist})

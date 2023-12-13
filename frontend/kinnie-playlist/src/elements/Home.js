@@ -28,7 +28,7 @@ function Home() {
   return (
     <>
       <>
-        <Header position="relative" />
+        <Header />
         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
         <div className='Home'>
           <div className='Home-container'>

@@ -21,6 +21,8 @@
     border: none;
     padding: 0;
     outline: inherit;
+    font-size: 36px;
+    font-weight: bolder;
 }
 
 .Song-index {
@@ -28,7 +30,13 @@
     font-weight: bolder;
 }
 
-.Song-vote {
+.Song-vote-voted {
+    cursor: pointer;
+    background: none;
+    color: #e12885;
+    border: none;
+    padding: 0;
+    outline: inherit;
     font-size: 36px;
     font-weight: bolder;
 }

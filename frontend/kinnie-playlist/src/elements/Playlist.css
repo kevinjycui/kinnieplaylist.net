@@ -6,6 +6,37 @@
     padding: 5px;
 }
 
+.Playlist-options {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.Playlist-option-button {
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    cursor: pointer;
+    margin: 5px;
+    outline: inherit;
+    border: none;
+    background: none;
+    text-decoration: none;
+}
+
+.Playlist-option-button:hover {
+    text-decoration: underline;
+    color: #137a7f;
+}
+
+.Playlist-option-button:disabled {
+    text-decoration: underline;
+    color: gray;
+    text-decoration-color: #e12885;
+    text-decoration-thickness: 4px;
+    text-decoration-skip-ink: none;
+    cursor: default;
+}
+
 .Playlist-bottom-container {
     text-align: center;
     width: 100%;
@@ -18,10 +49,33 @@
     justify-content: center;
     align-items: center;
     font-size: medium;
-    color: royalblue;
     cursor: pointer;
     background-color: transparent;
     border: none;
     outline: inherit;
     border-radius: 5px;
+}
+
+.Playlist-show-more:hover {
+    color: #137a7f;
+    text-decoration: underline;
+}
+
+.Playlist-stat {
+    text-align: left;
+    color: #373b3e;
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .Playlist {
+        margin: 5px;
+        width: 95%;
+    }
+
+    .Playlist-bottom-container {
+        margin: 0 50% 0 50%;
+        width: 100%;
+    }
 }

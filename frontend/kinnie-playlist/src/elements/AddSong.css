@@ -1,10 +1,8 @@
 .AddSong {
     position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: medium;
-    color: royalblue;
+    color: black;
     cursor: pointer;
     background-color: transparent;
     border: none;
@@ -12,6 +10,17 @@
     margin: 2px 20px 2px 65px;
     border-radius: 5px;
     height: auto;
+    text-align: left;
+}
+
+.AddSong:hover:not(.AddSong-added, .AddSong-loading) {
+    text-decoration: underline;
+    color: #137a7f;
+}
+
+.AddSong-added {
+    text-decoration: none;
+    color: #e12885;
 }
 
 /* .AddSong-scrolled {

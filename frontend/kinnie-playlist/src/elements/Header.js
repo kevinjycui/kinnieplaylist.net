@@ -5,7 +5,7 @@ import logo2 from "../logo2.svg";
 
 import "./Header.css"
 
-function Header({ position }) {
+function Header() {
     const navigate = useNavigate();
 
     function handleClick() {
@@ -14,7 +14,7 @@ function Header({ position }) {
 
     return (
         <header className="Header">
-            <button style={{ position: position }} className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> beta</button>
+            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> beta</button>
         </header>
     );
 }

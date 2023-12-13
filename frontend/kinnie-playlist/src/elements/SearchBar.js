@@ -17,7 +17,7 @@ const SearchBar = ({ characters, setFilteredCharacters }) => {
       <input
         className="search-input"
         type="text"
-        placeholder="Search by name or media (e.g. Shinji Ikari, Neon Genesis Evangelion)"
+        placeholder="Search by name or media (e.g. Shinji Ikari Neon Genesis Evangelion)"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

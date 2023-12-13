@@ -10,7 +10,7 @@
 
 .CharacterButton-button:hover {
     .CharacterButton-name {
-        color: royalblue;
+        color: #137a7f;
         text-decoration: underline;
     }
 }

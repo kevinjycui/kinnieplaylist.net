@@ -72,10 +72,10 @@ def get_character_global_playlist(character_id):
 
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
 def character_my_playlist(character_id):
-    body = request.get_json()
-    token = body['access_token']
+    token = request.args.get('access_token')
     if request.method == "POST":
         try:
+            body = request.get_json()
             song_id = body['song_id']
             user_data = spotifyManager.get_user_data(token)
             song_data = database.get_song(song_id)
@@ -95,7 +95,7 @@ def character_my_playlist(character_id):
     elif request.method == "GET":
         user_data = spotifyManager.get_user_data(token)
         try:
-            return database.get_character_songs(character_id, user_data.id).to_json()
+            return database.get_character_songs(character_id, user_data['id']).to_json(counted=False)
         except NotFoundError as e:
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)
         except Exception as e:

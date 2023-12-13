@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, Suspense } from 'react';
+import React, { useState, useEffect, useContext, createContext, Suspense } from 'react';
 import { useParams } from 'react-router';
 
 import Header from './Header';
@@ -10,15 +10,20 @@ import default_image from '../default_image.png'
 
 import './Character.css'
 import { apiJson } from '../api/apiUtil';
+import { TokenContext } from '../AuthRoute';
 
 export const PlaylistContext = createContext([]);
+export const MyPlaylistContext = createContext(new Set());
 
 function Character() {
     const { character } = useParams();
     const [data, setData] = useState([]);
-    const [code, setCode] = useState();
+    const [code, setCode] = useState('');
 
     const [playlist, setPlaylist] = useState([]);
+    const [myPlaylist, setMyPlaylist] = useState(new Set());
+
+    const [token] = useContext(TokenContext);
 
     useEffect(() => {
 
@@ -41,31 +46,48 @@ function Character() {
 
         getPlaylist();
 
+        async function getMyPlaylist() {
+            const myPlaylistData = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token);
+            if (myPlaylistData.status === 200) {
+                setMyPlaylist(new Set(myPlaylistData.response.playlist));
+            }
+        }
+
+        getMyPlaylist();
+
+        return () => {
+            setCode('');
+            setPlaylist([]);
+            setMyPlaylist(new Set());
+        }
+
     }, [character]);
 
     return <>
         {
             code === 404 ? <Error /> : <>
                 <PlaylistContext.Provider value={[playlist, setPlaylist]}>
-                    <Header position="fixed" />
-                    <div className='Character-info'>
-                        <Suspense fallback={<img className='Character-image' src={default_image} alt="Loading" />}>
-                            <img className='Character-image' src={data.img_file} alt={data.name}
-                                title={data.name + " from " + data.media}
-                                onError={(image) => {
-                                    image.target.onerror = null;
-                                    image.target.src = default_image;
-                                }}
-                            />
-                        </Suspense>
-                        <div className='Character-side'>
-                            <div className='Character-name'>{data.name}</div>
-                            <div className='Character-media'>{data.media}</div>
+                    <MyPlaylistContext.Provider value={[myPlaylist, setMyPlaylist]}>
+                        <Header />
+                        <div className='Character-info'>
+                            <Suspense fallback={<img className='Character-image' src={default_image} alt="Loading" />}>
+                                <img className='Character-image' src={data.img_file} alt={data.name}
+                                    title={data.name + " from " + data.media}
+                                    onError={(image) => {
+                                        image.target.onerror = null;
+                                        image.target.src = default_image;
+                                    }}
+                                />
+                            </Suspense>
+                            <div className='Character-side'>
+                                <div className='Character-name'>{data.name}</div>
+                                <div className='Character-media'>{data.media}</div>
+                            </div>
+                            <AddSong />
                         </div>
-                        <AddSong />
-                    </div>
-                    <Playlist />
-                    <div className="buffer"></div>
+                        <Playlist />
+                        <div className="buffer"></div>
+                    </MyPlaylistContext.Provider>
                 </PlaylistContext.Provider>
             </>
         }
