@@ -43,7 +43,7 @@ while True:
         media = current_media
     current_media = media
 
-    cmd = '''INSERT IGNORE INTO characters SET
+    cmd = '''REPLACE INTO characters SET
                         character_id = %s,
                         name = %s,
                         img_file = %s,
