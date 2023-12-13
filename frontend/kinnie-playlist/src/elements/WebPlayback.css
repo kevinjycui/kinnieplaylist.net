@@ -25,6 +25,7 @@
     height: 100px;
     display: inline-block;
     margin: 20px;
+    opacity: 1;
 }
 
 .WebPlayback-side {
