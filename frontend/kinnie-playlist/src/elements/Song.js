@@ -15,7 +15,7 @@ function Song({ index, song, number, voted, indexed }) {
 
     const [token] = useContext(TokenContext);
     const [playlist, setPlaylist] = useContext(PlaylistContext);
-    const [myPlaylist, setMyPlaylist] = useContext(MyPlaylistContext);
+    const [setMyPlaylist] = useContext(MyPlaylistContext);
 
     async function castVote(added_id) {
         var newPlaylist = [...playlist];

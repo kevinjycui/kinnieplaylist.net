@@ -61,7 +61,7 @@ function Character() {
             setMyPlaylist(new Set());
         }
 
-    }, [character]);
+    }, [character, token]);
 
     return <>
         {
