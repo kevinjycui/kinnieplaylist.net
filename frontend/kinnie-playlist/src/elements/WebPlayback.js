@@ -180,9 +180,9 @@ function WebPlayback() {
                             <div className="now-playing__side WebPlayback-side">
                                 <div className="now-playing__name WebPlayback-title"
                                     title={"Now Playing: " + current_track.title}
-                                >Now Playing: <b>{
+                                >Now Playing: <b><a href={"https://open.spotify.com/track/" + current_track.song_id} target="_blank" rel="noreferrer">{
                                     current_track.title
-                                }</b></div>
+                                }</a></b></div>
                                 {/* <div className="now-playing__explicit">{current_track.explicit ? <FontAwesomeIcon icon={faE} /> : <></>}</div> */}
                                 <div className="now-playing__artist WebPlayback-artists"
                                     title={current_track.artists}

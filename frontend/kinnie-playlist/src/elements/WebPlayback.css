@@ -6,6 +6,15 @@
     background-color: #191414;
     color: white;
     box-shadow: 0 -2px 20px 2px #191414;
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
 }
 
 .WebPlayback-cover {
