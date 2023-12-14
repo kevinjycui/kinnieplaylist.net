@@ -4,16 +4,15 @@
 
 .Home-characterModule {
     display: inline-block;
-    width: 200px;
+    width: 150px;
     height: auto;
-    margin: 5px 0 0 5px;
     padding: 10px;
     outline: none;
     border-color: aliceblue
 }
 
 .Home-container {
-    text-align: justify;
-    width: 90%;
+    justify-content: center;
+    width: 100%;
     padding: 0 5% 0 5%;
 }

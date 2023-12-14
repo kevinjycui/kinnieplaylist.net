@@ -16,16 +16,16 @@
 }
 
 .CharacterButton-image-container {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     margin-bottom: 7px;
 }
 
 .CharacterButton-image {
     object-fit: cover;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     border: none;
     /* transition: transform .5s ease; */
 }
@@ -36,7 +36,7 @@
 
 .CharacterButton-name {
     font-weight: bold;
-    font-size: medium;
+    font-size: 11pt;
     text-align: center;
     border: none;
     text-overflow: ellipsis;
@@ -44,7 +44,7 @@
 
 .CharacterButton-media {
     text-align: center;
-    font-size: small;
+    font-size: 10pt;
     border: none;
     text-overflow: ellipsis;
 }
