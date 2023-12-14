@@ -47,7 +47,7 @@ function Header() {
                     random
                 </button>
                 <button className="Header-nav" onClick={() => navigate("/profile")}>
-                    my votes
+                    my tracks
                 </button>
                 <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" target="_blank" rel="noreferrer">
                     join waitlist
