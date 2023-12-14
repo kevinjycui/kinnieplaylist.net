@@ -1,16 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { track } from './WebPlayback'
+import { track } from '../WebPlayback'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
-import { apiJson, spotifyApi } from '../api/apiUtil';
+import { apiJson, spotifyApi } from '../../api/apiUtil';
 
 import "./Song.css"
 import { MyPlaylistContext, PlaylistContext } from './Character';
-import { RefreshTokenContext, TokenContext, PremiumContext } from '../AuthRoute';
+import { RefreshTokenContext, TokenContext, PremiumContext } from '../../AuthRoute';
 
 function Song({ index, song, number, voted, indexed }) {
     const { character } = useParams();

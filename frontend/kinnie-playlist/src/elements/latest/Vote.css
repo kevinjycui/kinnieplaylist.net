@@ -1,0 +1,31 @@
+.Vote {
+    display: flex;
+}
+
+.Vote-image {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    margin: 7px;
+}
+
+.Vote-info-container {
+    padding: 20px 0 0 30px;
+}
+
+.Vote-button {
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
+    text-decoration: underline;
+    font: inherit;
+    font-weight: bold;
+}
+
+.Vote-button:hover {
+    color: #137a7f;
+    text-decoration: underline;
+}

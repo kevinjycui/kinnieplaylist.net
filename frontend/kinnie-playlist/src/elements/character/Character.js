@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext, createContext, Suspense } from 'react';
 import { useParams } from 'react-router';
 
-import Header from './Header';
-import Error from '../404';
+import Header from '../Header';
+import Error from '../../404';
 import AddSong from './AddSong';
 import Playlist from './Playlist';
 
-import default_image from '../default_image.png'
+import default_image from '../../default_image.png'
 
 import './Character.css'
-import { apiJson } from '../api/apiUtil';
-import { TokenContext } from '../AuthRoute';
+import { apiJson } from '../../api/apiUtil';
+import { TokenContext } from '../../AuthRoute';
 
 export const PlaylistContext = createContext([]);
 export const MyPlaylistContext = createContext(new Set());

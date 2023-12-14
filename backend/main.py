@@ -61,6 +61,15 @@ def get_character(character_id):
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/character/random", methods=["GET"])
+def get_random_character():
+    try:
+        return database.get_random_character().to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/api/songs/<song_id>", methods=["GET"])
 def get_song(song_id):
     try:
@@ -110,6 +119,12 @@ def character_my_playlist(character_id):
         except Exception as e:
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/votes/latest", methods=["GET"])
+def get_latest_votes():
+    try:
+        return database.get_latest_votes().to_json()
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)

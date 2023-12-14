@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 
 import { MyPlaylistContext, PlaylistContext } from './Character';
-import { PremiumContext, RefreshTokenContext, TokenContext } from '../AuthRoute';
+import { PremiumContext, RefreshTokenContext, TokenContext } from '../../AuthRoute';
 import Song from './Song';
 
-import { spotifyApi } from '../api/apiUtil';
+import { spotifyApi } from '../../api/apiUtil';
 
 import './Playlist.css'
 

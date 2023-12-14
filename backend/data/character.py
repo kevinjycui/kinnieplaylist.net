@@ -10,6 +10,13 @@ class Character:
     def to_json(self):
         return json.dumps(self.__dict__)
 
+class CharacterID:
+    def __init__(self, character_id):
+        self.character_id = character_id
+
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
 class CharacterList:
     def __init__(self, characters):
         self.characters = characters

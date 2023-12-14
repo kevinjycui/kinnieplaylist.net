@@ -5,8 +5,9 @@ import sys
 
 sys.path.insert(0, 'data')
 
-from character import Character, CharacterList
+from character import Character, CharacterList, CharacterID
 from song import Song, CompactPlaylist
+from vote import AnonVote, VoteList
 
 
 class NotFoundError(Exception):
@@ -127,3 +128,26 @@ class Database:
         user_conn.commit()
 
         return True
+
+    def get_latest_votes(self):
+        user, user_conn = connect()
+
+        cmd = "SELECT character_id, song_id FROM character_song_connections ORDER BY id DESC LIMIT 20"
+        user.execute(cmd)
+        data_list = list(user)
+        vote_list = [AnonVote(character_id=data[0], song_id=data[1]) for data in data_list]
+        return VoteList(vote_list)
+
+    def get_random_character(self):
+        user, user_conn = connect()
+
+        cmd = "SELECT character_id FROM characters ORDER BY RAND() LIMIT 1"
+        user.execute(cmd)
+        data = list(user)
+
+        if len(data) != 1:
+            raise NotFoundError('Failed to fetch random character')
+
+        character_id = data[0][0]
+
+        return CharacterID(character_id)

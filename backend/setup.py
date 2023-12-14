@@ -50,7 +50,10 @@ sql_run_logged('''CREATE TABLE songs
                  CHARACTER SET utf8 COLLATE utf8_unicode_ci''')
 
 sql_run_logged('''CREATE TABLE character_song_connections 
-                    (song_id VARCHAR(255),
+                    (
+                    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,   
+
+                    song_id VARCHAR(255),
                     character_id VARCHAR(255),
                     user_id VARCHAR(255))''')
 

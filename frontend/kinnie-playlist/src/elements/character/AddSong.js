@@ -4,10 +4,10 @@ import { useParams } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
-import { apiJson } from '../api/apiUtil'
-import { TokenContext, TrackContext } from '../AuthRoute'
+import { apiJson } from '../../api/apiUtil'
+import { TokenContext, TrackContext } from '../../AuthRoute'
 
-import { track } from './WebPlayback';
+import { track } from '../WebPlayback';
 
 import './AddSong.css'
 import { PlaylistContext, MyPlaylistContext } from './Character';
