@@ -34,3 +34,9 @@ body {
   font-size: small;
   color: grey;
 }
+
+@media only screen and (max-width: 600px) {
+    .legal {
+      text-align: right;
+    }
+}

@@ -72,7 +72,13 @@
     }
 
     .Header-nav-container {
-        margin-top: 0;
+        margin-top: 2%;
+        margin-right: 10%;
+        display: block;
+    }
+
+    .Header-nav {
+        display: block;
     }
 
     .Header-button {
@@ -80,10 +86,6 @@
     }
 
     .logo {
-        display: block;
-    }
-
-    .Header-nav-container {
         display: block;
     }
 }
