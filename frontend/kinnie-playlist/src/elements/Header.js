@@ -14,7 +14,7 @@ function Header() {
 
     return (
         <header className="Header">
-            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> beta</button>
+            <button className="Header-button" onClick={handleClick}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> character playlist database</button>
         </header>
     );
 }

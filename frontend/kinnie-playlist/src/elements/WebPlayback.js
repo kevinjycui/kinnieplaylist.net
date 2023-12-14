@@ -172,7 +172,7 @@ function WebPlayback() {
                 <>
                     <div className="container WebPlayback-player">
                         <div className="main-wrapper">
-                            <a href={"https://open.spotify.com/track/" + current_track.song_id} target="_blank" rel="noreferrer">
+                            <a href={"spotify:track:" + current_track.song_id} target="_blank" rel="noreferrer">
                                 <img src={current_track.img_file}
                                     className="now-playing__cover WebPlayback-cover"
                                     alt={current_track.title}
@@ -186,7 +186,7 @@ function WebPlayback() {
                             <div className="now-playing__side WebPlayback-side">
                                 <div className="now-playing__name WebPlayback-title"
                                     title={"Now Playing: " + current_track.title}
-                                >Now Playing: <b><a href={"https://open.spotify.com/track/" + current_track.song_id} target="_blank" rel="noreferrer">{
+                                >Now Playing: <b><a href={"spotify:track:" + current_track.song_id} target="_blank" rel="noreferrer">{
                                     current_track.title
                                 }</a></b></div>
                                 {/* <div className="now-playing__explicit">{current_track.explicit ? <FontAwesomeIcon icon={faE} /> : <></>}</div> */}
