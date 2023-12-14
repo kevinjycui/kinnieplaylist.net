@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react';
 
 import { MyPlaylistContext, PlaylistContext } from './Character';
+import { PremiumContext, RefreshTokenContext, TokenContext } from '../AuthRoute';
 import Song from './Song';
+
+import { spotifyApi } from '../api/apiUtil';
 
 import './Playlist.css'
 
@@ -12,10 +15,22 @@ function Playlist() {
     const [myPlaylist] = useContext(MyPlaylistContext);
     const [limit, setLimit] = useState(1);
     const [toggleMine, setToggleMine] = useState(false);
+    const [is_premium] = useContext(PremiumContext);
+
+    const [token, setToken] = useContext(TokenContext);
+    const [refreshToken] = useContext(RefreshTokenContext);
 
     function setToggle(toggle) {
         setLimit(1);
         setToggleMine(toggle);
+    }
+
+    async function playTracks(tracks) {
+        if (is_premium) {
+            await spotifyApi('me/player/play', token, setToken, refreshToken, 'PUT', JSON.stringify({
+                uris: tracks.map((track => "spotify:track:" + track))
+            }))
+        }
     }
 
     return <>
@@ -27,7 +42,10 @@ function Playlist() {
                 </div>
                 {toggleMine ?
                     <>
-                        <div className='Playlist-stat'>{myPlaylist.size} {myPlaylist.size === 1 ? "track" : "tracks"}</div>
+                        <div className='Playlist-top'>
+                            <div className='Playlist-stat'>{myPlaylist.size} {myPlaylist.size === 1 ? "track" : "tracks"}</div>
+                            <button className='Playlist-button' onClick={() => playTracks([...myPlaylist])}>Play All</button>
+                        </div>
                         {
                             [...Array(limit).keys()].map((range) =>
                                 [...myPlaylist].reverse()
@@ -46,7 +64,10 @@ function Playlist() {
                         }
                     </> :
                     <>
-                        <div className='Playlist-stat'>{playlist.length} {playlist.length === 1 ? "track" : "tracks"}</div>
+                        <div className='Playlist-top'>
+                            <div className='Playlist-stat'>{playlist.length} {playlist.length === 1 ? "track" : "tracks"}</div>
+                            <button className='Playlist-button' onClick={() => playTracks(playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users).map((data) => data.song_id))}>Play All</button>
+                        </div>
                         {
                             [...Array(limit).keys()].map((range) =>
                                 playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users)

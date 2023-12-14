@@ -61,11 +61,34 @@
     text-decoration: underline;
 }
 
+.Playlist-top {
+    display: flex;
+    margin-bottom: 10px;
+}
+
 .Playlist-stat {
     text-align: left;
     color: #373b3e;
     font-size: large;
-    margin-bottom: 10px;
+}
+
+.Playlist-button {
+    text-align: left;
+    color: #373b3e;
+    font-size: large;
+    margin-left: 15px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: underline;
+}
+
+.Playlist-button:hover {
+    color: #137a7f;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
