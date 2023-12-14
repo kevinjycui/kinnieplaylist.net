@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause, faForwardStep, faBackwardStep } from '@fortawesome/free-solid-svg-icons'
 
-import { PlayerContext, RefreshTokenContext, TokenContext, TrackContext } from '../AuthRoute'
+import { PlayerContext, PremiumContext, RefreshTokenContext, TokenContext, TrackContext } from '../AuthRoute'
 
 import default_image from "../default_image.png"
 
@@ -29,6 +29,8 @@ function WebPlayback() {
     const [current_track, setTrack] = useContext(TrackContext)
     const [player, setPlayer] = useContext(PlayerContext)
     const [token, setToken] = useContext(TokenContext);
+    const [setPremium] = useContext(PremiumContext);
+
     const refreshToken = useContext(RefreshTokenContext);
 
     useEffect(() => {
@@ -67,6 +69,7 @@ function WebPlayback() {
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
 
+                setPremium(true);
                 switchDevice(device_id);
             });
 
@@ -115,6 +118,7 @@ function WebPlayback() {
 
             player.on('authentication_error', ({ message }) => {
                 console.error('Failed to authenticate:', message);
+                setPremium(false);
                 window.location.reload(false);
             });
 
@@ -129,7 +133,7 @@ function WebPlayback() {
             window.addEventListener('beforeunload', () => player.disconnect());
         };
 
-    }, [token, setToken, refreshToken, player, setPlayer, setTrack, is_active]);
+    }, [token, setToken, refreshToken, player, setPlayer, setTrack, is_active, setPremium]);
 
     return error ?
         <>

@@ -12,6 +12,7 @@ export const RefreshTokenContext = createContext(null);
 
 export const TrackContext = createContext(track);
 export const PlayerContext = createContext(null);
+export const PremiumContext = createContext(false);
 
 function AuthRoute({ content }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +22,7 @@ function AuthRoute({ content }) {
 
   const [current_track, setTrack] = useState(track);
   const [player, setPlayer] = useState(undefined);
+  const [is_premium, setPremium] = useState(false);
 
   useEffect(() => {
     if (searchParams.has('refresh_token')) {
@@ -54,8 +56,10 @@ function AuthRoute({ content }) {
           <TokenContext.Provider value={[token, setToken]}>
             <PlayerContext.Provider value={[player, setPlayer]}>
               <TrackContext.Provider value={[current_track, setTrack]}>
-                {content}
-                <WebPlayback />
+                <PremiumContext.Provider value={[is_premium, setPremium]}>
+                  {content}
+                  <WebPlayback />
+                </PremiumContext.Provider>
               </TrackContext.Provider>
             </PlayerContext.Provider>
           </TokenContext.Provider>

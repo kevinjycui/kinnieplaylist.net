@@ -40,6 +40,7 @@
     text-align: center;
     border: none;
     text-overflow: ellipsis;
+    text-decoration: underline;
 }
 
 .CharacterButton-media {

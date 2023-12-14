@@ -6,20 +6,22 @@ import { track } from './WebPlayback'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
-import { apiJson } from '../api/apiUtil';
+import { apiJson, spotifyApi } from '../api/apiUtil';
 
 import "./Song.css"
 import { MyPlaylistContext, PlaylistContext } from './Character';
-import { TokenContext } from '../AuthRoute';
+import { RefreshTokenContext, TokenContext, PremiumContext } from '../AuthRoute';
 
 function Song({ index, song, number, voted, indexed }) {
     const { character } = useParams();
 
     const [song_track, setTrack] = useState(track);
 
-    const [token] = useContext(TokenContext);
+    const [token, setToken] = useContext(TokenContext);
+    const [refreshToken] = useContext(RefreshTokenContext);
     const [playlist, setPlaylist] = useContext(PlaylistContext);
     const [setMyPlaylist] = useContext(MyPlaylistContext);
+    const [is_premium] = useContext(PremiumContext);
 
     async function castVote(added_id) {
         var newPlaylist = [...playlist];
@@ -50,6 +52,14 @@ function Song({ index, song, number, voted, indexed }) {
         }
 
         setMyPlaylist(myPlaylist => new Set(myPlaylist.add(addSong.response.song_id)));
+    }
+
+    async function playTrack() {
+        if (is_premium) {
+            await spotifyApi('me/player/play', token, setToken, refreshToken, 'PUT', JSON.stringify({
+                uris: ["spotify:track:" + song]
+            }))
+        }
     }
 
     useEffect(() => {
@@ -83,16 +93,16 @@ function Song({ index, song, number, voted, indexed }) {
             </div>
 
             <div className="Song-track-container">
-                <a href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
+                <button className="Song-button" onClick={playTrack} title="Play">
                     <img className="Song-cover" src={song_track.img_file} />
-                </a>
+                </button>
                 <div className="Song-side">
-                    <a className="Song-title" href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
+                    <button className="Song-button Song-title" onClick={playTrack} title="Play">
                         {song_track.title}
-                    </a>
+                    </button>
                     <div className="Song-artist">{song_track.artists}</div>
                     <a className="spotify-attrib" href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
-                        <img className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Green.png"></img>
+                        <img className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Black.png"></img>
                         Play on Spotify
                         <FontAwesomeIcon className="external-icon" icon={faUpRightFromSquare} />
                     </a>
