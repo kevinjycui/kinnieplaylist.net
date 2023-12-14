@@ -117,8 +117,9 @@
 }
 
 .spotify-icon {
-    margin: 5px;
+    margin-right: 10px;
     width: 13pt;
+    height: 13pt;
 }
 
 .external-icon {
