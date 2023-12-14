@@ -1,38 +1,39 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useContext } from 'react';
 
 import Header from '../Header';
-import SearchBar from './SearchBar';
-import './Home.css';
+import './Profile.css';
 import { apiJson } from '../../api/apiUtil';
+import { PremiumContext, TokenContext } from '../../AuthRoute';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
 function Home() {
 
-    const [characters, setCharacters] = useState([]);
-    const [filteredCharacters, setFilteredCharacters] = useState([]);
+    const [myCharacters, setMyCharacters] = useState([]);
+    const [token] = useContext(TokenContext);
+    const [is_premium] = useContext(PremiumContext);
 
     useEffect(() => {
         async function getCharacters() {
-            const charactersData = await apiJson('/api/characters');
+            const charactersData = await apiJson('/api/characters/mine?access_token=' + token);
             if (charactersData.status === 200) {
-                setCharacters(charactersData.response.characters.map((data) => JSON.parse(data)));
+                setMyCharacters(charactersData.response.characters.map((data) => JSON.parse(data)));
             }
         }
 
         getCharacters();
 
-    }, []);
+    }, [token]);
 
     return (
         <>
             <>
                 <Header />
-                <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
                 <div className='Home'>
                     <div className='Home-container'>
-                        {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
-                            filteredCharacters.sort((a, b) => {
+                        <h3>My Characters</h3>
+                        {is_premium ? (myCharacters.length === 0 ? <div className="empty">Nobody here... Go and vote!</div> :
+                            myCharacters.sort((a, b) => {
                                 var nameA = a.name.toUpperCase();
                                 var nameB = b.name.toUpperCase();
                                 return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
@@ -44,7 +45,7 @@ function Home() {
                                         />
                                     </Suspense>
                                 </div>
-                            ))}
+                            ))) : <div className="empty">Spotify Premium required to create a voting profile</div>}
                     </div>
                 </div>
             </>

@@ -13,7 +13,7 @@
 }
 
 .Header-nav {
-    margin: 0 0 0 50%;
+    margin: 0 0 0 40%;
     text-wrap: nowrap;
     background: none;
     color: inherit;
@@ -53,4 +53,27 @@
     height: auto;
     margin: 10px 0 0 45px;
     display: inline-flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .Header {
+        height: 30%;
+        margin: 0 0 1% 0;
+    }
+
+    .Header-nav-container {
+        margin-top: 0;
+    }
+
+    .Header-button {
+        text-align: left;
+    }
+
+    .logo {
+        display: block;
+    }
+
+    .Header-nav-container {
+        display: block;
+    }
 }

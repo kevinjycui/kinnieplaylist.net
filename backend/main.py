@@ -52,7 +52,7 @@ def get_characters():
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
-@app.route("/api/characters/<character_id>", methods=["GET"])
+@app.route("/api/character/<character_id>", methods=["GET"])
 def get_character(character_id):
     try:
         return database.get_character(character_id).to_json()
@@ -61,7 +61,7 @@ def get_character(character_id):
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
-@app.route("/api/character/random", methods=["GET"])
+@app.route("/api/characters/random", methods=["GET"])
 def get_random_character():
     try:
         return database.get_random_character().to_json()
@@ -70,7 +70,18 @@ def get_random_character():
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
-@app.route("/api/songs/<song_id>", methods=["GET"])
+@app.route("/api/characters/mine", methods=["GET"])
+def get_my_characters():
+    try:
+        token = request.args.get('access_token')
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_characters_voted_by(user_data['id']).to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
+@app.route("/api/song/<song_id>", methods=["GET"])
 def get_song(song_id):
     try:
         return database.get_song(song_id).to_json()
@@ -90,9 +101,9 @@ def get_character_global_playlist(character_id):
 
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
 def character_my_playlist(character_id):
-    token = request.args.get('access_token')
     if request.method == "POST":
         try:
+            token = request.args.get('access_token')
             body = request.get_json()
             song_id = body['song_id']
             user_data = spotifyManager.get_user_data(token)
@@ -111,8 +122,9 @@ def character_my_playlist(character_id):
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
     elif request.method == "GET":
-        user_data = spotifyManager.get_user_data(token)
         try:
+            token = request.args.get('access_token')
+            user_data = spotifyManager.get_user_data(token)
             return database.get_character_songs(character_id, user_data['id']).to_json(counted=False)
         except NotFoundError as e:
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)

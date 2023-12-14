@@ -64,7 +64,7 @@ function Song({ index, song, number, voted, indexed }) {
 
     useEffect(() => {
         async function getData() {
-            const songData = await apiJson('/api/songs/' + song);
+            const songData = await apiJson('/api/song/' + song);
             if (songData.status === 200) {
                 setTrack(songData.response);
             }

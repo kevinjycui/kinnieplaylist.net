@@ -15,11 +15,11 @@ function Vote({ data }) {
 
     useEffect(() => {
         async function getData() {
-            const characterData = await apiJson('/api/characters/' + data.character_id);
+            const characterData = await apiJson('/api/character/' + data.character_id);
             if (characterData.status === 200) {
                 setCharacter(characterData.response);
             }
-            const songData = await apiJson('/api/songs/' + data.song_id);
+            const songData = await apiJson('/api/song/' + data.song_id);
             if (songData.status === 200) {
                 setSong(songData.response);
             }

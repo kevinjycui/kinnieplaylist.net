@@ -151,3 +151,12 @@ class Database:
         character_id = data[0][0]
 
         return CharacterID(character_id)
+
+    def get_characters_voted_by(self, user_id):
+        user, user_conn = connect()
+
+        cmd = "SELECT character_id, name, img_file, media FROM characters WHERE character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id=%s)"
+        user.execute(cmd, (user_id,))
+        data_list = list(user)
+        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
+        return CharacterList(character_list)

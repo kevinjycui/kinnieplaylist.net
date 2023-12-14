@@ -18,7 +18,7 @@ function Header() {
         if (token == '') {
             return;
         }
-        const characterData = await apiJson("/api/character/random");
+        const characterData = await apiJson("/api/characters/random");
         if (characterData.status === 200) {
             navigate("/character/" + characterData.response.character_id);
         }
@@ -42,6 +42,9 @@ function Header() {
                 </button>
                 <button className="Header-nav" onClick={navigateToRandom}>
                     random
+                </button>
+                <button className="Header-nav" onClick={() => navigate("/profile")}>
+                    my votes
                 </button>
                 <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" rel="noreferrer">
                     join waitlist

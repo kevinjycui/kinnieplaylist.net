@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-import default_image from "../../default_image.png"
+import default_image from "../default_image.png"
 
 import './CharacterButton.css';
 

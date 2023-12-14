@@ -28,7 +28,7 @@ function Character() {
     useEffect(() => {
 
         async function getData() {
-            const characterData = await apiJson('/api/characters/' + character);
+            const characterData = await apiJson('/api/character/' + character);
             if (characterData.status === 200) {
                 setData(characterData.response);
             }
