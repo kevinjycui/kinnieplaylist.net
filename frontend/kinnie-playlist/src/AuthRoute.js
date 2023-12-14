@@ -53,17 +53,17 @@ function AuthRoute({ content }) {
     <>
       <RefreshTokenContext.Provider value={[refreshToken, setRefreshToken]}>
         <TokenContext.Provider value={[token, setToken]}>
-          {(refreshToken === '') ? <Login />
-            : <div>
-              <PlayerContext.Provider value={[player, setPlayer]}>
+          <PlayerContext.Provider value={[player, setPlayer]}>
+            {(refreshToken === '') ? <Login />
+              : <div>
                 <TrackContext.Provider value={[current_track, setTrack]}>
                   <PremiumContext.Provider value={[is_premium, setPremium]}>
                     {content}
                     <WebPlayback />
                   </PremiumContext.Provider>
                 </TrackContext.Provider>
-              </PlayerContext.Provider>
-            </div>}
+              </div>}
+          </PlayerContext.Provider>
         </TokenContext.Provider>
       </RefreshTokenContext.Provider>
     </>

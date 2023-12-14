@@ -5,13 +5,14 @@ import logo2 from "../logo2.svg";
 
 import "./Header.css"
 import { apiJson } from '../api/apiUtil';
-import { RefreshTokenContext, TokenContext } from '../AuthRoute';
+import { PlayerContext, RefreshTokenContext, TokenContext } from '../AuthRoute';
 
 function Header() {
     const navigate = useNavigate();
 
     const [token, setToken] = useContext(TokenContext);
     const [refreshToken, setRefreshToken] = useContext(RefreshTokenContext);
+    const [player, setPlayer] = useContext(PlayerContext);
 
     async function navigateToRandom() {
         if (token == '') {
@@ -28,6 +29,8 @@ function Header() {
         setRefreshToken('');
         localStorage.removeItem('kinnie-access-token');
         localStorage.removeItem('kinnie-refresh-token');
+        player.disconnect();
+        setPlayer(null);
     }
 
     return (
