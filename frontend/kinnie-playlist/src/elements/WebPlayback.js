@@ -29,7 +29,7 @@ function WebPlayback() {
     const [current_track, setTrack] = useContext(TrackContext)
     const [player, setPlayer] = useContext(PlayerContext)
     const [token, setToken] = useContext(TokenContext);
-    const [setPremium] = useContext(PremiumContext);
+    const [is_premium, setPremium] = useContext(PremiumContext);
 
     const refreshToken = useContext(RefreshTokenContext);
 
@@ -69,7 +69,9 @@ function WebPlayback() {
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
 
-                setPremium(true);
+                if (!is_premium) {
+                    setPremium(true);
+                }
                 switchDevice(device_id);
             });
 
