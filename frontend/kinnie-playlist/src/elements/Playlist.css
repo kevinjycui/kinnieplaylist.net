@@ -68,17 +68,16 @@
 
 .Playlist-stat {
     text-align: left;
-    color: #373b3e;
+    color: black;
     font-size: large;
 }
 
 .Playlist-button {
     text-align: left;
-    color: #373b3e;
     font-size: large;
     margin-left: 15px;
     background: none;
-    color: inherit;
+    color: black;
     border: none;
     padding: 0;
     cursor: pointer;
