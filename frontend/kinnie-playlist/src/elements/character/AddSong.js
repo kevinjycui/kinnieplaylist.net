@@ -19,7 +19,6 @@ function AddSong() {
     const [current_track] = useContext(TrackContext);
 
     const [loading, setLoading] = useState('');
-    const [scrolled, setScrolled] = useState(false);
 
     const [playlist, setPlaylist] = useContext(PlaylistContext);
     const [myPlaylist, setMyPlaylist] = useContext(MyPlaylistContext);
@@ -71,20 +70,16 @@ function AddSong() {
         setLoading('');
     }
 
-    useEffect(() => {
-        window.addEventListener("scroll", () => setScrolled(window.pageYOffset >= 100));
-    }, []);
-
     return (
         token != null && current_track !== track ?
             (myPlaylist.has(current_track.song_id) ?
-                <div className={"AddSong AddSong-added" + (scrolled ? " AddSong-scrolled" : "")} >
+                <div className={"AddSong AddSong-added"} >
                     <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
                     <div className="Addsong-text">
                         You've voted <b>{current_track.title}</b> by {current_track.artists} for this character's theme!
                     </div>
                 </div> :
-                <button className={"AddSong" + (loading !== "" ? " AddSong-loading" : "") + (scrolled ? " AddSong-scrolled" : "")} onClick={addCurrentSong} >
+                <button className={"AddSong" + (loading !== "" ? " AddSong-loading" : "")} onClick={addCurrentSong} >
                     <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
                     <div className="Addsong-text">{
                         loading === '' ?
