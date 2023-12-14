@@ -60,6 +60,9 @@ function Song({ index, song, number, voted, indexed }) {
                 uris: ["spotify:track:" + song]
             }))
         }
+        else {
+            alert("Spotify Premium required to play tracks on-demand");
+        }
     }
 
     useEffect(() => {
