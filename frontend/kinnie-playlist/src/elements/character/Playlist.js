@@ -48,7 +48,7 @@ function Playlist() {
                                 <button className='Playlist-button' onClick={() => playTracks([...myPlaylist])}>Play All</button> : <></>}
                         </div>
                         {
-                            [...Array(limit).keys()].map((range) =>
+                            is_premium ? [...Array(limit).keys()].map((range) =>
                                 [...myPlaylist].reverse()
                                     .slice(range * LIMIT_STEP, (range + 1) * LIMIT_STEP).map(
                                         (song_id, index) =>
@@ -61,7 +61,7 @@ function Playlist() {
                                                 indexed={false}
                                             />
                                     )
-                            )
+                            ) : <div>Spotify Premium required to vote for tracks</div>
                         }
                     </> :
                     <>
