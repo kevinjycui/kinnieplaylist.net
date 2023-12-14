@@ -39,6 +39,8 @@ function Vote({ data }) {
                                 image.target.onerror = null;
                                 image.target.src = default_image;
                             }} />
+                    </div>
+                    <div className="Vote-image-container">
                         <img className="Vote-image" src={vote_song.img_file}
                             alt={vote_song.title}
                             onError={(image) => {
