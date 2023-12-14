@@ -29,6 +29,17 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .Character-image {
+        display: block;
+    }
+
+    .Character-side {
+        position: relative;
+        display: block;
+        margin: 1%;
+        padding: 5px 0 5px 65px;
+    }
+
     .Character-info {
         position: relative;
         width: 100%;

@@ -4,13 +4,18 @@
     justify-content: center;
     align-items: center;
     font-size: medium;
-    color: #e12885;
+    color: black;
     cursor: pointer;
     background-color: transparent;
     border: none;
     outline: inherit;
     border-radius: 5px;
     height: auto;
-    text-decoration: none;
+    text-decoration: underline;
     font-size: large;
+}
+
+.Login-button:hover {
+    color: #137a7f;
+    text-decoration: underline;
 }
