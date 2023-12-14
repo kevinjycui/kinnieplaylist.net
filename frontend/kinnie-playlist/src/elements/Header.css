@@ -13,7 +13,7 @@
 }
 
 .Header-nav {
-    margin: 0 0 0 40%;
+    margin: 0 0 0 20%;
     text-wrap: nowrap;
     background: none;
     color: inherit;
@@ -52,6 +52,16 @@
     width: auto;
     height: auto;
     margin: 10px 0 0 45px;
+    display: inline-flex;
+}
+
+.spotify-logo {
+    max-width: 150px;
+    max-height: 35px;
+    width: auto;
+    height: auto;
+    margin: 0 0 10px 20px;
+    padding: 0;
     display: inline-flex;
 }
 

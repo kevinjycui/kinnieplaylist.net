@@ -35,7 +35,10 @@ function Header() {
 
     return (
         <header className="Header">
-            <button className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist logo" src={logo2} /> character playlist database</button>
+            <button className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist logo" src={logo2} />
+                character playlist database for
+                <img className="spotify-logo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png' />
+            </button>
             <nav className="Header-nav-container">
                 <button className="Header-nav" onClick={() => navigate("/latest")}>
                     latest
