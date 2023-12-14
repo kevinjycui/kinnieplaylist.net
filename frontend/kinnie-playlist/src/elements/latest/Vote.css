@@ -10,6 +10,8 @@
     height: 50px;
     overflow: hidden;
     margin: 7px;
+    object-fit: cover;
+    border: none;
 }
 
 .Vote-info-container {
