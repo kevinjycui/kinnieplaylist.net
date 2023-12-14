@@ -44,7 +44,7 @@ function Playlist() {
                     <>
                         <div className='Playlist-top'>
                             <div className='Playlist-stat'>{myPlaylist.size} {myPlaylist.size === 1 ? "track" : "tracks"}</div>
-                            <button className='Playlist-button' onClick={() => playTracks([...myPlaylist])}>Play All</button>
+                            <button className='Playlist-button' onClick={() => playTracks([...myPlaylist])}>Play Shuffled</button>
                         </div>
                         {
                             [...Array(limit).keys()].map((range) =>
@@ -66,7 +66,7 @@ function Playlist() {
                     <>
                         <div className='Playlist-top'>
                             <div className='Playlist-stat'>{playlist.length} {playlist.length === 1 ? "track" : "tracks"}</div>
-                            <button className='Playlist-button' onClick={() => playTracks(playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users).map((data) => data.song_id))}>Play All</button>
+                            <button className='Playlist-button' onClick={() => playTracks(playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users).map((data) => data.song_id))}>Play Shuffled</button>
                         </div>
                         {
                             [...Array(limit).keys()].map((range) =>
