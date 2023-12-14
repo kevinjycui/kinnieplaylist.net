@@ -26,6 +26,9 @@ function Header() {
                 <button className="Header-nav" onClick={navigateToRandom}>
                     random
                 </button>
+                <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" rel="noreferrer">
+                    join waitlist
+                </a>
             </nav>
         </header>
     );
