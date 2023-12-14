@@ -4,10 +4,12 @@ import Header from '../Header';
 import './Profile.css';
 import { apiJson } from '../../api/apiUtil';
 import { PremiumContext, TokenContext } from '../../AuthRoute';
+import { useNavigate } from 'react-router-dom';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
-function Home() {
+function Profile() {
+    const navigate = useNavigate();
 
     const [myCharacters, setMyCharacters] = useState([]);
     const [token] = useContext(TokenContext);
@@ -29,16 +31,17 @@ function Home() {
         <>
             <>
                 <Header />
-                <div className='Home'>
-                    <div className='Home-container'>
+                <div className='Profile'>
+                    <div className='Profile-container'>
                         <h3>My Characters</h3>
-                        {is_premium ? (myCharacters.length === 0 ? <div className="empty">Nobody here... Go and vote!</div> :
+                        {is_premium ? (myCharacters.length === 0 ? <div className="empty">Nobody here... Go and&nbsp;
+                        <button className='Profile-button' onClick={() => navigate("/")}>vote</button>!</div> :
                             myCharacters.sort((a, b) => {
                                 var nameA = a.name.toUpperCase();
                                 var nameB = b.name.toUpperCase();
                                 return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
                             }).map(character => (
-                                <div className='Home-characterModule' key={character.character_id}>
+                                <div className='Profile-characterModule' key={character.character_id}>
                                     <Suspense fallback={<></>}>
                                         <CharacterButton
                                             data={character}
@@ -54,4 +57,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Profile;
