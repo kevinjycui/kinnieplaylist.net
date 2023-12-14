@@ -5,13 +5,10 @@
     text-decoration: none;
 }
 
-.Song-small-embed {
-    margin-bottom: 20px;
-}
-
 .Song-info {
     margin: 0 20px 0 0;
     text-align: center;
+    min-width: 40px;
 }
 
 .Song-vote {
@@ -19,7 +16,7 @@
     background: none;
     color: inherit;
     border: none;
-    padding: 0;
+    padding: auto;
     outline: inherit;
     font-size: 36px;
     font-weight: bolder;
@@ -28,6 +25,8 @@
 .Song-index {
     font-size: 36px;
     font-weight: bolder;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .Song-vote-voted {
@@ -44,10 +43,75 @@
 .Song-number {
     font-size: 14px;
     margin: 10px 0 0 0;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.Song-track-container {
+    margin-bottom: 10px;
+    display: inline-flex;
+    width: 100%;
+}
+
+.Song-cover {
+    position: relative;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 20px;
 }
 
 .Song-side {
-    width: 50%;
-    height: 80px;
-    margin: 0 0 0 2%;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    margin: 20px 10px 10px 0;
+    padding-top: 10px;
+    width: 100%;
+}
+
+.Song-title {
+    display: block;
+    font-size: 13pt;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    color: black;
+    text-decoration: none;
+}
+
+.Song-title:hover {
+    color: #137a7f;
+    text-decoration: underline;
+}
+
+.Song-artists {
+    display: block;
+    font-size: 11pt;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    color: #a7a7a7;
+    font-weight: 600;
+}
+
+.spotify-attrib {
+    position: absolute;
+    bottom: 0;
+    font-size: 13pt;
+    color: black;
+    display: flex;
+}
+
+.spotify-attrib:hover {
+    color: #137a7f;
+    text-decoration: underline;
+}
+
+.spotify-icon {
+    margin: 5px;
+    width: 13pt;
+}
+
+.external-icon {
+    margin-left: 4pt;
 }

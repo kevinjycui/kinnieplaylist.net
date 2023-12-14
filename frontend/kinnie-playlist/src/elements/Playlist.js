@@ -13,12 +13,17 @@ function Playlist() {
     const [limit, setLimit] = useState(1);
     const [toggleMine, setToggleMine] = useState(false);
 
+    function setToggle(toggle) {
+        setLimit(1);
+        setToggleMine(toggle);
+    }
+
     return <>
         {
             <div className="Playlist">
                 <div className="Playlist-options">
-                    <button className="Playlist-option-button" onClick={() => setToggleMine(false)} disabled={!toggleMine}>Top Global Tracks</button>
-                    <button className="Playlist-option-button" onClick={() => setToggleMine(true)} disabled={toggleMine}>My Tracks ({myPlaylist.size})</button>
+                    <button className="Playlist-option-button" onClick={() => setToggle(false)} disabled={!toggleMine}>Top Global Tracks</button>
+                    <button className="Playlist-option-button" onClick={() => setToggle(true)} disabled={toggleMine}>My Tracks ({myPlaylist.size})</button>
                 </div>
                 {toggleMine ?
                     <>

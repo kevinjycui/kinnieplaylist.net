@@ -61,6 +61,15 @@ def get_character(character_id):
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/songs/<song_id>", methods=["GET"])
+def get_song(song_id):
+    try:
+        return database.get_song(song_id).to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/api/playlist/global/<character_id>", methods=["GET"])
 def get_character_global_playlist(character_id):
     try:

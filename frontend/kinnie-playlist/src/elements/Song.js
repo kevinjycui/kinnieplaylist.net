@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { track } from './WebPlayback'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 import { apiJson } from '../api/apiUtil';
 
@@ -12,6 +14,8 @@ import { TokenContext } from '../AuthRoute';
 
 function Song({ index, song, number, voted, indexed }) {
     const { character } = useParams();
+
+    const [song_track, setTrack] = useState(track);
 
     const [token] = useContext(TokenContext);
     const [playlist, setPlaylist] = useContext(PlaylistContext);
@@ -48,6 +52,18 @@ function Song({ index, song, number, voted, indexed }) {
         setMyPlaylist(myPlaylist => new Set(myPlaylist.add(addSong.response.song_id)));
     }
 
+    useEffect(() => {
+        async function getData() {
+            const songData = await apiJson('/api/songs/' + song);
+            if (songData.status === 200) {
+                setTrack(songData.response);
+            }
+        }
+
+        getData();
+
+    }, [song]);
+
     return (
         <div className="Song" id={song}>
             <div className="Song-info">
@@ -66,7 +82,22 @@ function Song({ index, song, number, voted, indexed }) {
                 }
             </div>
 
-            <iframe className={index === 0 ? "" : "Song-small-embed"} title="Play on Spotify" src={"https://open.spotify.com/embed/track/" + song + "?utm_source=generator&theme=0"} width="100%" height={index === 0 ? "252" : "152"} frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div className="Song-track-container">
+                <a href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
+                    <img className="Song-cover" src={song_track.img_file} />
+                </a>
+                <div className="Song-side">
+                    <a className="Song-title" href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
+                        {song_track.title}
+                    </a>
+                    <div className="Song-artist">{song_track.artists}</div>
+                    <a className="spotify-attrib" href={"https://open.spotify.com/track/" + song} target="_blank" rel="noreferrer">
+                        <img className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Green.png"></img>
+                        Play on Spotify
+                        <FontAwesomeIcon className="external-icon" icon={faUpRightFromSquare} />
+                    </a>
+                </div>
+            </div>
         </div >
     );
 }
