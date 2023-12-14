@@ -31,7 +31,7 @@ function WebPlayback() {
     const [token, setToken] = useContext(TokenContext);
     const [is_premium, setPremium] = useContext(PremiumContext);
 
-    const refreshToken = useContext(RefreshTokenContext);
+    const [refreshToken] = useContext(RefreshTokenContext);
 
     useEffect(() => {
         if (player != null) {

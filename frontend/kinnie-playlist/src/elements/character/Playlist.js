@@ -44,7 +44,7 @@ function Playlist() {
                     <>
                         <div className='Playlist-top'>
                             <div className='Playlist-stat'>{myPlaylist.size} {myPlaylist.size === 1 ? "track" : "tracks"}</div>
-                            {myPlaylist.size > 0 ?
+                            {myPlaylist.size > 0 && is_premium ?
                                 <button className='Playlist-button' onClick={() => playTracks([...myPlaylist])}>Play All</button> : <></>}
                         </div>
                         {
@@ -67,7 +67,7 @@ function Playlist() {
                     <>
                         <div className='Playlist-top'>
                             <div className='Playlist-stat'>{playlist.length} {playlist.length === 1 ? "track" : "tracks"}</div>
-                            {playlist.length > 0 ?
+                            {playlist.length && is_premium > 0 ?
                                 <button className='Playlist-button' onClick={
                                     () => playTracks(playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users).map((data) => data.song_id))
                                 }>

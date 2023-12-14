@@ -7,8 +7,8 @@ import Login from './Login'
 import './App.css';
 import { spotifyCheckRefreshToken } from './api/apiUtil';
 
-export const TokenContext = createContext(null);
-export const RefreshTokenContext = createContext(null);
+export const TokenContext = createContext('');
+export const RefreshTokenContext = createContext('');
 
 export const TrackContext = createContext(track);
 export const PlayerContext = createContext(null);
@@ -51,20 +51,21 @@ function AuthRoute({ content }) {
 
   return (
     <>
-      {(refreshToken === '') ? <Login /> : <div>
-        <RefreshTokenContext.Provider value={refreshToken}>
-          <TokenContext.Provider value={[token, setToken]}>
-            <PlayerContext.Provider value={[player, setPlayer]}>
-              <TrackContext.Provider value={[current_track, setTrack]}>
-                <PremiumContext.Provider value={[is_premium, setPremium]}>
-                  {content}
-                  <WebPlayback />
-                </PremiumContext.Provider>
-              </TrackContext.Provider>
-            </PlayerContext.Provider>
-          </TokenContext.Provider>
-        </RefreshTokenContext.Provider>
-      </div>}
+      <RefreshTokenContext.Provider value={[refreshToken, setRefreshToken]}>
+        <TokenContext.Provider value={[token, setToken]}>
+          {(refreshToken === '') ? <Login />
+            : <div>
+              <PlayerContext.Provider value={[player, setPlayer]}>
+                <TrackContext.Provider value={[current_track, setTrack]}>
+                  <PremiumContext.Provider value={[is_premium, setPremium]}>
+                    {content}
+                    <WebPlayback />
+                  </PremiumContext.Provider>
+                </TrackContext.Provider>
+              </PlayerContext.Provider>
+            </div>}
+        </TokenContext.Provider>
+      </RefreshTokenContext.Provider>
     </>
   );
 }
