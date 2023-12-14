@@ -46,7 +46,7 @@ function Header() {
                 <button className="Header-nav" onClick={() => navigate("/profile")}>
                     my votes
                 </button>
-                <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" rel="noreferrer">
+                <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" target="_blank" rel="noreferrer">
                     join waitlist
                 </a>
                 {token !== '' && refreshToken !== '' ?
