@@ -38,7 +38,7 @@ function AddSong() {
                 "song_id": added_id
             }))
         if (addSong.status !== 200) {
-            alert("Failed to cast vote.");
+            alert("Failed to cast vote. Voting is disabled until Spotify approves this app. That's just how it is I guess.");
             setLoading('');
             return;
         }
