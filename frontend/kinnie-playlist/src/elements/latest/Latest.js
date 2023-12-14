@@ -40,6 +40,7 @@ function Latest() {
                     <Vote key={index} data={vote} />
                 ) : <></>}
             </div>
+            <div className="buffer"></div>
         </>
     );
 }
