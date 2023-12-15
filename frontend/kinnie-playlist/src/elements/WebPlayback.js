@@ -148,7 +148,7 @@ function WebPlayback() {
                         </div>
                     </div>
                     <div className="WebPlayback-spotify">
-                        Remote control with <a href="spotify:" target="_blank" rel="noreferrer"><img className="WebPlayback-spotifyLogo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' /></a>
+                        Remote control with <a href="spotify:" rel="noreferrer"><img className="WebPlayback-spotifyLogo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' /></a>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@ function WebPlayback() {
                                 </div>
                             </div>
                             <div className="WebPlayback-spotify">
-                                Remote control with <a href="spotify:" target="_blank" rel="noreferrer"><img className="WebPlayback-spotifyLogo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' /></a>
+                                Remote control with <a href="spotify:" rel="noreferrer"><img className="WebPlayback-spotifyLogo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Green.png' /></a>
                             </div>
                         </div>
                     </div>
