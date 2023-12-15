@@ -14,16 +14,6 @@ function Header() {
     const [refreshToken, setRefreshToken] = useContext(RefreshTokenContext);
     const [player, setPlayer] = useContext(PlayerContext);
 
-    async function navigateToRandom() {
-        if (token == '') {
-            return;
-        }
-        const characterData = await apiJson("/api/characters/random");
-        if (characterData.status === 200) {
-            navigate("/character/" + characterData.response.character_id);
-        }
-    }
-
     function logout() {
         setToken('');
         setRefreshToken('');
@@ -43,7 +33,7 @@ function Header() {
                 <button title="https://kinnieplaylist.net/latest" className="Header-nav" onClick={() => navigate("/latest")}>
                     latest
                 </button>
-                <button title="https://kinnieplaylist.net/random" className="Header-nav" onClick={navigateToRandom}>
+                <button title="https://kinnieplaylist.net/random" className="Header-nav" onClick={() => navigate("/random")}>
                     random
                 </button>
                 <button title="https://kinnieplaylist.net/profile" className="Header-nav" onClick={() => navigate("/profile")}>
