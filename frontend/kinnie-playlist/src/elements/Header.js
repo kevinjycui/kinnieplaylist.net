@@ -35,19 +35,19 @@ function Header() {
 
     return (
         <header className="Header">
-            <button className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist logo" src={logo2} />
+            <button title="https://kinnieplaylist.net/" className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist logo" src={logo2} />
                 character playlist database for
                 <img className="spotify-logo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png' />
             </button>
             <nav className="Header-nav-container">
-                <button className="Header-nav" onClick={() => navigate("/latest")}>
+                <button title="https://kinnieplaylist.net/latest" className="Header-nav" onClick={() => navigate("/latest")}>
                     latest
                 </button>
-                <button className="Header-nav" onClick={navigateToRandom}>
+                <button title="https://kinnieplaylist.net/random" className="Header-nav" onClick={navigateToRandom}>
                     random
                 </button>
-                <button className="Header-nav" onClick={() => navigate("/profile")}>
-                    my tracks
+                <button title="https://kinnieplaylist.net/profile" className="Header-nav" onClick={() => navigate("/profile")}>
+                    my tracks  
                 </button>
                 <a className="Header-nav" href="https://forms.gle/2RL1aLtntu9qhjo77" target="_blank" rel="noreferrer">
                     join waitlist
