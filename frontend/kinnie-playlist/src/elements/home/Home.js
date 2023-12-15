@@ -27,7 +27,6 @@ function Home() {
     return (
         <>
             <>
-                <Header />
                 <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
                 <div className='Home'>
                     <div className='Home-container'>

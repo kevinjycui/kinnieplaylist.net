@@ -68,7 +68,6 @@ function Character() {
             code === 404 ? <Error /> : <>
                 <PlaylistContext.Provider value={[playlist, setPlaylist]}>
                     <MyPlaylistContext.Provider value={[myPlaylist, setMyPlaylist]}>
-                        <Header />
                         <div className='Character-info'>
                             <Suspense fallback={<img className='Character-image' src={default_image} alt="Loading" />}>
                                 <img className='Character-image' src={data.img_file} alt={data.name}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useSearchParams } from "react-router-dom";
 
+import Header from './elements/Header';
 import WebPlayback, { track } from './elements/WebPlayback'
 import Login from './Login'
 
@@ -58,6 +59,7 @@ function AuthRoute({ content }) {
               : <div>
                 <TrackContext.Provider value={[current_track, setTrack]}>
                   <PremiumContext.Provider value={[is_premium, setPremium]}>
+                    <Header />
                     {content}
                     <WebPlayback />
                   </PremiumContext.Provider>

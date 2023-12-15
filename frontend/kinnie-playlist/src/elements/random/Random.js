@@ -28,7 +28,7 @@ function Random() {
     }, [token]);
 
 
-    return <Header />;
+    return <></>;
 }
 
 export default Random;

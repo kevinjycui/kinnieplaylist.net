@@ -33,7 +33,6 @@ function Latest() {
 
     return (
         <>
-            <Header />
             <div className="Latest">
                 <h3>Current time: {date}</h3>
                 {latest.length > 0 ? latest.map((vote, index) =>
