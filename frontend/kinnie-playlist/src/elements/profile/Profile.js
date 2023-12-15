@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy, useContext } from 'react';
 
-import Header from '../Header';
 import './Profile.css';
 import { apiJson } from '../../api/apiUtil';
 import { PremiumContext, TokenContext } from '../../AuthRoute';

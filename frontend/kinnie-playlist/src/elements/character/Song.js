@@ -97,7 +97,7 @@ function Song({ index, song, number, voted, indexed }) {
 
             <div className="Song-track-container">
                 <button className="Song-button" onClick={playTrack} title="Play">
-                    <img className="Song-cover" src={song_track.img_file} />
+                    <img className="Song-cover" alt={song_track.title} src={song_track.img_file} />
                 </button>
                 <div className="Song-side">
                     <button className="Song-button Song-title" onClick={playTrack} title="Play">
@@ -105,7 +105,7 @@ function Song({ index, song, number, voted, indexed }) {
                     </button>
                     <div className="Song-artist">{song_track.artists}</div>
                     <a className="spotify-attrib" href={"spotify:track:" + song} rel="noreferrer">
-                        <img className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Black.png"></img>
+                        <img alt="Spotify" className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Black.png"></img>
                         Play on Spotify
                         <FontAwesomeIcon className="external-icon" icon={faUpRightFromSquare} />
                     </a>

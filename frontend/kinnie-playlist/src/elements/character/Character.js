@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext, createContext, Suspense } from 'react';
 import { useParams } from 'react-router';
 
-import Header from '../Header';
 import Error from '../../404';
 import AddSong from './AddSong';
 import Playlist from './Playlist';

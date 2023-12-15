@@ -69,9 +69,7 @@ function WebPlayback() {
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
 
-                if (!is_premium) {
-                    setPremium(true);
-                }
+                setPremium(true);
                 switchDevice(device_id);
             });
 

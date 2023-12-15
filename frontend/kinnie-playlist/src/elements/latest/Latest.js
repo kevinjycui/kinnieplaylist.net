@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { apiJson } from '../../api/apiUtil';
 
-import Header from '../Header';
 import Vote from './Vote';
 
 import './Latest.css';

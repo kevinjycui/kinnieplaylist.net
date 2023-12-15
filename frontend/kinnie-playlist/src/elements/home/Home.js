@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 
-import Header from '../Header';
 import SearchBar from './SearchBar';
 import './Home.css';
 import { apiJson } from '../../api/apiUtil';

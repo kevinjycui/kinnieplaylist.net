@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import logo2 from "../logo2.svg";
 
 import "./Header.css"
-import { apiJson } from '../api/apiUtil';
 import { PlayerContext, RefreshTokenContext, TokenContext } from '../AuthRoute';
 
 function Header() {
@@ -25,9 +24,9 @@ function Header() {
 
     return (
         <header className="Header">
-            <button title="https://kinnieplaylist.net/" className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist logo" src={logo2} />
+            <button title="https://kinnieplaylist.net/" className="Header-button" onClick={() => navigate("/")}><img className="logo" alt="Kinnie Playlist" src={logo2} />
                 character playlist database for
-                <img className="spotify-logo" alt='Spotify logo' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png' />
+                <img className="spotify-logo" alt='Spotify' src='/spotify-icons-logos/logos/01_RGB/02_PNG/Spotify_Logo_RGB_Black.png' />
             </button>
             <nav className="Header-nav-container">
                 <button title="https://kinnieplaylist.net/latest" className="Header-nav" onClick={() => navigate("/latest")}>

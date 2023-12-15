@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-import Header from '../Header';
-
 import { apiJson } from '../../api/apiUtil';
 import { useContext, useEffect } from "react";
 import { TokenContext } from "../../AuthRoute";
@@ -14,7 +12,7 @@ function Random() {
     useEffect(() => {
 
         async function navigateToRandom() {
-            if (token == '') {
+            if (token === '') {
                 return;
             }
             const characterData = await apiJson("/api/characters/random");
@@ -25,7 +23,7 @@ function Random() {
 
         navigateToRandom();
 
-    }, [token]);
+    }, [token, navigate]);
 
 
     return <></>;
