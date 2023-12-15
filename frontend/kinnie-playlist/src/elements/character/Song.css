@@ -73,6 +73,7 @@
 
 .Song-title {
     display: block;
+    text-align: left;
     font-size: 13pt;
     font-weight: bold;
     text-overflow: ellipsis;
@@ -87,6 +88,7 @@
 
 .Song-artists {
     display: block;
+    text-align: left;
     font-size: 11pt;
     font-weight: bold;
     text-overflow: ellipsis;
