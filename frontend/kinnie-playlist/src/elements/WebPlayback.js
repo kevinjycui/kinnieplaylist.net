@@ -50,7 +50,7 @@ function WebPlayback() {
         async function switchDevice(device_id) {
             const response = await spotifyApi('me/player', token, setToken, refreshToken, 'PUT', JSON.stringify({
                 "device_ids": [device_id],
-                "play": true
+                "play": false
             }))
             if (response.status !== 202) {
                 console.error('Failed to auto transfer playback.');
