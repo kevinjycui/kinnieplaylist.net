@@ -34,6 +34,7 @@
     text-decoration: underline;
     font: inherit;
     font-weight: bold;
+    text-align: left !important;
 }
 
 .Vote-button:hover {
