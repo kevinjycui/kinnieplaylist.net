@@ -34,15 +34,14 @@ function Vote({ data }) {
             vote_character != null && vote_song != null ?
                 <div className="Vote">
                     <div className="Vote-image-container">
-                        <img className="Vote-image" src={vote_song.img_file}
-                            alt={vote_song.title}
+                        <img className="Vote-image" src={vote_song.img_file} alt={vote_song.title} title={vote_song.title}
                             onError={(image) => {
                                 image.target.onerror = null;
                                 image.target.src = default_image;
                             }} />
                     </div>
                     <div className="Vote-image-container">
-                        <img className="Vote-image" src={vote_character.img_file} alt={vote_character.name}
+                        <img className="Vote-image" src={vote_character.img_file} alt={vote_character.name} title={vote_character.name}
                             onError={(image) => {
                                 image.target.onerror = null;
                                 image.target.src = default_image;

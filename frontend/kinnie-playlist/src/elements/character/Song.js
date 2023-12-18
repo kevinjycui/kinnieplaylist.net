@@ -144,10 +144,10 @@ function Song({ index, song, number, indexed }) {
             <div className="Song-info">
                 {
                     myPlaylist.has(song) ? 
-                        <button className="Song-vote-voted" onClick={uncastVote}>
+                        <button className="Song-vote-voted" onClick={uncastVote} title={"Remove vote for " + song_track.title + " by " + song_track.artists}>
                             <FontAwesomeIcon icon={faAngleUp} />
                         </button> :
-                        <button className="Song-vote" onClick={castVote}>
+                        <button className="Song-vote" onClick={castVote} title={"Vote " + song_track.title + " by " + song_track.artists}>
                             <FontAwesomeIcon className="Song-vote" icon={faAngleUp} />
                         </button>
                 }
