@@ -28,13 +28,22 @@ function Song({ index, song, number, indexed }) {
         const bakPlaylist = JSON.stringify(playlist);
         const bakMyPlaylist = new Set(myPlaylist);
 
+        var songFound = false;
+
         for (var i = 0; i < newPlaylist.length; i++) {
             if (newPlaylist[i].song_id === song) {
                 newPlaylist[i].number_of_users++;
                 setPlaylist(newPlaylist);
+                songFound = true;
                 break;
             }
         }
+
+        if (!songFound) {
+            return;
+        }
+
+        setPlaylist(newPlaylist);
 
         setMyPlaylist(myPlaylist => new Set(myPlaylist.add(song)));
 
