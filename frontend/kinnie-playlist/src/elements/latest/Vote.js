@@ -41,7 +41,7 @@ function Vote({ data }) {
                             }} />
                     </div>
                     <div className="Vote-image-container">
-                        <img className="Vote-image" src={vote_character.img_file} alt={vote_character.name} title={vote_character.name}
+                        <img className="Vote-image" src={vote_character.img_file} alt={vote_character.name} title={vote_character.name + " from " + vote_character.media}
                             onError={(image) => {
                                 image.target.onerror = null;
                                 image.target.src = default_image;
