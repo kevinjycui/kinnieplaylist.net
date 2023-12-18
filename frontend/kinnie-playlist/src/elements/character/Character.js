@@ -30,6 +30,7 @@ function Character() {
             const characterData = await apiJson('/api/character/' + character);
             if (characterData.status === 200) {
                 setData(characterData.response);
+                document.title = data.name + " - Kinnie Playlist";
             }
             setCode(characterData.status);
         }
