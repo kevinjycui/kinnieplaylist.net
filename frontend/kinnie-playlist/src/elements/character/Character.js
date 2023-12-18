@@ -25,6 +25,7 @@ function Character() {
     const [token] = useContext(TokenContext);
 
     useEffect(() => {
+        document.title = "Loading...";
 
         async function getData() {
             const characterData = await apiJson('/api/character/' + character);
@@ -34,7 +35,7 @@ function Character() {
             }
             setCode(characterData.status);
         }
-
+        
         getData();
 
         async function getPlaylist() {
