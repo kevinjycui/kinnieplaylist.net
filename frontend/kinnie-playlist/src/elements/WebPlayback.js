@@ -29,7 +29,7 @@ function WebPlayback() {
     const [current_track, setTrack] = useContext(TrackContext)
     const [player, setPlayer] = useContext(PlayerContext)
     const [token, setToken] = useContext(TokenContext);
-    const [is_premium, setPremium] = useContext(PremiumContext);
+    const [setPremium] = useContext(PremiumContext);
 
     const [refreshToken] = useContext(RefreshTokenContext);
 

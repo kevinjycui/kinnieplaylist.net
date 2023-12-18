@@ -48,9 +48,10 @@
 }
 
 .Song-track-container {
-    margin-bottom: 10px;
-    display: inline-flex;
+    display: flex;
     width: 100%;
+    height: auto;
+    margin-bottom: 17px;
 }
 
 .Song-cover {
@@ -106,7 +107,7 @@
 }
 
 .spotify-attrib {
-    position: absolute;
+    position: inline-block;
     bottom: 0;
     font-size: 13pt;
     color: black;
