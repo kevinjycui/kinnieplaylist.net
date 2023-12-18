@@ -9,11 +9,25 @@
 
 .Header-nav-container {
     margin: 55px 0 0 10%;
+    padding: 0;
     display: flex;
 }
 
 .Header-nav {
-    margin: 0 0 0 20%;
+    margin: 0 0 0 5%;
+    min-width: 40%;
+    text-wrap: nowrap;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: underline;
+}
+
+.Header-nav-external {
     text-wrap: nowrap;
     background: none;
     color: inherit;

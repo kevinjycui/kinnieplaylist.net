@@ -6,13 +6,12 @@
     padding: 0;
     outline: inherit;
     text-decoration: none;
+    vertical-align: top;
 }
 
-.CharacterButton-button:hover {
-    .CharacterButton-name {
-        color: #137a7f;
-        text-decoration: underline;
-    }
+.CharacterButton-button:hover .CharacterButton-name {
+    color: #137a7f;
+    text-decoration: underline;
 }
 
 .CharacterButton-image-container {
