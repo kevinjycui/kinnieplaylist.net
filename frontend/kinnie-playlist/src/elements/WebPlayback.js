@@ -29,7 +29,7 @@ function WebPlayback() {
     const [current_track, setTrack] = useContext(TrackContext)
     const [player, setPlayer] = useContext(PlayerContext)
     const [token, setToken] = useContext(TokenContext);
-    const [setPremium] = useContext(PremiumContext);
+    const [is_premium, setPremium] = useContext(PremiumContext);
 
     const [refreshToken] = useContext(RefreshTokenContext);
 
@@ -135,7 +135,7 @@ function WebPlayback() {
 
     }, [token, setToken, refreshToken, player, setPlayer, setTrack, is_active, setPremium]);
 
-    return error ?
+    return error || !is_premium ?
         <>
             <div className="container WebPlayback-player">
                 <div className="main-wrapper">

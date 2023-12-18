@@ -129,6 +129,25 @@ class Database:
 
         return True
 
+    def delete_character_song(self, character_id, song_id, user_id):
+        user, user_conn = connect()
+        
+        cmd = "SELECT * FROM character_song_connections WHERE character_id = %s AND song_id = %s AND user_id = %s LIMIT 1"
+        user.execute(cmd, (character_id, song_id, user_id))
+        exist_data = list(user)
+        
+        if len(exist_data) == 0:
+            return False
+
+        cmd = """DELETE FROM character_song_connections WHERE
+            character_id = %s AND
+            song_id = %s AND
+            user_id = %s"""
+        user.execute(cmd, (character_id, song_id, user_id))
+        user_conn.commit()
+
+        return True
+
     def get_latest_votes(self):
         user, user_conn = connect()
 

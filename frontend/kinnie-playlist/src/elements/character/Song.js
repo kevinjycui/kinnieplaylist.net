@@ -12,7 +12,7 @@ import "./Song.css"
 import { MyPlaylistContext, PlaylistContext } from './Character';
 import { RefreshTokenContext, TokenContext, PremiumContext } from '../../AuthRoute';
 
-function Song({ index, song, number, voted, indexed }) {
+function Song({ index, song, number, indexed }) {
     const { character } = useParams();
 
     const [song_track, setTrack] = useState(track);
@@ -20,38 +20,91 @@ function Song({ index, song, number, voted, indexed }) {
     const [token, setToken] = useContext(TokenContext);
     const [refreshToken] = useContext(RefreshTokenContext);
     const [playlist, setPlaylist] = useContext(PlaylistContext);
-    const [setMyPlaylist] = useContext(MyPlaylistContext);
+    const [myPlaylist, setMyPlaylist] = useContext(MyPlaylistContext);
     const [is_premium] = useContext(PremiumContext);
 
-    async function castVote(added_id) {
+    async function castVote() {
         var newPlaylist = [...playlist];
         const bakPlaylist = JSON.stringify(playlist);
+        const bakMyPlaylist = new Set(myPlaylist);
 
         for (var i = 0; i < newPlaylist.length; i++) {
-            if (newPlaylist[i].song_id === added_id) {
+            if (newPlaylist[i].song_id === song) {
                 newPlaylist[i].number_of_users++;
                 setPlaylist(newPlaylist);
                 break;
             }
         }
 
+        setMyPlaylist(myPlaylist => new Set(myPlaylist.add(song)));
+
         const addSong = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token, 'POST',
             JSON.stringify({
-                "song_id": added_id
+                "song_id": song
             }))
         if (addSong.status !== 200) {
             alert("Failed to cast vote. Voting is disabled until Spotify approves this app. That's just how it is I guess.");
             setPlaylist(JSON.parse(bakPlaylist));
+            setMyPlaylist(bakMyPlaylist);
             return;
         }
 
         if (addSong.response.duplicate) {
             alert("You've already voted for this song on this character!");
             setPlaylist(JSON.parse(bakPlaylist));
+            setMyPlaylist(bakMyPlaylist);
+            return;
+        }
+    }
+
+    async function uncastVote() {
+        if (!myPlaylist.has(song)) {
             return;
         }
 
-        setMyPlaylist(myPlaylist => new Set(myPlaylist.add(addSong.response.song_id)));
+        var newPlaylist = [...playlist];
+        const bakPlaylist = JSON.stringify(playlist);
+        const bakMyPlaylist = new Set(myPlaylist);
+
+        var songFound = false;
+
+        for (var i = 0; i < newPlaylist.length; i++) {
+            if (newPlaylist[i].song_id === song) {
+                newPlaylist[i].number_of_users--;
+                if (newPlaylist[i].number_of_users === 0) {
+                    newPlaylist.splice(i, 1);
+                }
+                setPlaylist(newPlaylist);
+                songFound = true;
+                break;
+            }
+        }
+
+        if (!songFound) {
+            return;
+        }
+
+        setMyPlaylist(myPlaylist => {
+            myPlaylist.delete(song);
+            return new Set(myPlaylist);
+        });
+
+        const removeSong = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token, 'DELETE',
+            JSON.stringify({
+                "song_id": song
+            }))
+        if (removeSong.status !== 200) {
+            alert("Failed to remove vote. Voting is disabled until Spotify approves this app. That's just how it is I guess.");
+            setPlaylist(JSON.parse(bakPlaylist));
+            setMyPlaylist(bakMyPlaylist);
+            return;
+        }
+
+        if (!removeSong.response.existed) {
+            setPlaylist(JSON.parse(bakPlaylist));
+            setMyPlaylist(bakMyPlaylist);
+            return;
+        }
     }
 
     async function playTrack() {
@@ -81,8 +134,11 @@ function Song({ index, song, number, voted, indexed }) {
         <div className="Song" id={song}>
             <div className="Song-info">
                 {
-                    voted ? <FontAwesomeIcon className="Song-vote-voted" icon={faAngleUp} /> :
-                        <button className="Song-vote" onClick={() => castVote(song)}>
+                    myPlaylist.has(song) ? 
+                        <button className="Song-vote-voted" onClick={uncastVote}>
+                            <FontAwesomeIcon icon={faAngleUp} />
+                        </button> :
+                        <button className="Song-vote" onClick={castVote}>
                             <FontAwesomeIcon className="Song-vote" icon={faAngleUp} />
                         </button>
                 }

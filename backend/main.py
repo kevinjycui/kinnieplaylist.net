@@ -99,7 +99,7 @@ def get_character_global_playlist(character_id):
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
-@app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST"])
+@app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST", "DELETE"])
 def character_my_playlist(character_id):
     if request.method == "POST":
         try:
@@ -112,10 +112,30 @@ def character_my_playlist(character_id):
                 song_data = spotifyManager.get_song(token, song_id)
                 database.post_song(song_id, song_data)
             
-            duplicate = database.post_character_song(character_id, song_id, user_data['id'])
+            success = database.post_character_song(character_id, song_id, user_data['id'])
 
             return json.dumps({
-                'duplicate': not duplicate,
+                'duplicate': not success,
+                'song_id': song_id
+            })
+        except Exception as e:
+            return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
+    elif request.method == "DELETE":
+        try:
+            token = request.args.get('access_token')
+            body = request.get_json()
+            song_id = body['song_id']
+            user_data = spotifyManager.get_user_data(token)
+            song_data = database.get_song(song_id)
+            if song_data is None:
+                song_data = spotifyManager.get_song(token, song_id)
+                database.post_song(song_id, song_data)
+            
+            success = database.delete_character_song(character_id, song_id, user_data['id'])
+
+            return json.dumps({
+                'existed': success,
                 'song_id': song_id
             })
         except Exception as e:

@@ -70,15 +70,61 @@ function AddSong() {
         setLoading('');
     }
 
+    async function removeCurrentSong() {
+        if (loading !== '') {
+            return;
+        }
+
+        setLoading('Removing your vote...');
+
+        const removed_id = current_track.song_id;
+
+        const removeSong = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token, 'DELETE',
+            JSON.stringify({
+                "song_id": removed_id
+            }))
+        if (removeSong.status !== 200) {
+            alert("Failed to remove vote. Voting is disabled until Spotify approves this app. That's just how it is I guess.");
+            setLoading('');
+            return;
+        }
+
+        if (!removeSong.response.existed) {
+            setLoading('');
+            return;
+        }
+
+        setMyPlaylist(myPlaylist => {
+            myPlaylist.delete(removeSong.response.song_id);
+            return new Set(myPlaylist);
+        });
+
+        var newPlaylist = [...playlist];
+
+        for (var i = 0; i < newPlaylist.length; i++) {
+            if (newPlaylist[i].song_id === removed_id) {
+                newPlaylist[i].number_of_users--;
+                if (newPlaylist[i].number_of_users === 0) {
+                    newPlaylist.splice(i, 1);
+                }
+                setPlaylist(newPlaylist);
+                setLoading('');
+                return;
+            }
+        }
+    }
+
     return (
         token != null && current_track !== track ?
             (myPlaylist.has(current_track.song_id) ?
-                <div className={"AddSong AddSong-added"} >
+                <button className={"AddSong" + (loading !== "" ? " AddSong-loading" : " AddSong-added")} onClick={removeCurrentSong} >
                     <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
-                    <div className="Addsong-text">
-                        You've voted <b>{current_track.title}</b> by {current_track.artists} for this character's theme!
-                    </div>
-                </div> :
+                    <div className="Addsong-text">{
+                        loading === '' ?
+                            <>You've voted <b>{current_track.title}</b> by {current_track.artists} for this character's theme!</> :
+                            <>{loading}</>
+                    }</div>
+                </button> :
                 <button className={"AddSong" + (loading !== "" ? " AddSong-loading" : "")} onClick={addCurrentSong} >
                     <FontAwesomeIcon className="AddSong-icon" icon={faAngleUp} />
                     <div className="Addsong-text">{

@@ -85,7 +85,6 @@ function Playlist() {
                                                 index={range * LIMIT_STEP + index}
                                                 song={data.song_id}
                                                 number={data.number_of_users}
-                                                voted={myPlaylist.has(data.song_id)}
                                                 indexed={true}
                                             />
                                     )
