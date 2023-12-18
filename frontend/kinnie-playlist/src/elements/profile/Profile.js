@@ -15,6 +15,8 @@ function Profile() {
     const [is_premium] = useContext(PremiumContext);
 
     useEffect(() => {
+        document.title = "Profile - Kinnie Playlist";
+
         async function getCharacters() {
             const charactersData = await apiJson('/api/characters/mine?access_token=' + token);
             if (charactersData.status === 200) {

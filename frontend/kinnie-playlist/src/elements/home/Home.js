@@ -12,6 +12,8 @@ function Home() {
     const [filteredCharacters, setFilteredCharacters] = useState([]);
 
     useEffect(() => {
+        document.title = "Kinnie Playlist";
+
         async function getCharacters() {
             const charactersData = await apiJson('/api/characters');
             if (charactersData.status === 200) {

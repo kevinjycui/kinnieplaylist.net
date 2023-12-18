@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './Login.css'
 import Header from './elements/Header';
 
 function Login() {
+
+    useEffect(() => {
+        document.title = "Login - Kinnie Playlist";
+    }, [])
+
     return (
         <div className="App">
             <Header />
