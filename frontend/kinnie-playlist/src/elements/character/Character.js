@@ -10,6 +10,7 @@ import default_image from '../../default_image.png'
 import './Character.css'
 import { apiJson } from '../../api/apiUtil';
 import { TokenContext } from '../../AuthRoute';
+import CharacterIcon from '../CharacterIcon';
 
 export const PlaylistContext = createContext([]);
 export const MyPlaylistContext = createContext(new Set());
@@ -21,6 +22,8 @@ function Character() {
 
     const [playlist, setPlaylist] = useState([]);
     const [myPlaylist, setMyPlaylist] = useState(new Set());
+
+    const [similar, setSimilar] = useState([]);
 
     const [token] = useContext(TokenContext);
 
@@ -56,6 +59,15 @@ function Character() {
 
         getMyPlaylist();
 
+        async function getSimilar() {
+            const similarData = await apiJson('/api/characters/similar/' + character);
+            if (similarData.status === 200) {
+                setSimilar(similarData.response.characters.map((data) => JSON.parse(data)))
+            }
+        }
+
+        getSimilar();
+
         return () => {
             setCode('');
             setPlaylist([]);
@@ -83,7 +95,22 @@ function Character() {
                                 <div className='Character-name'>{data.name}</div>
                                 <div className='Character-media'>{data.media}</div>
                             </div>
-                            <AddSong />
+                            <div className='Character-stats'>
+                                <AddSong />
+                                {
+                                    similar.length > 0 ? 
+                                    <div className='Character-stats-similar-container'>
+                                        Similar characters:
+                                        <div className='Character-stats-similar'>
+                                            <div className='Character-stats-similar'>
+                                                {similar.map((character) => 
+                                                <CharacterIcon key={character.character_id} data={character} />)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    : <></>
+                                }
+                            </div>
                         </div>
                         <Playlist />
                         <div className="buffer"></div>

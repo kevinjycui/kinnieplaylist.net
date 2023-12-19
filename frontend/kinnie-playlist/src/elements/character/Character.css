@@ -3,6 +3,7 @@
     width: 25%;
     left: 0;
     margin-top: 20px;
+    margin-left: 60px;
 }
 
 .Character-image {
@@ -13,19 +14,32 @@
     position: relative;
     object-fit: cover;
     margin: 1%;
-    padding: 5px 0 5px 65px;
 }
 
 .Character-side {
     font-size: x-large;
     position: absolute;
     display: inline-block;
-    margin: 2% 0% 0% 2%;
     width: 80%;
+    padding: 5px 0 5px 5px;
 }
 
 .Character-name {
     font-weight: bold;
+}
+
+.Character-stats {
+    margin: 2px 0 2px 0;
+    width: 100%;
+}
+
+.Character-stats-similar-container {
+    margin: 20px 0 0 0;
+}
+
+.Character-stats-similar {
+    display: flex;
+    vertical-align: top;
 }
 
 @media only screen and (max-width: 600px) {
@@ -37,7 +51,7 @@
         position: relative;
         display: block;
         margin: 1%;
-        padding: 5px 0 5px 65px;
+        padding: 5px 0 5px 0;
     }
 
     .Character-info {

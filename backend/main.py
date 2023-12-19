@@ -99,6 +99,15 @@ def get_character_global_playlist(character_id):
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/characters/similar/<character_id>", methods=["GET"])
+def get_similar_characters(character_id):
+    try:
+        return database.get_similar_characters(character_id).to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/api/playlist/mine/<character_id>", methods=["GET", "POST", "DELETE"])
 def character_my_playlist(character_id):
     if request.method == "POST":

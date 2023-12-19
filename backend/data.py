@@ -179,6 +179,24 @@ class Database:
 
         return CharacterID(character_id)
 
+    def get_similar_characters(self, character_id):
+        user, user_conn = connect()
+
+        cmd = """
+            SELECT character_song_connections.character_id, characters.name, characters.img_file, characters.media FROM character_song_connections
+            INNER JOIN
+            characters ON characters.character_id = character_song_connections.character_id 
+            WHERE NOT character_song_connections.character_id = %s 
+            AND song_id IN 
+            (SELECT song_id FROM character_song_connections WHERE character_song_connections.character_id = %s)
+            GROUP BY character_song_connections.character_id
+            ORDER BY COUNT(*) DESC LIMIT 5;
+        """
+        user.execute(cmd, (character_id, character_id))
+        data_list = list(user)
+        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
+        return CharacterList(character_list)
+
     def get_characters_voted_by(self, user_id):
         user, user_conn = connect()
 
