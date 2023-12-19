@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { apiJson } from '../../api/apiUtil';
-
 import default_image from '../../default_image.png';
 
 import './Vote.css'
@@ -14,19 +12,8 @@ function Vote({ data }) {
     const [vote_song, setSong] = useState(undefined);
 
     useEffect(() => {
-        async function getData() {
-            const characterData = await apiJson('/api/character/' + data.character_id);
-            if (characterData.status === 200) {
-                setCharacter(characterData.response);
-            }
-            const songData = await apiJson('/api/song/' + data.song_id);
-            if (songData.status === 200) {
-                setSong(songData.response);
-            }
-        }
-
-        getData();
-
+        setCharacter(JSON.parse(data.character));
+        setSong(JSON.parse(data.song));
     }, [data]);
 
     return (<>

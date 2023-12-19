@@ -1,21 +1,28 @@
 import json
 
 class Vote:
-    def __init__(self, character_id, song_id, user_id):
-        self.song_id = song_id
-        self.character_id = character_id
+    def __init__(self, character, song, user_id):
+        self.song = song
+        self.character = character
         self.user_id = user_id
 
     def to_json(self):
-        return json.dumps(self.__dict__)
+        return json.dumps({
+            'user_id': self.user_id,
+            'character': self.character.to_json(),
+            'song': self.song.to_json()
+        })
 
 class AnonVote:
-    def __init__(self, character_id, song_id):
-        self.song_id = song_id
-        self.character_id = character_id
+    def __init__(self, character, song):
+        self.song = song
+        self.character = character
 
     def to_json(self):
-        return json.dumps(self.__dict__)
+        return json.dumps({
+            'character': self.character.to_json(),
+            'song': self.song.to_json()
+        })
 
 class VoteList:
     def __init__(self, votes):

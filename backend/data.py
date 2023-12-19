@@ -151,10 +151,18 @@ class Database:
     def get_latest_votes(self):
         user, user_conn = connect()
 
-        cmd = "SELECT character_id, song_id FROM character_song_connections ORDER BY id DESC LIMIT 20"
+        cmd = """
+            SELECT character_song_connections.character_id, characters.name, characters.img_file, characters.media, character_song_connections.song_id, songs.title, songs.img_file, songs.artists, songs.genres, songs.explicit, songs.duration
+            FROM character_song_connections 
+            INNER JOIN characters ON character_song_connections.character_id = characters.character_id 
+            INNER JOIN songs on character_song_connections.song_id = songs.song_id 
+            ORDER BY character_song_connections.id DESC LIMIT 20
+        """
         user.execute(cmd)
         data_list = list(user)
-        vote_list = [AnonVote(character_id=data[0], song_id=data[1]) for data in data_list]
+        vote_list = [AnonVote(
+                        Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]), 
+                        Song(song_id=data[4], title=data[5], img_file=data[6], artists=data[7], genres=data[8], explicit=data[9], duration=data[10])) for data in data_list]
         return VoteList(vote_list)
 
     def get_random_character(self):
