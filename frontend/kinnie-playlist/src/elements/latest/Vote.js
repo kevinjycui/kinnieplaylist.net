@@ -27,15 +27,15 @@ function Vote({ data }) {
                                 image.target.src = default_image;
                             }} />
                     </div>
-                    <button className="Vote-button" onClick={() => navigate("/character/" + vote_character.character_id)}>
-                        <div className="Vote-image-container">
+                    <div className="Vote-image-container">
+                        <button className="Vote-button" onClick={() => navigate("/character/" + vote_character.character_id)}>
                             <img className="Vote-image" src={vote_character.img_file} alt={vote_character.name} title={vote_character.name + " from " + vote_character.media}
                                 onError={(image) => {
                                     image.target.onerror = null;
                                     image.target.src = default_image;
                                 }} />
-                        </div>
-                    </button>
+                        </button>
+                       </div>
                     <div className="Vote-info-container">
                         Someone voted <b>{vote_song.title}</b> by {vote_song.artists} as the theme for&nbsp;
                         <button className="Vote-button" onClick={() => navigate("/character/" + vote_character.character_id)}>
