@@ -156,7 +156,7 @@ class Database:
             FROM character_song_connections 
             INNER JOIN characters ON character_song_connections.character_id = characters.character_id 
             INNER JOIN songs on character_song_connections.song_id = songs.song_id 
-            ORDER BY character_song_connections.id DESC LIMIT 20
+            ORDER BY character_song_connections.id DESC LIMIT 50
         """
         user.execute(cmd)
         data_list = list(user)
