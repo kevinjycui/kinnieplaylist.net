@@ -49,8 +49,7 @@ function WebPlayback() {
 
         async function switchDevice(device_id) {
             const response = await spotifyApi('me/player', token, setToken, refreshToken, 'PUT', JSON.stringify({
-                "device_ids": [device_id],
-                "play": false
+                "device_ids": [device_id]
             }))
             if (response.status !== 202) {
                 console.error('Failed to auto transfer playback.');
@@ -60,8 +59,7 @@ function WebPlayback() {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
                 name: 'Kinnie Playlist Web Player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
+                getOAuthToken: cb => { cb(token); }
             });
 
             setPlayer(player);
