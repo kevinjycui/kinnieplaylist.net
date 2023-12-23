@@ -140,7 +140,7 @@ function WebPlayback() {
                     <img className="now-playing__cover WebPlayback-cover" alt='' src={default_image} />
                     <div className="now-playing__side WebPlayback-side">
                         <div className="now-playing__name WebPlayback-title">
-                            <i>Spotify Premium required to play and vote for tracks through the web player</i>
+                            {is_premium ? <i>Error connecting to Spotify</i> : <i>Spotify Premium required to play and vote for tracks through the web player</i>}
                         </div>
                     </div>
                     <div className="WebPlayback-spotify">

@@ -23,7 +23,7 @@ function AuthRoute({ content }) {
 
   const [current_track, setTrack] = useState(track);
   const [player, setPlayer] = useState(undefined);
-  const [is_premium, setPremium] = useState(false);
+  const [is_premium, setPremium] = useState(true);
 
   useEffect(() => {
     if (searchParams.has('refresh_token')) {
