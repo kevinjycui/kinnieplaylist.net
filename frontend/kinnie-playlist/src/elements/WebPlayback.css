@@ -79,7 +79,7 @@
 }
 
 .WebPlayback-spotifyLogo {
-    position: inline-block;
+    display: block;
     width: 60%;
     height: 60%;
     margin-top: 10%;
