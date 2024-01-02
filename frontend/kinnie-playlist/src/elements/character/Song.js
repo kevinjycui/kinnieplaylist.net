@@ -168,7 +168,7 @@ function Song({ index, song, number, indexed }) {
                     <button className="Song-button Song-title" onClick={playTrack} title="Play">
                         {song_track.title}
                     </button>
-                    <div className="Song-explicit">{song_track.explicit ? <>&nbsp;<FontAwesomeIcon icon={faTriangleExclamation} title="Explicit content"/></>:<></>}</div>
+                    <div className="Song-explicit">{song_track.explicit ? <>&nbsp;<a className="Song-explicit" href="https://support.spotify.com/us/article/explicit-content/" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faTriangleExclamation} title="Explicit content"/></a></>:<></>}</div>
                     <div className="Song-artist">{song_track.artists}</div>
                     <a className="spotify-attrib" href={"spotify:track:" + song} rel="noreferrer">
                         <img alt="Spotify" className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Black.png"></img>

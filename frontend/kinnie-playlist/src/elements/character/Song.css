@@ -109,6 +109,7 @@
 .Song-explicit {
     display: inline;
     text-decoration: none;
+    color: black;
 }
 
 .spotify-attrib {
