@@ -109,7 +109,6 @@
 .Song-explicit {
     display: inline;
     text-decoration: none;
-    cursor: pointer;
 }
 
 .spotify-attrib {
