@@ -5,7 +5,7 @@
     height: 120px;
     background: rgb(25,20,20);
     color: white;
-    box-shadow: 0 -1px 10px 1px rgb(25, 20, 20);
+    /* box-shadow: 0 -1px 10px 1px rgb(25, 20, 20); */
     text-wrap: nowrap;
 }
 
