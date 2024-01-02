@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { track } from '../WebPlayback'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleUp, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faAngleUp, faUpRightFromSquare, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 import { apiJson, spotifyApi } from '../../api/apiUtil';
 
@@ -168,6 +168,7 @@ function Song({ index, song, number, indexed }) {
                     <button className="Song-button Song-title" onClick={playTrack} title="Play">
                         {song_track.title}
                     </button>
+                    <div className="Song-explicit">{song_track.explicit ? <>&nbsp;<FontAwesomeIcon icon={faTriangleExclamation} title="Explicit content"/></>:<></>}</div>
                     <div className="Song-artist">{song_track.artists}</div>
                     <a className="spotify-attrib" href={"spotify:track:" + song} rel="noreferrer">
                         <img alt="Spotify" className="spotify-icon" src="/spotify-icons-logos/icons/01_RGB/02_PNG/Spotify_Icon_RGB_Black.png"></img>

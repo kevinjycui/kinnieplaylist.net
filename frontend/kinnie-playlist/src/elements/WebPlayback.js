@@ -189,6 +189,7 @@ function WebPlayback() {
                                 <div className="now-playing__artist WebPlayback-artists"
                                     title={current_track.artists}
                                 >
+                                    {current_track.explicit ? "🔞 ":" "}
                                     {
                                         current_track.artists
                                     }</div>

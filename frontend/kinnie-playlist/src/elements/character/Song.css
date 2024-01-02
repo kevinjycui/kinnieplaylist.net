@@ -73,7 +73,7 @@
 }
 
 .Song-title {
-    display: block;
+    display: inline-block;
     text-align: left;
     font-size: 13pt;
     font-weight: bold;
@@ -104,6 +104,12 @@
     padding: 0;
     cursor: pointer;
     outline: inherit;
+}
+
+.Song-explicit {
+    display: inline;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .spotify-attrib {
