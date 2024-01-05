@@ -68,7 +68,6 @@
     display: inline-block;
     text-align: left;
     margin: 20px 10px 10px 0;
-    padding-top: 10px;
     width: 100%;
 }
 
@@ -98,6 +97,7 @@
 }
 
 .Song-button {
+    display: flex;
     background: none;
     color: inherit;
     border: none;
