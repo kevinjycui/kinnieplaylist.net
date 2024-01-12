@@ -42,5 +42,6 @@ body {
 @media only screen and (max-width: 600px) {
     .legal {
       text-align: right;
+      font-size: xx-small;
     }
 }
