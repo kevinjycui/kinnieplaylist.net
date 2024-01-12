@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, 'data')
 
-from character import Character, CharacterList, CharacterID
+from character import Character, CharacterList, CharacterID, MediaList
 from song import Song, CompactPlaylist
 from vote import AnonVote, VoteList
 
@@ -62,6 +62,13 @@ class Database:
 
         return Character(character_id=character_id, name=data[0], img_file=data[1], media=data[2])
         
+    def get_medias(self):
+        user, user_conn = connect()
+        cmd = "SELECT DISTINCT media FROM characters"
+        user.execute(cmd)
+        data_list = list(user)
+        return MediaList([data[0] for data in data_list])
+
     def get_character_songs(self, character_id, user_id = ''):
         user, user_conn = connect()
 

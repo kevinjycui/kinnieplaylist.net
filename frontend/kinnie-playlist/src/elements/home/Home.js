@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 
 import SearchBar from './SearchBar';
+import MediaTable from './MediaTable';
 import './Home.css';
 import { apiJson } from '../../api/apiUtil';
 
@@ -10,6 +11,8 @@ function Home() {
 
     const [characters, setCharacters] = useState([]);
     const [filteredCharacters, setFilteredCharacters] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [media, setMedia] = useState('');
 
     useEffect(() => {
         document.title = "Kinnie Playlist";
@@ -23,13 +26,22 @@ function Home() {
 
         getCharacters();
 
-    }, []);
+    }, [setCharacters]);
 
     return (
         <>
             <>
-                <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters} />
                 <div className='Home'>
+                    <div className='Home-sidebar'>
+                        <button className="Home-clearFilter" onClick={() => {
+                            setSearchTerm('');
+                            setMedia('');
+                        }}>Clear filter</button>
+                        <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
+                            media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                        <MediaTable characters={characters} filteredCharacters={filteredCharacters} setFilteredCharacters={setFilteredCharacters}
+                            searchTerm={searchTerm} media={media} setMedia={setMedia} />
+                    </div>
                     <div className='Home-container'>
                         {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
                             filteredCharacters.sort((a, b) => {

@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ characters, setFilteredCharacters }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSearchTerm }) => {
 
     useEffect(() => {
         const filtered = characters.filter(character => {
-            const characterInfo = (character.name + character.media).toUpperCase();
-            return searchTerm.toUpperCase().split(" ").every((keyword) => characterInfo.includes(keyword));
-        });
+            return (media === '' || character.media === media) && 
+                searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
+        })
         setFilteredCharacters(filtered);
-    }, [searchTerm, characters, setFilteredCharacters]);
+    }, [searchTerm, media, characters, setFilteredCharacters]);
 
     return (
-        <div className="search-bar">
+        <div className="SearchBar">
             <input
-              className="search-input"
+              className="SearchInput"
               type="text"
-              placeholder="Search by name or media (e.g. Shinji Ikari Neon Genesis Evangelion)"
+              placeholder="Search by name or fandom"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

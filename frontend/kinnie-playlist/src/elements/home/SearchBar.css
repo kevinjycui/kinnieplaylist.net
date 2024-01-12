@@ -1,17 +1,16 @@
-.search-bar {
+.SearchBar {
     background-color: transparent;
-    text-align: right;
     padding-right: 45px;
     margin-bottom: 15px;
 }
 
-.search-input {
-    width: 40%;
+.SearchInput {
+    width: 90%;
     border-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {
-    .search-input {
+    .SearchInput {
         width: 80%;
         border-radius: 5px;
     }

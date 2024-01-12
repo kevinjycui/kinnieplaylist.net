@@ -24,3 +24,9 @@ class CharacterList:
     def to_json(self):
         return {'characters': [character.to_json() for character in self.characters]}
     
+class MediaList:
+    def __init__(self, medias):
+        self.medias = medias
+
+    def to_json(self):
+        return {'medias': self.medias}

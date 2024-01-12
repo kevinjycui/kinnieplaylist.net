@@ -2,6 +2,35 @@
     width: 100%;
 }
 
+.Home-sidebar {
+    width: 300px;
+    min-height: 100vh;
+    float: right;
+    background: #bec8d18e;
+    border-radius: 5px;
+    margin: 0 5% 0 0;
+    padding: 1%;
+}
+
+.Home-clearFilter {
+    font-family: inherit;
+    font-size: medium;
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
+    text-decoration: underline;
+    color: black;
+    margin: 0 0 5% 0;
+}
+
+.Home-clearFilter:hover {
+    text-decoration: underline;
+    color: #137a7f;
+}
+
 .Home-characterModule {
     display: inline-block;
     width: 150px;
@@ -15,4 +44,12 @@
     justify-content: center;
     width: 100%;
     padding: 0 5% 0 5%;
+}
+
+@media only screen and (max-width: 600px) {
+    .Home-sidebar {
+        float: none;
+        margin: 0 5% 0 5%;
+        min-height: none;
+    }
 }

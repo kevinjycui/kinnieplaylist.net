@@ -20,7 +20,7 @@ function App() {
         <Route path="/latest" element={<AuthRoute content={<Latest />} />} />
         <Route path="/random" element={<AuthRoute content={<Random />} />} />
         <Route path="/profile" element={<AuthRoute content={<Profile />} />} />
-        <Route path="/privacy-policy" element={<AuthRoute content={<PrivacyPolicy />} is_webplayer_active={false} />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist | <a href='/privacy-policy'>Privacy Policy</a> | <b><a href='https://github.com/kevinjycui/kinnieplaylist.net'>GitHub</a></b></div>

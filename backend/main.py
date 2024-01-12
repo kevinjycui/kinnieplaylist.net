@@ -52,6 +52,13 @@ def get_characters():
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/medias", methods=["GET"])
+def get_character_medias():
+    try:
+        return database.get_medias().to_json()
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/api/character/<character_id>", methods=["GET"])
 def get_character(character_id):
     try:
