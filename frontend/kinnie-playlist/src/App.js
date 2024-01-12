@@ -23,7 +23,7 @@ function App() {
         <Route path="/privacy-policy" element={<AuthRoute content={<PrivacyPolicy />} is_webplayer_active={false} />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist | <a href='/privacy-policy'>Privacy Policy</a></div>
+      <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist | <a href='/privacy-policy'>Privacy Policy</a> | <a href='/https://github.com/kevinjycui/kinnieplaylist.net'>GitHub</a></div>
     </Router>
   );
 }
