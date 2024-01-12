@@ -15,7 +15,7 @@ export const TrackContext = createContext(track);
 export const PlayerContext = createContext(null);
 export const PremiumContext = createContext(false);
 
-function AuthRoute({ content }) {
+function AuthRoute({ content, is_webplayer_active }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [token, setToken] = useState('');
@@ -61,7 +61,7 @@ function AuthRoute({ content }) {
                   <PremiumContext.Provider value={[is_premium, setPremium]}>
                     <Header />
                     {content}
-                    <WebPlayback />
+                    {(is_webplayer_active ?? true) ? <WebPlayback /> : <></>}
                   </PremiumContext.Provider>
                 </TrackContext.Provider>
               </div>}

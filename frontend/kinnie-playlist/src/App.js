@@ -6,6 +6,7 @@ import Character from './elements/character/Character';
 import Latest from './elements/latest/Latest';
 import Random from './elements/random/Random';
 import Profile from './elements/profile/Profile';
+import PrivacyPolicy from './PrivacyPolicy';
 import Error from './404';
 
 import './App.css';
@@ -19,9 +20,10 @@ function App() {
         <Route path="/latest" element={<AuthRoute content={<Latest />} />} />
         <Route path="/random" element={<AuthRoute content={<Random />} />} />
         <Route path="/profile" element={<AuthRoute content={<Profile />} />} />
+        <Route path="/privacy-policy" element={<AuthRoute content={<PrivacyPolicy />} is_webplayer_active={false} />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist</div>
+      <div className="legal">©Copyright {new Date().getFullYear()} Kinnie Playlist | <a href='/privacy-policy'>Privacy Policy</a></div>
     </Router>
   );
 }
