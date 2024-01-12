@@ -43,6 +43,6 @@ body {
     .legal {
       text-align: right;
       font-size: xx-small;
-      margin: 2% 2% 0% 0%;
+      right: 2%;
     }
 }
