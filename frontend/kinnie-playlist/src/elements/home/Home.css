@@ -16,7 +16,7 @@
     padding: 1%;
 }
 
-.Home-clearFilter {
+.Home-clear-filter {
     font-family: inherit;
     font-size: medium;
     cursor: pointer;
@@ -30,7 +30,7 @@
     margin: 0 0 5% 0;
 }
 
-.Home-clearFilter:hover {
+.Home-clear-filter:hover {
     text-decoration: underline;
     color: #137a7f;
 }
@@ -48,6 +48,24 @@
     justify-content: center;
     width: 100%;
     padding: 0 5% 0 5%;
+}
+
+.Home-show-more {
+    position: relative;
+    display: inline-block;
+    font-size: medium;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: inherit;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.Home-show-more:hover {
+    color: #137a7f;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {

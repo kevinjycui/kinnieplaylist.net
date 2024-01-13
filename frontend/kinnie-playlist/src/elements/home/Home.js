@@ -7,12 +7,15 @@ import { apiJson } from '../../api/apiUtil';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
+const LIMIT_STEP = 30;
+
 function Home() {
 
     const [characters, setCharacters] = useState([]);
     const [filteredCharacters, setFilteredCharacters] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [media, setMedia] = useState('');
+    const [limit, setLimit] = useState(0);
 
     useEffect(() => {
         document.title = "Kinnie Playlist";
@@ -26,6 +29,8 @@ function Home() {
 
         getCharacters();
 
+        setLimit(LIMIT_STEP);
+
     }, [setCharacters]);
 
     return (
@@ -33,7 +38,7 @@ function Home() {
             <>
                 <div className='Home'>
                     <div className='Home-sidebar'>
-                        <button className="Home-clearFilter" onClick={() => {
+                        <button className="Home-clear-filter" onClick={() => {
                             setSearchTerm('');
                             setMedia('');
                         }}>Clear filter</button>
@@ -50,7 +55,7 @@ function Home() {
                             var nameA = a.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
                             var nameB = b.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
                             return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
-                        }).map(character => (
+                        }).slice(0, limit).map(character => (
                             <div className='Home-characterModule' key={character.character_id}>
                                 <Suspense fallback={<></>}>
                                     <CharacterButton
@@ -61,6 +66,7 @@ function Home() {
                         ))}
                         </>
                         }
+                        {filteredCharacters.length <= limit ? <></> : <button className='Home-show-more' onClick={() => setLimit(limit + LIMIT_STEP)}>Show more</button>}
                     </div>
                 </div>
             </>
