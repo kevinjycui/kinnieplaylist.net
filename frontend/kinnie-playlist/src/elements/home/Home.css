@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.Home-message {
+    padding-left: 10px;
+}
+
 .Home-sidebar {
     width: 300px;
     min-height: 100vh;

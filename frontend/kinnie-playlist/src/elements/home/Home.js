@@ -45,7 +45,7 @@ function Home() {
                     <div className='Home-container'>
                         {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
                         <>
-                        <div>Found {filteredCharacters.length} {filteredCharacters.length === 1 ? "character" : "characters"}</div>
+                        <div className='Home-message'>Found {filteredCharacters.length} {filteredCharacters.length === 1 ? "character" : "characters"}</div>
                         {filteredCharacters.sort((a, b) => {
                             var nameA = a.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
                             var nameB = b.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
