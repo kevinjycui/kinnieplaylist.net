@@ -22,6 +22,7 @@
 .Vote-info-container {
     padding: 20px 0 0 30px;
     text-align: left !important;
+    word-break: break-all;
 }
 
 .Vote-button {

@@ -26,6 +26,11 @@
 
 .Character-name {
     font-weight: bold;
+    word-break: break-all;
+}
+
+.Character-media {
+    word-break: break-all;
 }
 
 .Character-stats {
