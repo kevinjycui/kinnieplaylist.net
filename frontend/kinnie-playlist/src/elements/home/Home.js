@@ -45,6 +45,7 @@ function Home() {
                         <button className="Home-clear-filter" onClick={() => {
                             setSearchTerm('');
                             setMedia('');
+                            resetLimit();
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
                             media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />
