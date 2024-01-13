@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './SearchBar.css';
 
-const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSearchTerm }) => {
+const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSearchTerm, resetLimit }) => {
 
     useEffect(() => {
         const filtered = characters.filter(character => {
@@ -9,6 +9,7 @@ const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSe
                 searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
         })
         setFilteredCharacters(filtered);
+        resetLimit();
     }, [searchTerm, media, characters, setFilteredCharacters]);
 
     return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MediaTable.css';
 import { apiJson } from '../../api/apiUtil';
 
-const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, searchTerm, media, setMedia }) => {
+const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, searchTerm, media, setMedia, resetLimit }) => {
     const [mediaList, setMediaList] = useState([]);
 
     useEffect(() => {
@@ -27,6 +27,7 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
     function filterByMedia(e) {
         const mediaItem = e.target.value;
         setMedia(mediaItem);
+        resetLimit();
     }
 
     return (

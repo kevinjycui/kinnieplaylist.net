@@ -17,6 +17,10 @@ function Home() {
     const [media, setMedia] = useState('');
     const [limit, setLimit] = useState(0);
 
+    function resetLimit() {
+        setLimit(LIMIT_STEP);
+    }
+
     useEffect(() => {
         document.title = "Kinnie Playlist";
 
@@ -29,7 +33,7 @@ function Home() {
 
         getCharacters();
 
-        setLimit(LIMIT_STEP);
+        resetLimit();
 
     }, [setCharacters]);
 
@@ -43,9 +47,9 @@ function Home() {
                             setMedia('');
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
-                            media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                            media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />
                         <MediaTable characters={characters} filteredCharacters={filteredCharacters} setFilteredCharacters={setFilteredCharacters}
-                            searchTerm={searchTerm} media={media} setMedia={setMedia} />
+                            searchTerm={searchTerm} media={media} setMedia={setMedia} resetLimit={resetLimit} />
                     </div>
                     <div className='Home-container'>
                         {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
