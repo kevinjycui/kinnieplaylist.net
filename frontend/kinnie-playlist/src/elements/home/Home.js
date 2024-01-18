@@ -46,8 +46,10 @@ function Home() {
                         <button className="Home-clear-filter" onClick={() => {
                             setSearchTerm('');
                             setMedia('');
-                            setVoteStatus('');
-                            getCharacters();
+                            if (voteStatus !== '') {
+                                setVoteStatus('');
+                                getCharacters();
+                            }
                             resetLimit();
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
