@@ -55,7 +55,7 @@ function Home() {
                         My voting status
                         <VoteStatusTable characters={characters} setCharacters={setCharacters} setFilteredCharacters={setFilteredCharacters} 
                             searchTerm={searchTerm} media={media} voteStatus={voteStatus} setVoteStatus={setVoteStatus} resetLimit={resetLimit} />
-                        Fandoms
+                        Fandom
                         <MediaTable characters={characters} filteredCharacters={filteredCharacters} setFilteredCharacters={setFilteredCharacters}
                             searchTerm={searchTerm} media={media} setMedia={setMedia} resetLimit={resetLimit} />
                     </div>
