@@ -46,7 +46,7 @@ while True:
     current_media = media
 
     media2 = input('\tMedia 2: ')
-    media2 = media.strip()
+    media2 = media2.strip()
 
     if media2 == '':
         cmd = '''REPLACE INTO characters SET
