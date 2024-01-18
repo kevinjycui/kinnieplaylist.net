@@ -73,7 +73,7 @@ class Database:
         user, user_conn = connect()
 
         if len(user_id) == 0:
-            cmd = "SELECT song_id, COUNT(*) FROM character_song_connections WHERE character_id = %s GROUP BY song_id ORDER BY COUNT(*) DESC"
+            cmd = "SELECT song_id, COUNT(*) FROM character_song_connections WHERE character_id = %s GROUP BY song_id ORDER BY COUNT(*) DESC, RAND()"
             user.execute(cmd, (character_id,))
             return CountedPlaylist(list(user))
         else:
