@@ -9,7 +9,6 @@ const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSe
                 searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
         })
         setFilteredCharacters(filtered);
-        resetLimit();
     }, [searchTerm, media, characters, setFilteredCharacters]);
 
     return (
@@ -19,7 +18,10 @@ const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSe
               type="text"
               placeholder="Search by name or fandom"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                resetLimit();
+                setSearchTerm(e.target.value);
+               }}
             />
         </div>
     );

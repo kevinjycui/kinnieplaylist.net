@@ -45,7 +45,7 @@ class SpotifyManager:
 
     def prune_user_id_cache(self):
         for token in self.user_id_cache.keys():
-            if self.user_id_cache[token].get(expiry, 0) < time.time():
+            if self.user_id_cache[token].expiry < time.time():
                 self.user_id_cache.pop(token)
 
     def server_at(self, path):

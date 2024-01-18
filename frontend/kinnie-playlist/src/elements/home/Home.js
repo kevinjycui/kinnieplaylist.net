@@ -1,9 +1,10 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useContext, Suspense, lazy } from 'react';
 
 import SearchBar from './SearchBar';
 import MediaTable from './MediaTable';
 import './Home.css';
 import { apiJson } from '../../api/apiUtil';
+import VoteStatusTable from './VoteStatusTable';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
@@ -16,23 +17,23 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [media, setMedia] = useState('');
     const [limit, setLimit] = useState(0);
+    const [voteStatus, setVoteStatus] = useState('');
 
     function resetLimit() {
         setLimit(LIMIT_STEP);
     }
 
+    async function getCharacters() {
+        const charactersData = await apiJson('/api/characters');
+        if (charactersData.status === 200) {
+            setCharacters(charactersData.response.characters.map((data) => JSON.parse(data)));
+        }
+    }
+
     useEffect(() => {
         document.title = "Home | Kinnie Playlist";
 
-        async function getCharacters() {
-            const charactersData = await apiJson('/api/characters');
-            if (charactersData.status === 200) {
-                setCharacters(charactersData.response.characters.map((data) => JSON.parse(data)));
-            }
-        }
-
         getCharacters();
-
         resetLimit();
 
     }, [setCharacters]);
@@ -45,10 +46,15 @@ function Home() {
                         <button className="Home-clear-filter" onClick={() => {
                             setSearchTerm('');
                             setMedia('');
+                            setVoteStatus('');
+                            getCharacters();
                             resetLimit();
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
-                            media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />
+                            media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />        
+                        My voting status
+                        <VoteStatusTable characters={characters} setCharacters={setCharacters} setFilteredCharacters={setFilteredCharacters} 
+                            searchTerm={searchTerm} media={media} voteStatus={voteStatus} setVoteStatus={setVoteStatus} resetLimit={resetLimit} />
                         Fandoms
                         <MediaTable characters={characters} filteredCharacters={filteredCharacters} setFilteredCharacters={setFilteredCharacters}
                             searchTerm={searchTerm} media={media} setMedia={setMedia} resetLimit={resetLimit} />

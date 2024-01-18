@@ -97,12 +97,23 @@ def get_my_top_characters():
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
-@app.route("/api/characters/mine", methods=["GET"])
-def get_my_characters():
+@app.route("/api/characters/voted", methods=["GET"])
+def get_voted_characters():
     try:
         token = request.args.get('access_token')
         user_data = spotifyManager.get_user_data(token)
         return database.get_all_characters_voted_by(user_data['id']).to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
+@app.route("/api/characters/unvoted", methods=["GET"])
+def get_unvoted_characters():
+    try:
+        token = request.args.get('access_token')
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_all_characters_not_voted_by(user_data['id']).to_json()
     except NotFoundError as e:
         return Response(json.dumps({'message': str(e)}), status=404)
     except Exception as e:

@@ -68,6 +68,38 @@
     text-decoration: underline;
 }
 
+.Filter-list {
+    list-style: none;
+    padding-left: 0;
+    padding-right: 1em;
+}
+
+.Filter-list > li:before {
+    margin-right: 1em;
+}
+
+.Filter-radio {
+    font-family: inherit;
+    font-size: medium;
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
+    text-decoration: none;
+    color: black;
+}
+
+.Filter-radio:hover {
+    text-decoration: underline;
+    color: #137a7f;
+}
+
+.Filter-radio > label {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
 
     .Home-container {

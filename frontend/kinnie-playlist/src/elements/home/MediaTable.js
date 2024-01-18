@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './MediaTable.css';
 import { apiJson } from '../../api/apiUtil';
 
 const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, searchTerm, media, setMedia, resetLimit }) => {
@@ -35,15 +34,16 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
             {
                 mediaList === null || mediaList.length === 0 ? <></>
                 :
-                <ul className="MediaTable-list" onChange={filterByMedia.bind(this)}>
+                <ul className="Filter-list" onChange={filterByMedia.bind(this)}>
                     {mediaList.filter(mediaItem => filteredCharacters.map(character => character.media).includes(mediaItem)).map(mediaItem => 
-                    <li className="MediaTable-radio">
+                    <li key={mediaItem} className="Filter-radio">
                         <label>
                             <input 
                                 type="radio"
                                 name="media"
                                 value={mediaItem}
                                 checked={mediaItem === media}
+                                readOnly={true}
                             />
                             {mediaItem}
                         </label>

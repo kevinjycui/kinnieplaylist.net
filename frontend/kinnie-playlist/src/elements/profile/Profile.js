@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense, lazy, useContext } from 'react';
 
 import './Profile.css';
 import { apiJson } from '../../api/apiUtil';
-import { PremiumContext, TokenContext } from '../../AuthRoute';
+import { TokenContext } from '../../AuthRoute';
 import { useNavigate } from 'react-router-dom';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
@@ -12,7 +12,6 @@ function Profile() {
 
     const [myCharacters, setMyCharacters] = useState([]);
     const [token] = useContext(TokenContext);
-    const [is_premium] = useContext(PremiumContext);
 
     useEffect(() => {
         document.title = "Profile | Kinnie Playlist";

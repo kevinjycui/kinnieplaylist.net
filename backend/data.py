@@ -230,22 +230,24 @@ class Database:
         user, user_conn = connect()
 
         cmd = """
-            SELECT character_id FROM characters 
-            WHERE character_in IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            SELECT character_id, characters.name, characters.img_file, characters.media FROM characters 
+            WHERE character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            ORDER BY REPLACE(name, '"', '') ASC
         """
         user.execute(cmd, (user_id,))
         data_list = list(user)
-        character_list = [CharacterID(character_id=data[0]) for data in data_list]
+        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
         return CharacterList(character_list)
 
     def get_all_characters_not_voted_by(self, user_id):
         user, user_conn = connect()
 
         cmd = """
-            SELECT character_id FROM characters 
-            WHERE character_in NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            SELECT character_id, characters.name, characters.img_file, characters.media FROM characters 
+            WHERE character_id NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            ORDER BY REPLACE(name, '"', '') ASC
         """
         user.execute(cmd, (user_id,))
         data_list = list(user)
-        character_list = [CharacterID(character_id=data[0]) for data in data_list]
+        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
         return CharacterList(character_list)
