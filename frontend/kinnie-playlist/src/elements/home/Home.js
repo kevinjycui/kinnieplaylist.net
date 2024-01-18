@@ -20,7 +20,7 @@ function Home() {
     const [voteStatus, setVoteStatus] = useState('');
 
     function resetLimit() {
-        setLimit(LIMIT_STEP);
+        setLimit(LIMIT_STEP * 2);
     }
 
     async function getCharacters() {
