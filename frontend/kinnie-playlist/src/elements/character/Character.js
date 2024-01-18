@@ -53,7 +53,6 @@ function Character() {
         async function getMyPlaylist() {
             const myPlaylistData = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token);
             if (myPlaylistData.status === 200) {
-                console.log(myPlaylistData.response.playlist)
                 setMyPlaylist(new Set(myPlaylistData.response.playlist));
             }
         }

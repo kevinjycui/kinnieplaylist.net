@@ -33,7 +33,7 @@ function Profile() {
             <div className='Profile'>
                 <div className='Profile-container'>
                     <h3>My Top Characters</h3>
-                    {is_premium ? (myCharacters.length === 0 ? <div className="empty">Nobody here... Go and&nbsp;
+                    {(myCharacters.length === 0 ? <div className="empty">Nobody here... Go and&nbsp;
                     <button className='Profile-button' onClick={() => navigate("/")}>vote</button>!</div> :
                         myCharacters.map(character => (
                             <div className='Profile-characterModule' key={character.character_id}>
@@ -43,7 +43,7 @@ function Profile() {
                                     />
                                 </Suspense>
                             </div>
-                        ))) : <div className="empty">Spotify Premium required to create a voting profile</div>}
+                        )))}
                 </div>
             </div>
             <div className="buffer"></div>

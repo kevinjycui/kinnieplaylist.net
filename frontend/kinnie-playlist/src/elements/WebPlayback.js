@@ -123,6 +123,7 @@ function WebPlayback() {
             player.on('account_error', ({ message }) => {
                 console.error('Failed to validate Spotify account:', message);
                 setError(true);
+                setPremium(false);
             });
 
             player.activateElement();
