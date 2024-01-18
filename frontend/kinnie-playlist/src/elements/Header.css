@@ -24,6 +24,7 @@
     font: inherit;
     cursor: pointer;
     outline: inherit;
+    text-align: left;
     text-decoration: underline;
 }
 
