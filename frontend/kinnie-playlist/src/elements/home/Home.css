@@ -50,7 +50,6 @@
 }
 
 .Home-show-more {
-    position: relative;
     display: inline-block;
     font-size: medium;
     cursor: pointer;
@@ -59,7 +58,8 @@
     outline: inherit;
     border-radius: 5px;
     text-align: center;
-    width: 100%;
+    justify-content: center;
+    width: 90%;
     margin-top: 20px;
 }
 
