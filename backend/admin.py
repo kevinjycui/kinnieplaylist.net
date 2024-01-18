@@ -65,7 +65,7 @@ while True:
                             character_id = %s,
                             name = %s,
                             img_file = %s,
-                            media = %s
+                            media = %s,
                             media2 = %s'''
     
         print(cmd % (character_id, name, img_file, media, media2))
