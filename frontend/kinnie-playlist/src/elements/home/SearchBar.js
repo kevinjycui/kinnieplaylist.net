@@ -5,7 +5,7 @@ const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSe
 
     useEffect(() => {
         const filtered = characters.filter(character => {
-            return (media === '' || character.media === media) && 
+            return (media === '' || character.media === media || character.media2 === media) && 
                 searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
         })
         setFilteredCharacters(filtered);

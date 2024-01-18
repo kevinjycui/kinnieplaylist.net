@@ -32,6 +32,7 @@
 #                     name VARCHAR(255),
 #                     img_file VARCHAR(255),
 #                     media VARCHAR(255),
+#                     media2 VARCHAR(255),
 
 #                     PRIMARY KEY(character_id))
 #                  CHARACTER SET utf8 COLLATE utf8_unicode_ci''')

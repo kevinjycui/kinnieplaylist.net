@@ -16,7 +16,7 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
 
         if (media !== '') {
             const filtered = characters.filter(character => {
-                return (media === '' || character.media === media) && 
+                return (media === '' || character.media === media || character.media2 === media) && 
                     searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
             })
             setFilteredCharacters(filtered);
@@ -35,19 +35,21 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
                 mediaList === null || mediaList.length === 0 ? <></>
                 :
                 <ul className="Filter-list" onChange={filterByMedia.bind(this)}>
-                    {mediaList.filter(mediaItem => filteredCharacters.map(character => character.media).includes(mediaItem)).map(mediaItem => 
-                    <li key={mediaItem} className="Filter-radio">
-                        <label>
-                            <input 
-                                type="radio"
-                                name="media"
-                                value={mediaItem}
-                                checked={mediaItem === media}
-                                readOnly={true}
-                            />
-                            {mediaItem}
-                        </label>
-                    </li>)
+                    {mediaList.filter(mediaItem => 
+                        filteredCharacters.map(character => character.media).includes(mediaItem) ||
+                        filteredCharacters.map(character => character.media2).includes(mediaItem)).map(mediaItem => 
+                        <li key={mediaItem} className="Filter-radio">
+                            <label>
+                                <input 
+                                    type="radio"
+                                    name="media"
+                                    value={mediaItem}
+                                    checked={mediaItem === media}
+                                    readOnly={true}
+                                />
+                                {mediaItem}
+                            </label>
+                        </li>)
                     }
                 </ul>
             }

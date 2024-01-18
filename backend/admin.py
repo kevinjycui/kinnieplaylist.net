@@ -45,15 +45,33 @@ while True:
         media = current_media
     current_media = media
 
-    cmd = '''REPLACE INTO characters SET
-                        character_id = %s,
-                        name = %s,
-                        img_file = %s,
-                        media = %s'''
-    print(cmd % (character_id, name, img_file, media))
+    media2 = input('\tMedia 2: ' if len(current_media) > 0 else '\tMedia: ')
+    media2 = media.strip()
 
-    cur = conn.cursor()
-    cur.execute(cmd, (character_id, name, img_file, media))
+    if media2 == '':
+        cmd = '''REPLACE INTO characters SET
+                            character_id = %s,
+                            name = %s,
+                            img_file = %s,
+                            media = %s'''
+    
+        print(cmd % (character_id, name, img_file, media))
+
+        cur = conn.cursor()
+        cur.execute(cmd, (character_id, name, img_file, media))
+
+    else:
+        cmd = '''REPLACE INTO characters SET
+                            character_id = %s,
+                            name = %s,
+                            img_file = %s,
+                            media = %s
+                            media2 = %s'''
+    
+        print(cmd % (character_id, name, img_file, media, media2))
+
+        cur = conn.cursor()
+        cur.execute(cmd, (character_id, name, img_file, media, media2))
 
     if input('Is this information correct? (y/n) ').lower() != 'y':
         conn.rollback()

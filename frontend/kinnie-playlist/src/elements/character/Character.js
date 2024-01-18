@@ -93,7 +93,7 @@ function Character() {
                             </Suspense>
                             <div className='Character-side'>
                                 <div className='Character-name'>{data.name}</div>
-                                <div className='Character-media'>{data.media}</div>
+                                <div className='Character-media'>{data.media}{data.media2 != null ? ", " + data.media2 : ""}</div>
                             </div>
                             <div className='Character-stats'>
                                 <AddSong />
