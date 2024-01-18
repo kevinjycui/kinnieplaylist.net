@@ -116,7 +116,7 @@ function WebPlayback() {
 
             player.on('authentication_error', ({ message }) => {
                 console.error('Failed to authenticate:', message);
-                setPremium(false);
+                setError(true);
                 window.location.reload(false);
             });
 
