@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 
 import SearchBar from './SearchBar';
 import MediaTable from './MediaTable';
@@ -8,7 +8,7 @@ import VoteStatusTable from './VoteStatusTable';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
-const LIMIT_STEP = 30;
+const LIMIT_STEP = 24;
 
 function Home() {
 
