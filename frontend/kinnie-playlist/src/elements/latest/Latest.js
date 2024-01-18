@@ -11,7 +11,7 @@ function Latest() {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        document.title = "Latest - Kinnie Playlist";
+        document.title = "Latest | Kinnie Playlist";
 
         async function getData() {
             const data = await apiJson('/api/votes/latest');

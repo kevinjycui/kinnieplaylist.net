@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, 'data')
 
 from character import Character, CharacterList, CharacterID, MediaList
-from song import Song, CompactPlaylist
+from song import Song, CountedPlaylist, Playlist
 from vote import AnonVote, VoteList
 
 
@@ -42,7 +42,7 @@ def connect():
 class Database:
     def get_characters(self):
         user, user_conn = connect()
-        cmd = "SELECT character_id, name, img_file, media FROM characters"
+        cmd = """SELECT character_id, name, img_file, media FROM characters ORDER BY REPLACE(name, '"', '') ASC"""
         user.execute(cmd)
         data_list = list(user)
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
@@ -64,7 +64,7 @@ class Database:
         
     def get_medias(self):
         user, user_conn = connect()
-        cmd = "SELECT DISTINCT media FROM characters"
+        cmd = "SELECT DISTINCT media FROM characters ORDER BY media ASC"
         user.execute(cmd)
         data_list = list(user)
         return MediaList([data[0] for data in data_list])
@@ -73,13 +73,13 @@ class Database:
         user, user_conn = connect()
 
         if len(user_id) == 0:
-            cmd = "SELECT song_id FROM character_song_connections WHERE character_id = %s"
+            cmd = "SELECT song_id, COUNT(*) FROM character_song_connections WHERE character_id = %s GROUP BY song_id ORDER BY COUNT(*) DESC"
             user.execute(cmd, (character_id,))
+            return CountedPlaylist(list(user))
         else:
             cmd = "SELECT song_id FROM character_song_connections WHERE character_id = %s AND user_id = %s"
             user.execute(cmd, (character_id, user_id))
-
-        return CompactPlaylist([data[0] for data in list(user)])
+            return Playlist([data[0] for data in list(user)])
 
     def get_song(self, song_id):
         user, user_conn = connect()
@@ -98,14 +98,16 @@ class Database:
     def post_song(self, song_id, song_data):
         user, user_conn = connect()
 
-        cmd = """INSERT INTO songs SET
-                    song_id = %s,
-                    title = %s,
-                    img_file = %s,
-                    artists = %s,
-                    genres = %s,
-                    explicit = %s,
-                    duration = %s"""
+        cmd = """
+        INSERT INTO songs SET
+            song_id = %s,
+            title = %s,
+            img_file = %s,
+            artists = %s,
+            genres = %s,
+            explicit = %s,
+            duration = %s
+        """
         user.execute(cmd, (
                         song_id,
                         song_data.title,
@@ -127,10 +129,12 @@ class Database:
         if len(exist_data) > 0:
             return False
 
-        cmd = """INSERT INTO character_song_connections SET
+        cmd = """
+            INSERT INTO character_song_connections SET
             character_id = %s,
             song_id = %s,
-            user_id = %s"""
+            user_id = %s
+        """
         user.execute(cmd, (character_id, song_id, user_id))
         user_conn.commit()
 
@@ -146,10 +150,12 @@ class Database:
         if len(exist_data) == 0:
             return False
 
-        cmd = """DELETE FROM character_song_connections WHERE
+        cmd = """
+            DELETE FROM character_song_connections WHERE
             character_id = %s AND
             song_id = %s AND
-            user_id = %s"""
+            user_id = %s
+        """
         user.execute(cmd, (character_id, song_id, user_id))
         user_conn.commit()
 
@@ -204,11 +210,42 @@ class Database:
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
         return CharacterList(character_list)
 
-    def get_characters_voted_by(self, user_id):
+    def get_top_characters_voted_by(self, user_id):
         user, user_conn = connect()
 
-        cmd = "SELECT character_id, name, img_file, media FROM characters WHERE character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id=%s)"
+        cmd = """
+            SELECT character_song_connections.character_id, characters.name, characters.img_file, characters.media FROM character_song_connections
+            INNER JOIN
+            characters ON characters.character_id = character_song_connections.character_id
+            WHERE character_song_connections.user_id = %s
+            GROUP BY character_song_connections.character_id
+            ORDER BY COUNT(*) DESC,  REPLACE(characters.name, '"', '') ASC LIMIT 24
+        """
         user.execute(cmd, (user_id,))
         data_list = list(user)
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3]) for data in data_list]
+        return CharacterList(character_list)
+
+    def get_all_characters_voted_by(self, user_id):
+        user, user_conn = connect()
+
+        cmd = """
+            SELECT character_id FROM characters 
+            WHERE character_in IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+        """
+        user.execute(cmd, (user_id,))
+        data_list = list(user)
+        character_list = [CharacterID(character_id=data[0]) for data in data_list]
+        return CharacterList(character_list)
+
+    def get_all_characters_not_voted_by(self, user_id):
+        user, user_conn = connect()
+
+        cmd = """
+            SELECT character_id FROM characters 
+            WHERE character_in NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+        """
+        user.execute(cmd, (user_id,))
+        data_list = list(user)
+        character_list = [CharacterID(character_id=data[0]) for data in data_list]
         return CharacterList(character_list)

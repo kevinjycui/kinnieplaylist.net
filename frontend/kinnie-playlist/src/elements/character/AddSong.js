@@ -55,13 +55,13 @@ function AddSong() {
         for (var i = 0; i < newPlaylist.length; i++) {
             if (newPlaylist[i].song_id === added_id) {
                 newPlaylist[i].number_of_users++;
-                setPlaylist(newPlaylist);
+                setPlaylist(newPlaylist.sort((data1, data2) => data2.number_of_users - data1.number_of_users));
                 setLoading('');
                 return;
             }
         }
 
-        newPlaylist.unshift({
+        newPlaylist.push({
             song_id: addSong.response.song_id,
             number_of_users: 1
         });

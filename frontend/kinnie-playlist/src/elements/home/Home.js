@@ -22,7 +22,7 @@ function Home() {
     }
 
     useEffect(() => {
-        document.title = "Kinnie Playlist";
+        document.title = "Home | Kinnie Playlist";
 
         async function getCharacters() {
             const charactersData = await apiJson('/api/characters');
@@ -49,6 +49,7 @@ function Home() {
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
                             media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />
+                        Fandoms
                         <MediaTable characters={characters} filteredCharacters={filteredCharacters} setFilteredCharacters={setFilteredCharacters}
                             searchTerm={searchTerm} media={media} setMedia={setMedia} resetLimit={resetLimit} />
                     </div>
@@ -56,11 +57,7 @@ function Home() {
                         {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
                         <>
                         <div className='Home-message'>Found {filteredCharacters.length} {filteredCharacters.length === 1 ? "character" : "characters"}</div>
-                        {filteredCharacters.sort((a, b) => {
-                            var nameA = a.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
-                            var nameB = b.name.toUpperCase().replace(/[^a-z0-9 ]/gi, '');
-                            return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0
-                        }).slice(0, limit).map(character => (
+                        {filteredCharacters.slice(0, limit).map(character => (
                             <div className='Home-characterModule' key={character.character_id}>
                                 <Suspense fallback={<></>}>
                                     <CharacterButton

@@ -33,7 +33,7 @@ function Character() {
         async function getData() {
             const characterData = await apiJson('/api/character/' + character);
             if (characterData.status === 200) {
-                document.title = characterData.response.name + " - Kinnie Playlist";
+                document.title = characterData.response.name + " | Kinnie Playlist";
                 setData(characterData.response);
             }
             setCode(characterData.status);
@@ -44,7 +44,7 @@ function Character() {
         async function getPlaylist() {
             const playlistData = await apiJson('/api/playlist/global/' + character);
             if (playlistData.status === 200) {
-                setPlaylist(playlistData.response.playlist.reverse());
+                setPlaylist(playlistData.response.playlist);
             }
         }
 
@@ -53,6 +53,7 @@ function Character() {
         async function getMyPlaylist() {
             const myPlaylistData = await apiJson('/api/playlist/mine/' + character + '?access_token=' + token);
             if (myPlaylistData.status === 200) {
+                console.log(myPlaylistData.response.playlist)
                 setMyPlaylist(new Set(myPlaylistData.response.playlist));
             }
         }

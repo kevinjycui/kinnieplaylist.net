@@ -69,7 +69,7 @@ function Playlist() {
                             <div className='Playlist-stat'>{playlist.length} {playlist.length === 1 ? "track" : "tracks"}</div>
                             {playlist.length && is_premium > 0 ?
                                 <button className='Playlist-button' onClick={
-                                    () => playTracks(playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users).map((data) => data.song_id))
+                                    () => playTracks(playlist.map((data) => data.song_id))
                                 }>
                                     Play All
                                 </button>
@@ -77,17 +77,16 @@ function Playlist() {
                         </div>
                         {
                             [...Array(limit).keys()].map((range) =>
-                                playlist.sort((data1, data2) => data2.number_of_users - data1.number_of_users)
-                                    .slice(range * LIMIT_STEP, (range + 1) * LIMIT_STEP).map(
-                                        (data, index) =>
-                                            <Song
-                                                key={data.song_id}
-                                                index={range * LIMIT_STEP + index}
-                                                song={data.song_id}
-                                                number={data.number_of_users}
-                                                indexed={true}
-                                            />
-                                    )
+                                playlist.slice(range * LIMIT_STEP, (range + 1) * LIMIT_STEP).map(
+                                    (data, index) =>
+                                        <Song
+                                            key={data.song_id}
+                                            index={range * LIMIT_STEP + index}
+                                            song={data.song_id}
+                                            number={data.number_of_users}
+                                            indexed={true}
+                                        />
+                                )
                             )
                         }
                     </>}

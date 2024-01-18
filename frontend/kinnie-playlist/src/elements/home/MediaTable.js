@@ -9,7 +9,7 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
         async function getMediaList() {
             const mediaListData = await apiJson('/api/medias');
             if (mediaListData.status === 200) {
-                setMediaList(mediaListData.response.medias.sort());
+                setMediaList(mediaListData.response.medias);
             }
         }
 

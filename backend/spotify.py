@@ -17,6 +17,11 @@ def generate_random_string(length):
 def params_to_string(params):
     return '&'.join(list(map(lambda param : param[0] + '=' + param[1], params.items())))
 
+class SpotifyUserID:
+    def __init__(self, user_id, expiry):
+        self.user_id = user_id
+        self.expiry = expiry
+
 class SpotifyManager:
     perms = [
         'streaming',
@@ -35,6 +40,13 @@ class SpotifyManager:
 
         self.client_id = config['spotify']['client_id']
         self.client_secret = config['spotify']['client_secret']
+
+        self.user_id_cache = {}
+
+    def prune_user_id_cache(self):
+        for token in self.user_id_cache.keys():
+            if self.user_id_cache[token].get(expiry, 0) < time.time():
+                self.user_id_cache.pop(token)
 
     def server_at(self, path):
         return self.server_url + path
@@ -89,6 +101,11 @@ class SpotifyManager:
         return res['access_token'], res['refresh_token'], res['expires_in']
 
     def get_user_data(self, token):
+        if token in self.user_id_cache and self.user_id_cache[token].expiry > time.time():
+            return {
+                'id': self.user_id_cache[token].user_id
+            }
+
         headers = {
             'Authorization': 'Bearer ' + token
         }
@@ -98,8 +115,9 @@ class SpotifyManager:
 
         res = res.json()
 
+        self.user_id_cache[token] = SpotifyUserID(res['id'], time.time() + 3600)
+
         return {
-            'name': res['display_name'],
             'id': res['id']
         }
 
@@ -120,5 +138,3 @@ class SpotifyManager:
                     genres = ', '.join(list(filter(lambda genres : len(genres) > 0, map(lambda artist : ', '.join(artist.get('genres', [])), song_data['artists'])))),
                     explicit = 1 if song_data.get('explicit', False) else 0,
                     duration = song_data.get('duration_ms', 0))
-
-spotifyManager = SpotifyManager()

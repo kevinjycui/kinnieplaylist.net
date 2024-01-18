@@ -7,6 +7,8 @@ import json
 from data import Database, NotFoundError
 from spotify import SpotifyManager
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
@@ -18,6 +20,13 @@ CORS(app)
 
 database = Database()
 spotifyManager = SpotifyManager()
+
+def prune_user_id_cache():
+    spotifyManager.prune_user_id_cache()
+
+sched = BackgroundScheduler()
+sched.add_job(prune_user_id_cache, 'interval', hours=1)
+sched.start()
 
 @app.route("/auth/login", methods=["GET"])
 def login_spotify():
@@ -77,12 +86,23 @@ def get_random_character():
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
+@app.route("/api/characters/top", methods=["GET"])
+def get_my_top_characters():
+    try:
+        token = request.args.get('access_token')
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_top_characters_voted_by(user_data['id']).to_json()
+    except NotFoundError as e:
+        return Response(json.dumps({'message': str(e)}), status=404)
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
 @app.route("/api/characters/mine", methods=["GET"])
 def get_my_characters():
     try:
         token = request.args.get('access_token')
         user_data = spotifyManager.get_user_data(token)
-        return database.get_characters_voted_by(user_data['id']).to_json()
+        return database.get_all_characters_voted_by(user_data['id']).to_json()
     except NotFoundError as e:
         return Response(json.dumps({'message': str(e)}), status=404)
     except Exception as e:
@@ -161,7 +181,7 @@ def character_my_playlist(character_id):
         try:
             token = request.args.get('access_token')
             user_data = spotifyManager.get_user_data(token)
-            return database.get_character_songs(character_id, user_data['id']).to_json(counted=False)
+            return database.get_character_songs(character_id, user_data['id']).to_json()
         except NotFoundError as e:
             return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=404)
         except Exception as e:

@@ -36,7 +36,7 @@ function Header() {
                     random
                 </button>
                 <button title="https://kinnieplaylist.net/profile" className="Header-nav" onClick={() => navigate("/profile")}>
-                    my tracks  
+                    me  
                 </button>
                 <button className="Header-nav">
                     <a className="Header-nav-external" href="https://forms.gle/2RL1aLtntu9qhjo77" target="_blank" rel="noreferrer">

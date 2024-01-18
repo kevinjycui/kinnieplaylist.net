@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 function PrivacyPolicy() {
 
     useEffect(() => {
-        document.title = "Privacy Policy - Kinnie Playlist";
+        document.title = "Privacy Policy | Kinnie Playlist";
     }, [])
 
     return (

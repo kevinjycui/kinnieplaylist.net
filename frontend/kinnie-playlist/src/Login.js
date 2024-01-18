@@ -6,7 +6,7 @@ import Header from './elements/Header';
 function Login() {
 
     useEffect(() => {
-        document.title = "Login - Kinnie Playlist";
+        document.title = "Login | Kinnie Playlist";
     }, [])
 
     return (

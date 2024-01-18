@@ -33,7 +33,7 @@ function Song({ index, song, number, indexed }) {
         for (var i = 0; i < newPlaylist.length; i++) {
             if (newPlaylist[i].song_id === song) {
                 newPlaylist[i].number_of_users++;
-                setPlaylist(newPlaylist);
+                setPlaylist(newPlaylist.sort((data1, data2) => data2.number_of_users - data1.number_of_users));
                 songFound = true;
                 break;
             }
