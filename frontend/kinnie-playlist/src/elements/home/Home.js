@@ -8,7 +8,7 @@ import VoteStatusTable from './VoteStatusTable';
 
 const CharacterButton = lazy(() => import('../CharacterButton'));
 
-const LIMIT_STEP = 24;
+const LIMIT_STEP = 36;
 
 function Home() {
 
@@ -20,7 +20,7 @@ function Home() {
     const [voteStatus, setVoteStatus] = useState('');
 
     function resetLimit() {
-        setLimit(LIMIT_STEP * 2);
+        setLimit(LIMIT_STEP);
     }
 
     async function getCharacters() {
