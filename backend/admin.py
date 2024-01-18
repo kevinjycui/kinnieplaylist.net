@@ -45,7 +45,7 @@ while True:
         media = current_media
     current_media = media
 
-    media2 = input('\tMedia 2: ' if len(current_media) > 0 else '\tMedia: ')
+    media2 = input('\tMedia 2: ')
     media2 = media.strip()
 
     if media2 == '':
