@@ -50,6 +50,10 @@ class Database:
                 SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
                 WHERE character_song_connections.character_id = characters.character_id
             ) DESC,
+            (
+                SELECT COUNT(*) FROM character_song_connections 
+                WHERE character_song_connections.character_id = characters.character_id
+            ) DESC,
             REPLACE(name, '"', '') ASC
         """
         user.execute(cmd)
