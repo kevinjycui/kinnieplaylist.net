@@ -15,7 +15,7 @@
     padding: 1%;
 }
 
-.Home-clear-filter {
+.Home-button {
     font-family: inherit;
     font-size: medium;
     cursor: pointer;
@@ -29,7 +29,19 @@
     margin: 0 0 5% 0;
 }
 
-.Home-clear-filter:hover {
+.Home-collapsable-button {
+    display: block;
+    font-family: inherit;
+    font-size: medium;
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    outline: inherit;
+}
+
+.Home-button:hover {
     text-decoration: underline;
     color: #137a7f;
 }
