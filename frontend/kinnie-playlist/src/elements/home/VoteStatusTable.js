@@ -32,7 +32,9 @@ const VoteStatusTable = ({ characters, setCharacters, setFilteredCharacters, sea
         const filtered = characters.filter(character => {
             return (media === '' || character.media === media) && 
                 searchTerm.toUpperCase().split(" ").every((keyword) => (character.name + character.media).toUpperCase().includes(keyword));
-        })
+        }).sort(
+            (character1, character2) => character1.name.replace("\"", "") > character2.name.replace("\"", "") ? 1:-1
+        )
         setFilteredCharacters(filtered);
         resetLimit();
     }

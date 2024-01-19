@@ -42,7 +42,16 @@ def connect():
 class Database:
     def get_characters(self):
         user, user_conn = connect()
-        cmd = """SELECT character_id, name, img_file, media, media2, media2 FROM characters ORDER BY REPLACE(name, '"', '') ASC"""
+        cmd = """
+            SELECT characters.character_id, characters.name, characters.img_file, characters.media, characters.media2
+            FROM characters 
+            ORDER BY 
+            (
+                SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
+                WHERE character_song_connections.character_id = characters.character_id
+            ) DESC,
+            REPLACE(name, '"', '') ASC
+        """
         user.execute(cmd)
         data_list = list(user)
         character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]) for data in data_list]
