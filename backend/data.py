@@ -54,7 +54,7 @@ class Database:
                 SELECT COUNT(*) FROM character_song_connections 
                 WHERE character_song_connections.character_id = characters.character_id
             ) DESC,
-            REPLACE(name, '"', '') ASC
+            RAND()
         """
         user.execute(cmd)
         data_list = list(user)
