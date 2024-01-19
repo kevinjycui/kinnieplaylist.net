@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { apiJson } from '../../api/apiUtil';
 
 const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, searchTerm, media, setMedia, resetLimit }) => {
     const [mediaList, setMediaList] = useState([]);
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         async function getMediaList() {
@@ -31,6 +34,9 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
     function filterByMedia(e) {
         const mediaItem = e.target.value;
         setMedia(mediaItem);
+        searchParams.set("fandom", mediaItem);
+        searchParams.sort();
+        setSearchParams(searchParams);
         resetLimit();
     }
 

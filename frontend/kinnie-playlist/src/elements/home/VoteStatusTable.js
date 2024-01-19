@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { apiJson } from '../../api/apiUtil';
 import { TokenContext } from '../../AuthRoute';
 
 const VoteStatusTable = ({ characters, setCharacters, setFilteredCharacters, searchTerm, media, voteStatus, setVoteStatus, resetLimit }) => {
 
     const [token] = useContext(TokenContext);
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     async function getVotedCharacters() {
         const charactersData = await apiJson('/api/characters/voted?access_token=' + token);
@@ -28,6 +31,9 @@ const VoteStatusTable = ({ characters, setCharacters, setFilteredCharacters, sea
             getUnvotedCharacters();
         }
         setVoteStatus(e.target.value);
+        searchParams.set("status", e.target.value);
+        searchParams.sort();
+        setSearchParams(searchParams);
 
         const filtered = characters.filter(character => {
             return (media === '' || character.media === media) && 

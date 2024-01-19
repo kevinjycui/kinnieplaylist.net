@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+import { useSearchParams } from "react-router-dom";
 import './SearchBar.css';
 
 const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSearchTerm, resetLimit }) => {
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         if (media !== '' || searchTerm !== '') {
@@ -28,6 +31,14 @@ const SearchBar = ({ characters, setFilteredCharacters, media, searchTerm, setSe
               onChange={(e) => {
                 resetLimit();
                 setSearchTerm(e.target.value);
+                if (e.target.value === '') {
+                    searchParams.delete("q");
+                }
+                else {
+                    searchParams.set("q", e.target.value);
+                }
+                searchParams.sort();
+                setSearchParams(searchParams);
                }}
             />
         </div>

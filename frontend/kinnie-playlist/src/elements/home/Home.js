@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { useSearchParams } from "react-router-dom";
 
 import SearchBar from './SearchBar';
 import MediaTable from './MediaTable';
@@ -25,6 +26,8 @@ function Home() {
     const [showVoteFilter, toggleVoteFilter] = useState(true);
     const [showMediaFilter, toggleMediaFilter] = useState(true);
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
     function resetLimit() {
         setLimit(LIMIT_STEP);
     }
@@ -42,6 +45,10 @@ function Home() {
         getCharacters();
         resetLimit();
 
+        setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
+        setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
+        setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
+
     }, [setCharacters]);
 
     return (
@@ -57,6 +64,11 @@ function Home() {
                                 getCharacters();
                             }
                             resetLimit();
+
+                            searchParams.delete("q");
+                            searchParams.delete("fandom");
+                            searchParams.delete("status");
+                            setSearchParams(searchParams);
                         }}>Clear filter</button>
                         <SearchBar characters={characters} setFilteredCharacters={setFilteredCharacters}
                             media={media} searchTerm={searchTerm} setSearchTerm={setSearchTerm} resetLimit={resetLimit} />        
