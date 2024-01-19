@@ -70,7 +70,7 @@ function Home() {
                     <div className='Home-container'>
                         {filteredCharacters.length === 0 ? <div className="empty">Nobody here... Try changing your search?</div> :
                         <>
-                        <div className='Home-message'>Found {filteredCharacters.length} {filteredCharacters.length === 1 ? "character" : "characters"}</div>
+                        <div className='Home-message'>Found {filteredCharacters.length} {filteredCharacters.length === 1 ? "character" : "characters"} {media === '' && searchTerm === '' && voteStatus === '' ? "(Sorted by most popular)":""}</div>
                         {filteredCharacters.slice(0, limit).map(character => (
                             <div className='Home-characterModule' key={character.character_id}>
                                 <Suspense fallback={<></>}>
