@@ -216,7 +216,7 @@ class Database:
             AND song_id IN 
             (SELECT song_id FROM character_song_connections WHERE character_song_connections.character_id = %s)
             GROUP BY character_song_connections.character_id
-            ORDER BY COUNT(*) DESC LIMIT 5;
+            ORDER BY COUNT(*) DESC, RAND() LIMIT 5;
         """
         user.execute(cmd, (character_id, character_id))
         data_list = list(user)
