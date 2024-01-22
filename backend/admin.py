@@ -32,7 +32,7 @@ while True:
     character_id = input('\tID (Leave blank to set name as ID): ')
     character_id = character_id.strip()
     if len(character_id) == 0:
-        character_id = name.replace(' ', '_')
+        character_id = name.replace(' ', '_').replace('.', '')
 
     img_file = input('\tImage URL: ')
     img_file = img_file.strip()
