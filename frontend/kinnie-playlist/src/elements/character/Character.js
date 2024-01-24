@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, createContext, Suspense } from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import Error from '../../404';
 import AddSong from './AddSong';
@@ -17,6 +18,12 @@ export const MyPlaylistContext = createContext(new Set());
 
 function Character() {
     const { character } = useParams();
+    const navigate = useNavigate();
+
+    function navigateToMedia(media) {
+        navigate('/?fandom=' + media.replaceAll(' ', '+'));
+    }
+
     const [data, setData] = useState([]);
     const [code, setCode] = useState('');
 
@@ -93,7 +100,12 @@ function Character() {
                             </Suspense>
                             <div className='Character-side'>
                                 <div className='Character-name'>{data.name}</div>
-                                <div className='Character-media'>{data.media}{data.media2 != null ? ", " + data.media2 : ""}</div>
+                                <div className='Character-media'>
+                                    <button className='Character-media-button' onClick={() => navigateToMedia(data.media)}>{data.media}</button>
+                                    {data.media2 != null ? 
+                                        <button className='Character-media-button' onClick={() => navigateToMedia(data.media2)}>{data.media2}</button>
+                                        : <></>}
+                                </div>
                             </div>
                             <div className='Character-stats'>
                                 <AddSong />

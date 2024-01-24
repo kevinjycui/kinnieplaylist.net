@@ -47,6 +47,24 @@
     vertical-align: top;
 }
 
+.Character-media-button {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    cursor: pointer;
+    margin: 5px;
+    outline: inherit;
+    border: none;
+    background: none;
+    text-decoration: none;
+}
+
+.Character-media-button:hover {
+    text-decoration: underline;
+    color: #137a7f;
+}
+
 @media only screen and (max-width: 600px) {
     .Character-image {
         display: block;
