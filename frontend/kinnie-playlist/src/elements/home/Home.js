@@ -48,7 +48,21 @@ function Home() {
     useEffect(() => {
         document.title = "Home | Kinnie Playlist";
 
-        getCharacters();
+        if (searchTerm !== "") {
+            searchParams.set("q", searchTerm);
+        }
+        if (media !== "") {
+            searchParams.set("fandom", media);
+        }
+        if (voteStatus !== "") {
+            searchParams.set("status", voteStatus);
+        }
+        else {
+            getCharacters();
+        }
+        searchParams.sort();
+        setSearchParams(searchParams);
+        
         resetLimit();
 
         setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
@@ -59,7 +73,8 @@ function Home() {
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
-    }, [setCharacters]);
+
+    }, [setCharacters, searchParams]);
 
     return (
         <>
