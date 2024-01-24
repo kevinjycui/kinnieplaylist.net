@@ -28,6 +28,12 @@ function Home() {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    function handleWindowSizeChange() {
+        const isMobile = window.innerWidth <= 600;
+        toggleVoteFilter(!isMobile);
+        toggleMediaFilter(!isMobile);
+    }
+
     function resetLimit() {
         setLimit(LIMIT_STEP);
     }
@@ -49,6 +55,10 @@ function Home() {
         setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
         setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
 
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
     }, [setCharacters]);
 
     return (
