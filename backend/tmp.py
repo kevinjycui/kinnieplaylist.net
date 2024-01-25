@@ -23,22 +23,24 @@ cur.execute('USE kinnie')
 current_media = ''
 
 while True:
-    cmd = '''SELECT name FROM characters ORDER BY img_file ASC'''
+    cmd = '''SELECT character_id, name FROM characters ORDER BY img_file ASC'''
     cur = conn.cursor()
     cur.execute(cmd)
-    names = list(cur)
+    datalist = list(cur)
 
-    for name in names:
-        name = name[0]
+    for data in datalist:
+        character_id = data[0]
+        name = data[1]
 
         while True:
             print(name)
             img_file = input('Image link:\n> ').replace('www.', 'dl.').replace('dl=0', 'raw=1')
             if img_file != '':
-                cmd = '''UPDATE characters SET img_file = %s WHERE name = %s'''
-                print(cmd % (img_file, name))
+                print(img_file)
+                cmd = '''UPDATE characters SET img_file = %s WHERE character_id = %s'''
                 cur = conn.cursor()
-                cur.execute(cmd, (img_file, name))
+                cur.execute(cmd, (img_file, character_id))
+                print(cur)
 
                 if input('Is this information correct? (y/n) ').lower() != 'y':
                     conn.rollback()
