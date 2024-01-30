@@ -36,8 +36,8 @@ while True:
 
     img_file = input('\tImage URL: ')
     img_file = img_file.strip()
-    if 'imgur.com/' in img_file and img_file.count('.') == 1:
-        img_file = img_file.replace('imgur.com/', 'i.imgur.com/') + '.webp'
+    if 'dropbox.com' in img_file:
+        img_file = img_file.replace('www.', 'dl.').replace('&dl=0', '&raw=1')
 
     media = input('\tMedia (Leave blank to set same as last): ' if len(current_media) > 0 else '\tMedia: ')
     media = media.strip()
