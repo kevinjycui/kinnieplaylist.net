@@ -52,7 +52,7 @@ function Song({ index, song, number, indexed }) {
                 "song_id": song
             }))
         if (addSong.status !== 200) {
-            alert("Failed to cast vote. Make sure you are voting a valid track and that you are on the waitlist if Spotify has yet to approve this app.");
+            alert("Failed to cast vote. Make sure you are voting a valid track.");
             setPlaylist(JSON.parse(bakPlaylist));
             setMyPlaylist(bakMyPlaylist);
             return;
@@ -103,7 +103,7 @@ function Song({ index, song, number, indexed }) {
                 "song_id": song
             }))
         if (removeSong.status !== 200) {
-            alert("Failed to remove vote. Make sure you are unvoting a valid track and that you are on the waitlist if Spotify has yet to approve this app.");
+            alert("Failed to remove vote. Make sure you are unvoting a valid track.");
             setPlaylist(JSON.parse(bakPlaylist));
             setMyPlaylist(bakMyPlaylist);
             return;

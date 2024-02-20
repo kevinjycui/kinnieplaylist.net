@@ -38,11 +38,11 @@ function Header() {
                 <button title="https://kinnieplaylist.net/profile" className="Header-nav" onClick={() => navigate("/profile")}>
                     me  
                 </button>
-                <button className="Header-nav">
+                {/* <button className="Header-nav">
                     <a className="Header-nav-external" href="https://forms.gle/2RL1aLtntu9qhjo77" target="_blank" rel="noreferrer">
                         join waitlist
                     </a>
-                </button>
+                </button> */}
                 {token !== '' && refreshToken !== '' ?
                     <button className="Header-nav" onClick={logout}>
                         logout
