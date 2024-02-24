@@ -29,7 +29,7 @@ function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     function resetLimit() {
-        setLimit(LIMIT_STEP);
+        setLimit(LIMIT_STEP * 2);
     }
 
     async function getCharacters() {
