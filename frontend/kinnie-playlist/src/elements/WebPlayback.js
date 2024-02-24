@@ -59,7 +59,8 @@ function WebPlayback() {
         window.onSpotifyWebPlaybackSDKReady = () => {
             const player = new window.Spotify.Player({
                 name: 'Kinnie Playlist Web Player',
-                getOAuthToken: cb => { cb(token); }
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
             });
 
             setPlayer(player);
