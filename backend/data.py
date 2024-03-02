@@ -39,7 +39,7 @@ def connect():
     user.execute('USE kinnie')
     return user, user_conn
 
-def filter_cmd_head(q, fandom, status, user_id=''):
+def filter_cmd_head(q, fandom, status, sort='alpha', user_id=''):
     cmd = "WITH filtered AS (SELECT * FROM characters\n"
 
     params = []
@@ -55,21 +55,7 @@ def filter_cmd_head(q, fandom, status, user_id=''):
         params.extend([fandom, fandom])
         filtered = True
 
-    if status == '':
-        cmd += """
-            ORDER BY 
-            (
-                SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
-                WHERE character_song_connections.character_id = characters.character_id
-            ) DESC,
-            (
-                SELECT COUNT(*) FROM character_song_connections 
-                WHERE character_song_connections.character_id = characters.character_id
-            ) DESC,
-            REPLACE(name, '"', '') ASC
-        """
-
-    elif status == 'voted':
+    if status == 'voted':
         cmd += ("AND" if filtered else "WHERE") + """
             characters.character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
             ORDER BY REPLACE(name, '"', '') ASC
@@ -83,6 +69,23 @@ def filter_cmd_head(q, fandom, status, user_id=''):
         """
         params.append(user_id)
 
+    if sort == 'alpha':
+        cmd += """ORDER BY REPLACE(name, '"', '') ASC\n"""
+    
+    elif sort == 'popular':
+        cmd += """
+            ORDER BY 
+            (
+                SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
+                WHERE character_song_connections.character_id = characters.character_id
+            ) DESC,
+            (
+                SELECT COUNT(*) FROM character_song_connections 
+                WHERE character_song_connections.character_id = characters.character_id
+            ) DESC,
+            REPLACE(name, '"', '') ASC
+        """
+
     cmd += ")\n"
 
     return cmd, params
@@ -91,7 +94,8 @@ class Database:
     def get_characters(self, q, fandom, status, limit, offset, user_id):
         user, user_conn = connect()
 
-        cmd, params = filter_cmd_head(q, fandom, status, user_id)
+        sort = 'popular' if q == '' and fandom == '' and status == '' else 'alpha'
+        cmd, params = filter_cmd_head(q, fandom, status, sort, user_id)
 
         user.execute(cmd + "SELECT COUNT(*) FROM filtered", tuple(params))
         data_list = list(user)
@@ -123,7 +127,7 @@ class Database:
     def get_medias(self, q='', fandom='', status='', user_id=''):
         user, user_conn = connect()
 
-        cmd, params = filter_cmd_head(q, fandom, status, user_id)
+        cmd, params = filter_cmd_head(q, fandom, status, 'none', user_id)
 
         cmd += "(SELECT DISTINCT media FROM filtered UNION SELECT DISTINCT media2 FROM filtered WHERE media2 IS NOT NULL) ORDER BY media ASC"
         
