@@ -39,12 +39,24 @@ def connect():
     user.execute('USE kinnie')
     return user, user_conn
 
-class Database:
-    def get_characters(self):
-        user, user_conn = connect()
-        cmd = """
-            SELECT characters.character_id, characters.name, characters.img_file, characters.media, characters.media2
-            FROM characters 
+def filter_cmd_head(q, fandom, status, user_id=''):
+    cmd = "WITH filtered AS (SELECT * FROM characters\n"
+
+    params = []
+    filtered = False
+    
+    if q != '':
+        cmd += "WHERE (UPPER(characters.name) LIKE UPPER(%s) OR UPPER(characters.media) LIKE UPPER(%s) OR UPPER(characters.media2) LIKE UPPER(%s))\n"
+        params.extend([f"%{q}%", f"%{q}%", f"%{q}%"])
+        filtered = True
+
+    if fandom != "":
+        cmd += ("AND" if filtered else "WHERE") + " (characters.media = %s OR characters.media2 = %s)\n"
+        params.extend([fandom, fandom])
+        filtered = True
+
+    if status == '':
+        cmd += """
             ORDER BY 
             (
                 SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
@@ -54,12 +66,42 @@ class Database:
                 SELECT COUNT(*) FROM character_song_connections 
                 WHERE character_song_connections.character_id = characters.character_id
             ) DESC,
-            RAND()
+            REPLACE(name, '"', '') ASC
         """
-        user.execute(cmd)
+
+    elif status == 'voted':
+        cmd += ("AND" if filtered else "WHERE") + """
+            characters.character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            ORDER BY REPLACE(name, '"', '') ASC
+        """
+        params.append(user_id)
+
+    elif status == 'not voted':
+        cmd += ("AND" if filtered else "WHERE") + """
+            characters.character_id NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
+            ORDER BY REPLACE(name, '"', '') ASC
+        """
+        params.append(user_id)
+
+    cmd += ")\n"
+
+    return cmd, params
+
+class Database:
+    def get_characters(self, q='', fandom='', status='', limit=72, offset=0, user_id=''):
+        user, user_conn = connect()
+
+        cmd, params = filter_cmd_head(q, fandom, status, user_id)
+
+        cmd += "SELECT COUNT(*), character_id, name, img_file, media, media2 FROM filtered GROUP BY character_id LIMIT %s OFFSET %s"
+        params.append(limit)
+        params.append(offset)
+
+        user.execute(cmd, tuple(params))
         data_list = list(user)
-        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]) for data in data_list]
-        return CharacterList(character_list)
+        total_count = data_list[0][0]
+        character_list = [Character(character_id=data[1], name=data[2], img_file=data[3], media=data[4], media2=data[5]) for data in data_list]
+        return CharacterList(character_list, total_count)
 
     def get_character(self, character_id):
         user, user_conn = connect()
@@ -75,10 +117,14 @@ class Database:
 
         return Character(character_id=character_id, name=data[0], img_file=data[1], media=data[2], media2=data[3])
         
-    def get_medias(self):
+    def get_medias(self, q='', fandom='', status='', user_id=''):
         user, user_conn = connect()
-        cmd = "(SELECT DISTINCT media FROM characters UNION SELECT DISTINCT media2 FROM characters WHERE media2 IS NOT NULL) ORDER BY media ASC"
-        user.execute(cmd)
+
+        cmd, params = filter_cmd_head(q, fandom, status, user_id)
+
+        cmd += "(SELECT DISTINCT media FROM filtered UNION SELECT DISTINCT media2 FROM filtered WHERE media2 IS NOT NULL) ORDER BY media ASC"
+        
+        user.execute(cmd, tuple(params))
         data_list = list(user)
         return MediaList([data[0] for data in data_list])
 
@@ -182,9 +228,28 @@ class Database:
             FROM character_song_connections 
             INNER JOIN characters ON character_song_connections.character_id = characters.character_id 
             INNER JOIN songs on character_song_connections.song_id = songs.song_id 
-            ORDER BY character_song_connections.id DESC LIMIT 20
+            ORDER BY character_song_connections.id DESC LIMIT 50
         """
         user.execute(cmd)
+        data_list = list(user)
+        vote_list = [AnonVote(
+                        Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]), 
+                        Song(song_id=data[5], title=data[6], img_file=data[7], artists=data[8], genres=data[9], explicit=data[10], duration=data[11])) for data in data_list]
+        return VoteList(vote_list)
+
+    def get_all_votes_by(self, user_id, limit, offset):
+        user, user_conn = connect()
+
+        cmd = """
+            SELECT character_song_connections.character_id, characters.name, characters.img_file, characters.media, characters.media2, character_song_connections.song_id, songs.title, songs.img_file, songs.artists, songs.genres, songs.explicit, songs.duration
+            FROM character_song_connections
+            INNER JOIN characters ON character_song_connections.character_id = characters.character_id 
+            INNER JOIN songs on character_song_connections.song_id = songs.song_id 
+            WHERE character_song_connections.user_id = %s
+            ORDER BY character_song_connections.id DESC
+            LIMIT %s OFFSET %s
+        """
+        user.execute(cmd, (user_id, limit, offset))
         data_list = list(user)
         vote_list = [AnonVote(
                         Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]), 
@@ -233,32 +298,6 @@ class Database:
             WHERE character_song_connections.user_id = %s
             GROUP BY character_song_connections.character_id
             ORDER BY COUNT(*) DESC,  REPLACE(characters.name, '"', '') ASC LIMIT 24
-        """
-        user.execute(cmd, (user_id,))
-        data_list = list(user)
-        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]) for data in data_list]
-        return CharacterList(character_list)
-
-    def get_all_characters_voted_by(self, user_id):
-        user, user_conn = connect()
-
-        cmd = """
-            SELECT character_id, characters.name, characters.img_file, characters.media, characters.media2 FROM characters 
-            WHERE character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
-            ORDER BY REPLACE(name, '"', '') ASC
-        """
-        user.execute(cmd, (user_id,))
-        data_list = list(user)
-        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]) for data in data_list]
-        return CharacterList(character_list)
-
-    def get_all_characters_not_voted_by(self, user_id):
-        user, user_conn = connect()
-
-        cmd = """
-            SELECT character_id, characters.name, characters.img_file, characters.media, characters.media2 FROM characters 
-            WHERE character_id NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
-            ORDER BY REPLACE(name, '"', '') ASC
         """
         user.execute(cmd, (user_id,))
         data_list = list(user)

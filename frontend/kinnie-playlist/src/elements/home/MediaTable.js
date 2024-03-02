@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { apiJson } from '../../api/apiUtil';
-import { filterCharacters } from './filterUtil';
+import { TokenContext } from '../../AuthRoute';
 
-const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, searchTerm, media, setMedia, resetLimit }) => {
+const MediaTable = ({ searchTerm, media, voteStatus, setMedia, }) => {
+    const [token] = useContext(TokenContext);
     const [mediaList, setMediaList] = useState([]);
-
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         async function getMediaList() {
-            const mediaListData = await apiJson('/api/medias');
+            const mediaListData = await apiJson('/api/medias?access_token='
+                + token
+                + '&q=' + searchTerm
+                + '&fandom=' + media
+                + '&status=' + voteStatus
+            );
             if (mediaListData.status === 200) {
                 setMediaList(mediaListData.response.medias);
             }
@@ -18,21 +23,13 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
 
         getMediaList();
 
-        if (media !== '' || searchTerm !== '') {
-            setFilteredCharacters(filterCharacters(characters, searchTerm, media));
-        }
-        else {
-            setFilteredCharacters(characters);
-        }
-    }, [media, searchTerm, setMediaList, characters, setFilteredCharacters]);
+    }, [token, searchTerm, media, voteStatus, setMediaList]);
 
     function filterByMedia(e) {
-        const mediaItem = e.target.value;
-        setMedia(mediaItem);
-        searchParams.set("fandom", mediaItem);
+        setMedia(e.target.value);
+        searchParams.set("fandom", e.target.value);
         searchParams.sort();
         setSearchParams(searchParams);
-        resetLimit();
     }
 
     return (
@@ -41,9 +38,7 @@ const MediaTable = ({ characters, filteredCharacters, setFilteredCharacters, sea
                 mediaList === null || mediaList.length === 0 ? <></>
                 :
                 <ul className="Filter-list" onChange={filterByMedia.bind(this)}>
-                    {mediaList.filter(mediaItem => 
-                        filteredCharacters.map(character => character.media).includes(mediaItem) ||
-                        filteredCharacters.map(character => character.media2).includes(mediaItem)).map(mediaItem => 
+                    {mediaList.map(mediaItem => 
                         <li key={mediaItem} className="Filter-radio">
                             <label>
                                 <input 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { apiJson } from '../../api/apiUtil';
 
-import Vote from './Vote';
+import Vote from '../Vote';
 
 import './Latest.css';
 
@@ -37,7 +37,7 @@ function Latest() {
             <div className="Latest">
                 <h3>Current time: {date}</h3>
                 {latest.length > 0 ? latest.map((vote, index) =>
-                    <Vote key={index} data={vote} />
+                    <Vote key={index} data={vote} user={"Someone"} />
                 ) : <></>}
             </div>
             <div className="buffer"></div>

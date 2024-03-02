@@ -2,6 +2,7 @@
     background-color: transparent;
     padding-right: 45px;
     margin-bottom: 15px;
+    display: flex;
 }
 
 .SearchInput {

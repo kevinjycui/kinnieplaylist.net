@@ -57,14 +57,26 @@ def ping():
 @app.route("/api/characters", methods=["GET"])
 def get_characters():
     try:
-        return database.get_characters().to_json()
+        q = request.args.get('q', '')
+        fandom = request.args.get('fandom', '')
+        status = request.args.get('status', '')
+        limit = int(request.args.get('limit', 72))
+        offset = int(request.args.get('offset', 0))
+        token = request.args.get('access_token')
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_characters(q, fandom, status, limit, offset, user_data['id']).to_json()
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
 @app.route("/api/medias", methods=["GET"])
 def get_character_medias():
     try:
-        return database.get_medias().to_json()
+        q = request.args.get('q', '')
+        fandom = request.args.get('fandom', '')
+        status = request.args.get('status', '')
+        token = request.args.get('access_token')
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_medias(q, fandom, status, user_data['id']).to_json()
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 
@@ -92,28 +104,6 @@ def get_my_top_characters():
         token = request.args.get('access_token')
         user_data = spotifyManager.get_user_data(token)
         return database.get_top_characters_voted_by(user_data['id']).to_json()
-    except NotFoundError as e:
-        return Response(json.dumps({'message': str(e)}), status=404)
-    except Exception as e:
-        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
-
-@app.route("/api/characters/voted", methods=["GET"])
-def get_voted_characters():
-    try:
-        token = request.args.get('access_token')
-        user_data = spotifyManager.get_user_data(token)
-        return database.get_all_characters_voted_by(user_data['id']).to_json()
-    except NotFoundError as e:
-        return Response(json.dumps({'message': str(e)}), status=404)
-    except Exception as e:
-        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
-
-@app.route("/api/characters/unvoted", methods=["GET"])
-def get_unvoted_characters():
-    try:
-        token = request.args.get('access_token')
-        user_data = spotifyManager.get_user_data(token)
-        return database.get_all_characters_not_voted_by(user_data['id']).to_json()
     except NotFoundError as e:
         return Response(json.dumps({'message': str(e)}), status=404)
     except Exception as e:
@@ -202,6 +192,17 @@ def character_my_playlist(character_id):
 def get_latest_votes():
     try:
         return database.get_latest_votes().to_json()
+    except Exception as e:
+        return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
+
+@app.route("/api/votes/mine", methods=["GET"])
+def get_my_latest_votes():
+    try:
+        token = request.args.get('access_token')
+        limit = int(request.args.get('limit', 20))
+        offset = int(request.args.get('offset', 0))
+        user_data = spotifyManager.get_user_data(token)
+        return database.get_all_votes_by(user_data['id'], limit, offset).to_json()
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 

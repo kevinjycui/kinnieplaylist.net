@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import default_image from '../../default_image.png';
+import default_image from '../default_image.png';
 
 import './Vote.css'
 
-function Vote({ data }) {
+function Vote({ data, user }) {
     const navigate = useNavigate();
 
     const [vote_character, setCharacter] = useState(undefined);
@@ -37,7 +37,7 @@ function Vote({ data }) {
                         </button>
                        </div>
                     <div className="Vote-info-container">
-                        Someone voted <b>{vote_song.title}</b> by {vote_song.artists} as the theme for&nbsp;
+                        {user} voted <b>{vote_song.title}</b> by {vote_song.artists} as the theme for&nbsp;
                         <button className="Vote-button" onClick={() => navigate("/character/" + vote_character.character_id)}>
                             {vote_character.name}
                         </button>!

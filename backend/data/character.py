@@ -20,10 +20,13 @@ class CharacterID:
         return json.dumps(self.__dict__)
 
 class CharacterList:
-    def __init__(self, characters):
+    def __init__(self, characters, total_count=0):
         self.characters = characters
+        self.total_count = total_count
 
     def to_json(self):
+        if self.total_count != 0:
+            return {'characters': [character.to_json() for character in self.characters], 'total_count': self.total_count}
         return {'characters': [character.to_json() for character in self.characters]}
     
 class MediaList:

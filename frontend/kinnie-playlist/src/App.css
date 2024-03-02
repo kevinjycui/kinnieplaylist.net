@@ -39,6 +39,44 @@ body {
   }
 }
 
+.show-more-container {
+  width: 90%;
+  margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.show-more-container-left {
+  width: 90%;
+  margin-top: 20px;
+}
+
+.show-more-disabled {
+  display: inline-block;
+  font-size: medium;
+  cursor: default;
+  background-color: transparent;
+  border: none;
+  outline: inherit;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.show-more {
+  display: inline-block;
+  font-size: medium;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: inherit;
+  border-radius: 5px;
+  text-decoration: underline;
+}
+
+.show-more:hover {
+  color: #137a7f;
+}
+
 @media only screen and (max-width: 600px) {
     .legal {
       text-align: right;
