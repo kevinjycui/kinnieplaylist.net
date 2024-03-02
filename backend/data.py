@@ -88,19 +88,22 @@ def filter_cmd_head(q, fandom, status, user_id=''):
     return cmd, params
 
 class Database:
-    def get_characters(self, q='', fandom='', status='', limit=72, offset=0, user_id=''):
+    def get_characters(self, q, fandom, status, limit, offset, user_id):
         user, user_conn = connect()
 
         cmd, params = filter_cmd_head(q, fandom, status, user_id)
 
-        cmd += "SELECT COUNT(*), character_id, name, img_file, media, media2 FROM filtered GROUP BY character_id LIMIT %s OFFSET %s"
+        user.execute(cmd + "SELECT COUNT(*) FROM filtered", tuple(params))
+        data_list = list(user)
+        total_count = data_list[0][0]
+
+        cmd += "SELECT character_id, name, img_file, media, media2 FROM filtered LIMIT %s OFFSET %s"
         params.append(limit)
         params.append(offset)
 
         user.execute(cmd, tuple(params))
         data_list = list(user)
-        total_count = data_list[0][0]
-        character_list = [Character(character_id=data[1], name=data[2], img_file=data[3], media=data[4], media2=data[5]) for data in data_list]
+        character_list = [Character(character_id=data[0], name=data[1], img_file=data[2], media=data[3], media2=data[4]) for data in data_list]
         return CharacterList(character_list, total_count)
 
     def get_character(self, character_id):
