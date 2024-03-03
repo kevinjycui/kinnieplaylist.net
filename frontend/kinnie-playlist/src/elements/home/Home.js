@@ -52,6 +52,7 @@ function Home() {
         searchParams.delete("q");
         searchParams.delete("fandom");
         searchParams.delete("status");
+        searchParams.delete("page");
         setSearchParams(searchParams);
     }
 
@@ -83,7 +84,14 @@ function Home() {
 
         getCharacters();
 
-    }, [searchParams]);
+        return () => {
+            setPage(1);
+            setSearchTerm('');
+            setMedia('');
+            setVoteStatus('');
+        };
+
+    }, [page, searchTerm, media, voteStatus, token, searchParams]);
 
     return (
         <>
