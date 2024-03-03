@@ -58,18 +58,14 @@ function Home() {
     useEffect(() => {
         document.title = "Home | Kinnie Playlist";
 
-        if (searchTerm !== "") {
-            searchParams.set("q", searchTerm);
+        setPage(searchParams.has("page") ? parseInt(searchParams.get("page")) : 1);
+        if (page < 1) {
+            setPage(1);
         }
-        if (media !== "") {
-            searchParams.set("fandom", media);
-        }
-        if (voteStatus !== "") {
-            searchParams.set("status", voteStatus);
-        }
-        
-        searchParams.sort();
-        setSearchParams(searchParams);
+
+        setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
+        setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
+        setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
 
         async function getCharacters() {
             const charactersData = await apiJson('/api/characters?access_token=' 
@@ -87,16 +83,7 @@ function Home() {
 
         getCharacters();
 
-        setPage(searchParams.has("page") ? parseInt(searchParams.get("page")) : 1);
-        if (page < 1) {
-            setCurrentPage(1);
-        }
-
-        setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
-        setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
-        setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
-
-    }, [searchTerm, media, voteStatus, page]);
+    }, [searchParams]);
 
     return (
         <>

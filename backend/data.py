@@ -57,15 +57,13 @@ def filter_cmd_head(q, fandom, status, sort='alpha', user_id=''):
 
     if status == 'voted':
         cmd += ("AND" if filtered else "WHERE") + """
-            characters.character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
-            ORDER BY REPLACE(name, '"', '') ASC
+            (characters.character_id IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s))
         """
         params.append(user_id)
 
     elif status == 'not voted':
         cmd += ("AND" if filtered else "WHERE") + """
-            characters.character_id NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s)
-            ORDER BY REPLACE(name, '"', '') ASC
+            (characters.character_id NOT IN (SELECT DISTINCT character_id FROM character_song_connections WHERE user_id = %s))
         """
         params.append(user_id)
 
