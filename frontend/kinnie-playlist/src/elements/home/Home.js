@@ -64,6 +64,7 @@ function Home() {
             setPage(1);
         }
 
+        setTempSearchTerm(tempSearchTerm => searchParams.has("q") ? searchParams.get("q") : tempSearchTerm);
         setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
         setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
         setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
@@ -86,6 +87,7 @@ function Home() {
 
         return () => {
             setPage(1);
+            setTempSearchTerm('');
             setSearchTerm('');
             setMedia('');
             setVoteStatus('');
