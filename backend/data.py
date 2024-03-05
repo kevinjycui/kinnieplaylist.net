@@ -140,11 +140,11 @@ class Database:
                 UNION 
                 SELECT DISTINCT media2 AS media, number_of_votes FROM filtered_indexed WHERE media2 IS NOT NULL
             ))
-        SELECT media, SUM(number_of_votes) AS total_number_of_votes FROM sorted_media 
-        GROUP BY media 
+        SELECT sorted_media.media, SUM(number_of_votes) AS total_number_of_votes FROM sorted_media 
+        GROUP BY sorted_media.media 
         ORDER BY 
         total_number_of_votes DESC,
-        media ASC
+        sorted_media.media ASC
         LIMIT %s
         """
 
