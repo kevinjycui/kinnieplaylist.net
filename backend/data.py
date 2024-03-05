@@ -39,7 +39,7 @@ def connect():
     user.execute('USE kinnie')
     return user, user_conn
 
-def filter_cmd_head(q, fandom, status, sort='alpha', user_id=''):
+def filter_cmd_head(q, fandom, status, sort='alpha', user_id='', limit=None):
     cmd = "WITH filtered AS (SELECT * FROM characters\n"
 
     params = []
@@ -84,6 +84,10 @@ def filter_cmd_head(q, fandom, status, sort='alpha', user_id=''):
             REPLACE(name, '"', '') ASC
         """
 
+    if limit is not None:
+        cmd += "LIMIT %s\n"
+        params.append(limit)
+
     cmd += ")\n"
 
     return cmd, params
@@ -125,9 +129,9 @@ class Database:
     def get_medias(self, q='', fandom='', status='', user_id=''):
         user, user_conn = connect()
 
-        cmd, params = filter_cmd_head(q, fandom, status, 'none', user_id)
+        cmd, params = filter_cmd_head(q, fandom, status, 'popular', user_id, limit=100)
 
-        cmd += "(SELECT DISTINCT media FROM filtered UNION SELECT DISTINCT media2 FROM filtered WHERE media2 IS NOT NULL) ORDER BY media ASC"
+        cmd += "(SELECT DISTINCT media FROM filtered UNION SELECT DISTINCT media2 FROM filtered WHERE media2 IS NOT NULL)"
         
         user.execute(cmd, tuple(params))
         data_list = list(user)
