@@ -130,20 +130,20 @@ class Database:
         cmd += """
             , 
             filtered_indexed AS (SELECT *, 
-            (SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
-                WHERE character_song_connections.character_id = filtered.character_id) AS number_of_voters 
+            (SELECT COUNT(*) FROM character_song_connections 
+                WHERE character_song_connections.character_id = filtered.character_id) AS number_of_votes 
                 FROM 
                 filtered
             ), 
             sorted_media AS ((
-                SELECT DISTINCT media, number_of_voters FROM filtered_indexed 
+                SELECT DISTINCT media, number_of_votes FROM filtered_indexed 
                 UNION 
-                SELECT DISTINCT media2 AS media, number_of_voters FROM filtered_indexed WHERE media2 IS NOT NULL
+                SELECT DISTINCT media2 AS media, number_of_votes FROM filtered_indexed WHERE media2 IS NOT NULL
             ))
-        SELECT media, SUM(number_of_voters) AS total_number_of_voters FROM sorted_media 
+        SELECT media, SUM(number_of_votes) AS total_number_of_votes FROM sorted_media 
         GROUP BY media 
         ORDER BY 
-        total_number_of_voters DESC,
+        total_number_of_votes DESC,
         media ASC
         LIMIT %s
         """

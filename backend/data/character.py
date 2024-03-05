@@ -30,12 +30,12 @@ class CharacterList:
         return {'characters': [character.to_json() for character in self.characters]}
     
 class Media:
-    def __init__(self, name, number_of_voters):
+    def __init__(self, name, number_of_votes):
         self.name = name
-        self.number_of_voters = number_of_voters
+        self.number_of_votes = number_of_votes
 
     def to_json(self):
-        return {'media': self.name, 'number_of_voters': self.number_of_voters}
+        return {'media': self.name, 'number_of_votes': self.number_of_votes}
 
 class MediaList:
     def __init__(self, medias):

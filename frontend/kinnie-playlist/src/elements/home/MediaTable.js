@@ -48,7 +48,7 @@ const MediaTable = ({ searchTerm, media, voteStatus, setMedia, }) => {
                                     checked={mediaItem.media === media}
                                     readOnly={true}
                                 />
-                                {mediaItem.media} ({mediaItem.number_of_voters})
+                                {mediaItem.media} ({mediaItem.number_of_votes})
                             </label>
                         </li>)
                     }
