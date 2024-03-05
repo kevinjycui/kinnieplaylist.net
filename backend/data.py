@@ -136,12 +136,16 @@ class Database:
                 filtered
             ), 
             sorted_media AS ((
-                SELECT DISTINCT media, number_of_voters, 1 AS sort_key FROM filtered_indexed 
+                SELECT DISTINCT media, number_of_voters FROM filtered_indexed 
                 UNION 
-                SELECT DISTINCT media2 AS media, number_of_voters, 2 AS sort_key FROM filtered_indexed WHERE media2 IS NOT NULL
-            )
-	    ORDER BY number_of_voters DESC, sort_key ASC)
-        SELECT media, SUM(number_of_voters) FROM sorted_media GROUP BY media LIMIT %s
+                SELECT DISTINCT media2 AS media, number_of_voters FROM filtered_indexed WHERE media2 IS NOT NULL
+            ))
+        SELECT media, SUM(number_of_voters) AS total_number_of_voters FROM sorted_media 
+        GROUP BY media 
+        ORDER BY 
+        total_number_of_voters DESC,
+        media ASC
+        LIMIT %s
         """
 
         params.append(limit)
