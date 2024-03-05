@@ -12,9 +12,9 @@ const MediaTable = ({ searchTerm, media, voteStatus, setMedia, }) => {
         async function getMediaList() {
             const mediaListData = await apiJson('/api/medias?access_token='
                 + token
-                + '&q=' + searchTerm
-                + '&fandom=' + media
-                + '&status=' + voteStatus
+                + '&q=' + (searchParams.has("q") ? searchParams.get("q") : "")
+                + '&fandom=' + (searchParams.has("fandom") ? searchParams.get("fandom") : "")
+                + '&status=' + (searchParams.has("status") ? searchParams.get("status") : "")
             );
             if (mediaListData.status === 200) {
                 setMediaList(mediaListData.response.medias);
@@ -23,7 +23,7 @@ const MediaTable = ({ searchTerm, media, voteStatus, setMedia, }) => {
 
         getMediaList();
 
-    }, [token, searchTerm, media, voteStatus, setMediaList]);
+    }, [token, searchParams]);
 
     function filterByMedia(e) {
         setMedia(e.target.value);

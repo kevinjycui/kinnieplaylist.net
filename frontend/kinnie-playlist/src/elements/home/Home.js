@@ -59,24 +59,14 @@ function Home() {
     useEffect(() => {
         document.title = "Home | Kinnie Playlist";
 
-        setPage(searchParams.has("page") ? parseInt(searchParams.get("page")) : 1);
-        if (page < 1) {
-            setPage(1);
-        }
-
-        setTempSearchTerm(tempSearchTerm => searchParams.has("q") ? searchParams.get("q") : tempSearchTerm);
-        setSearchTerm(searchTerm => searchParams.has("q") ? searchParams.get("q") : searchTerm);
-        setMedia(media => searchParams.has("fandom") ? searchParams.get("fandom") : media);
-        setVoteStatus(voteStatus => searchParams.has("status") ? searchParams.get("status") : voteStatus);
-
         async function getCharacters() {
             const charactersData = await apiJson('/api/characters?access_token=' 
                      + token
-                     + '&q=' + searchTerm 
-                     + '&fandom=' + media 
-                     + '&status=' + voteStatus 
+                     + '&q=' + (searchParams.has("q") ? searchParams.get("q") : "") 
+                     + '&fandom=' + (searchParams.has("fandom") ? searchParams.get("fandom") : "")  
+                     + '&status=' + (searchParams.has("status") ? searchParams.get("status") : "")   
                      + '&limit='  + LIMIT 
-                     + '&offset=' + ((page - 1) * LIMIT));
+                     + '&offset=' + ((Math.max(0, searchParams.has("page") ? parseInt(searchParams.get("page")-1) : 0)) * LIMIT));
             if (charactersData.status === 200) {
                 setCharacters(charactersData.response.characters.map((data) => JSON.parse(data)));
                 setTotal(parseInt(charactersData.response.total_count));
@@ -85,15 +75,13 @@ function Home() {
 
         getCharacters();
 
-        return () => {
-            setPage(1);
-            setTempSearchTerm('');
-            setSearchTerm('');
-            setMedia('');
-            setVoteStatus('');
-        };
+        setPage(Math.max(0, searchParams.has("page") ? parseInt(searchParams.get("page")) : 1));
+        setTempSearchTerm(searchParams.has("q") ? searchParams.get("q") : "");
+        setSearchTerm(searchParams.has("q") ? searchParams.get("q") : "");
+        setMedia(searchParams.has("fandom") ? searchParams.get("fandom") : "");
+        setVoteStatus(searchParams.has("status") ? searchParams.get("status") : "");
 
-    }, [page, searchTerm, media, voteStatus, token, searchParams]);
+    }, [token, searchParams]);
 
     return (
         <>
