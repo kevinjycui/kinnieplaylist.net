@@ -29,9 +29,17 @@ class CharacterList:
             return {'characters': [character.to_json() for character in self.characters], 'total_count': self.total_count}
         return {'characters': [character.to_json() for character in self.characters]}
     
+class Media:
+    def __init__(self, name, number_of_voters):
+        self.name = name
+        self.number_of_voters = number_of_voters
+
+    def to_json(self):
+        return {'media': self.name, 'number_of_voters': self.number_of_voters}
+
 class MediaList:
     def __init__(self, medias):
         self.medias = medias
 
     def to_json(self):
-        return {'medias': self.medias}
+        return {'medias': [media.to_json() for media in self.medias]}

@@ -39,16 +39,16 @@ const MediaTable = ({ searchTerm, media, voteStatus, setMedia, }) => {
                 :
                 <ul className="Filter-list" onChange={filterByMedia.bind(this)}>
                     {mediaList.map(mediaItem => 
-                        <li key={mediaItem} className="Filter-radio">
+                        <li key={mediaItem.media} className="Filter-radio">
                             <label>
                                 <input 
                                     type="radio"
                                     name="media"
-                                    value={mediaItem}
-                                    checked={mediaItem === media}
+                                    value={mediaItem.media}
+                                    checked={mediaItem.media === media}
                                     readOnly={true}
                                 />
-                                {mediaItem}
+                                {mediaItem.media} ({mediaItem.number_of_voters})
                             </label>
                         </li>)
                     }

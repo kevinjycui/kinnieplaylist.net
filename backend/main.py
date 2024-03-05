@@ -74,9 +74,10 @@ def get_character_medias():
         q = request.args.get('q', '')
         fandom = request.args.get('fandom', '')
         status = request.args.get('status', '')
+        limit = int(request.args.get('limit', 30))
         token = request.args.get('access_token')
         user_data = spotifyManager.get_user_data(token)
-        return database.get_medias(q, fandom, status, user_data['id']).to_json()
+        return database.get_medias(q, fandom, status, limit, user_data['id']).to_json()
     except Exception as e:
         return Response(json.dumps({'message': type(e).__name__ + ': ' + str(e)}), status=500)
 

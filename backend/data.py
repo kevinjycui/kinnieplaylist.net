@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, 'data')
 
-from character import Character, CharacterList, CharacterID, MediaList
+from character import Character, CharacterList, CharacterID, Media, MediaList
 from song import Song, CountedPlaylist, Playlist
 from vote import AnonVote, VoteList
 
@@ -39,7 +39,7 @@ def connect():
     user.execute('USE kinnie')
     return user, user_conn
 
-def filter_cmd_head(q, fandom, status, sort='alpha', user_id='', limit=None):
+def filter_cmd_head(q, fandom, status, sort='alpha', user_id=''):
     cmd = "WITH filtered AS (SELECT * FROM characters\n"
 
     params = []
@@ -84,10 +84,6 @@ def filter_cmd_head(q, fandom, status, sort='alpha', user_id='', limit=None):
             REPLACE(name, '"', '') ASC
         """
 
-    if limit is not None:
-        cmd += "LIMIT %s\n"
-        params.append(limit)
-
     cmd += ")\n"
 
     return cmd, params
@@ -126,16 +122,33 @@ class Database:
 
         return Character(character_id=character_id, name=data[0], img_file=data[1], media=data[2], media2=data[3])
         
-    def get_medias(self, q='', fandom='', status='', user_id=''):
+    def get_medias(self, q, fandom, status, limit, user_id):
         user, user_conn = connect()
 
-        cmd, params = filter_cmd_head(q, fandom, status, 'popular', user_id, limit=100)
+        cmd, params = filter_cmd_head(q, fandom, status, 'none', user_id)
 
-        cmd += "(SELECT DISTINCT media FROM filtered UNION SELECT DISTINCT media2 FROM filtered WHERE media2 IS NOT NULL)"
+        cmd += """
+            , 
+            filtered_indexed AS (SELECT *, 
+            (SELECT COUNT(DISTINCT character_song_connections.user_id) FROM character_song_connections 
+                WHERE character_song_connections.character_id = filtered.character_id) AS number_of_voters 
+                FROM 
+                filtered
+            ), 
+            sorted_media AS ((
+                SELECT DISTINCT media, number_of_voters, 1 AS sort_key FROM filtered_indexed 
+                UNION 
+                SELECT DISTINCT media2 AS media, number_of_voters, 2 AS sort_key FROM filtered_indexed WHERE media2 IS NOT NULL
+            )
+	    ORDER BY number_of_voters DESC, sort_key ASC)
+        SELECT media, SUM(number_of_voters) FROM sorted_media GROUP BY media LIMIT %s
+        """
+
+        params.append(limit)
         
         user.execute(cmd, tuple(params))
         data_list = list(user)
-        return MediaList([data[0] for data in data_list])
+        return MediaList([Media(data[0], data[1]) for data in data_list])
 
     def get_character_songs(self, character_id, user_id = ''):
         user, user_conn = connect()

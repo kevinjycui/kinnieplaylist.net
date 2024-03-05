@@ -92,7 +92,7 @@ function Home() {
                         <SearchBar tempSearchTerm={tempSearchTerm} setTempSearchTerm={setTempSearchTerm} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />        
                         <button className="Home-collapsable-button" onClick={() => toggleVoteFilter(!showVoteFilter)}>{showVoteFilter ? <FontAwesomeIcon icon={faCaretDown} /> : <FontAwesomeIcon icon={faCaretRight} />}&nbsp;My voting status</button>
                         {showVoteFilter ? <VoteStatusTable voteStatus={voteStatus} setVoteStatus={setVoteStatus} />:<></>}
-                        <button className="Home-collapsable-button" onClick={() => toggleMediaFilter(!showMediaFilter)}>{showMediaFilter ? <FontAwesomeIcon icon={faCaretDown} /> : <FontAwesomeIcon icon={faCaretRight} />}&nbsp;Fandom</button>
+                        <button className="Home-collapsable-button" onClick={() => toggleMediaFilter(!showMediaFilter)}>{showMediaFilter ? <FontAwesomeIcon icon={faCaretDown} /> : <FontAwesomeIcon icon={faCaretRight} />}&nbsp;Fandom (most voters)</button>
                         {showMediaFilter ? <MediaTable searchTerm={searchTerm} media={media} voteStatus={voteStatus} setMedia={setMedia} />:<></>}
                     </div>
                     <div className='Home-container'>
